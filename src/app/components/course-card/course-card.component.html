@@ -1,1 +1,28 @@
-<p>{{ course.name }}</p>
+<div class="course-card">
+  <div class="card m-5 shadow p-3 mb-5 bg-body rounded">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-8">
+          <h5 class="card-title fs-3">Video Course {{ course.id }}. {{ course.name }}</h5>
+        </div>
+        <div class="col-4 text-end">
+          <span class="card-text me-5"
+            ><small class="text-muted"><i class="fa-regular fa-clock"></i> {{ course.length }} </small></span
+          >
+          <span class="card-text"
+            ><small class="text-muted"><i class="fa-regular fa-calendar"></i> {{ course.date }}</small></span
+          >
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-10">
+          <p class="card-text">{{ course.description }}</p>
+        </div>
+        <div class="col-2 text-end">
+          <a href="#" class="btn btn-primary me-2 mb-2"><i class="fa-sharp fa-solid fa-pen"></i> Edit</a>
+          <a href="#" class="btn btn-primary mb-2"><i class="fa-solid fa-trash"></i> Delete</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
