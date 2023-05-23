@@ -11,7 +11,7 @@ import { CourseCardComponent } from './components/course-card/course-card.compon
 import { LogoComponent } from './components/logo/logo.component';
 import { ButtonComponent } from './shared/button/button.component';
 import { InputComponent } from './shared/input/input.component';
-import { LoaderComponent } from './loader/loader.component';
+import { LoaderComponent } from './components/loader/loader.component';
 
 @NgModule({
   declarations: [
