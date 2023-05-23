@@ -24,13 +24,10 @@ import { LoaderComponent } from './components/loader/loader.component';
     LogoComponent,
     ButtonComponent,
     InputComponent,
-    LoaderComponent
+    LoaderComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
+  imports: [BrowserModule, AppRoutingModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
