@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { courses as data } from '../app/data/courses';
+import { Course } from './interfaces/course.interface';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,6 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'angular-courses-app';
+
+  courses: Course[] = data;
 }
