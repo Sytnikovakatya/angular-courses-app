@@ -12,6 +12,7 @@ import { LogoComponent } from './components/logo/logo.component';
 import { ButtonComponent } from './shared/button/button.component';
 import { InputComponent } from './shared/input/input.component';
 import { LoaderComponent } from './components/loader/loader.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,7 @@ import { LoaderComponent } from './components/loader/loader.component';
     InputComponent,
     LoaderComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule],
+  imports: [BrowserModule, AppRoutingModule, NgbModule],
   providers: [],
   bootstrap: [AppComponent],
 })
