@@ -7,7 +7,9 @@
         </div>
         <div class="col-4 text-end">
           <span class="card-text me-5"
-            ><small class="text-muted"><i class="fa-regular fa-clock"></i> {{ course.length }} min</small></span
+            ><small class="text-muted"
+              ><i class="fa-regular fa-clock"></i> {{ transformMinute(course.length) }}
+            </small></span
           >
           <span class="card-text"
             ><small class="text-muted"><i class="fa-regular fa-calendar"></i> {{ course.date }}</small></span
