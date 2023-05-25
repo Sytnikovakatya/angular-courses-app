@@ -9,6 +9,10 @@ import { Course } from 'src/app/interfaces/course.interface';
 export class CourseCardComponent {
   @Input() course: Course;
 
+  delete(id: number) {
+    console.log('Delete №' + id);
+  }
+
   transformMinute(value: number): string {
     let hours = Math.floor(value / 60);
     let minutes = Math.floor(value % 60);
