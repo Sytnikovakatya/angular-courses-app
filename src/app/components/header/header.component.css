@@ -7,3 +7,12 @@
 .navbar span {
     padding-left:20px;
 }
+
+.logout-btn {
+  border: none;
+  padding: 0;
+}
+
+.user-login{
+  padding-top:0.5rem;
+}
