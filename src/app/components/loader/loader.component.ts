@@ -5,4 +5,8 @@ import { Component } from '@angular/core';
   templateUrl: './loader.component.html',
   styleUrls: ['./loader.component.css'],
 })
-export class LoaderComponent {}
+export class LoaderComponent {
+  load() {
+    console.log('Load more');
+  }
+}
