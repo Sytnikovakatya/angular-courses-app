@@ -11,4 +11,8 @@ export class AppComponent {
   title = 'angular-courses-app';
 
   courses: Course[] = data;
+
+  courseTrackBy(index: number, course: Course): number {
+    return course.id;
+  }
 }
