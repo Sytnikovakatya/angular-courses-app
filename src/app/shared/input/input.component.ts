@@ -5,7 +5,7 @@ import { Component, Input, OnInit, OnChanges, SimpleChanges, Output, EventEmitte
   templateUrl: './input.component.html',
   styleUrls: ['./input.component.css'],
 })
-export class InputComponent implements OnChanges, OnInit {
+export class InputComponent implements OnChanges {
   @Input() placeholder: string = '';
   @Input() class: string = 'form-control';
   @Input() type: string = 'search';
@@ -13,17 +13,11 @@ export class InputComponent implements OnChanges, OnInit {
   @Input() bindModelData: unknown;
   @Output() bindModelDataChange = new EventEmitter();
 
-  constructor() {
-    console.log('constructor');
-  }
+  constructor() {}
 
   updateData(event: Event) {
     this.bindModelData = event;
     this.bindModelDataChange.emit(event);
-  }
-
-  ngOnInit() {
-    console.log('Init');
   }
 
   ngOnChanges(changes: SimpleChanges) {
