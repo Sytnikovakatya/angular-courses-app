@@ -1,6 +1,10 @@
 .search-btn {
     border: none;
     padding: 0;
-    margin: 0 
-    ;
+    margin-left: 0.5rem;
 }
+
+.search-btn:hover {
+    background-color: transparent;
+}
+
