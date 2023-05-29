@@ -6,8 +6,6 @@ import { Component, Input, OnInit, OnChanges, SimpleChanges, Output, EventEmitte
   styleUrls: ['./input.component.css'],
 })
 export class InputComponent implements OnChanges, OnInit {
-  @Input() search: string = '';
-
   @Input() placeholder: string = '';
   @Input() class: string = 'form-control';
   @Input() type: string = 'search';
