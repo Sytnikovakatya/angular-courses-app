@@ -13,6 +13,7 @@ import { ButtonComponent } from './shared/button/button.component';
 import { InputComponent } from './shared/input/input.component';
 import { LoaderComponent } from './components/loader/loader.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     InputComponent,
     LoaderComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, NgbModule],
+  imports: [BrowserModule, AppRoutingModule, NgbModule, FormsModule],
   providers: [],
   bootstrap: [AppComponent],
 })
