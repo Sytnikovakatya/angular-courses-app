@@ -6,7 +6,7 @@ import { Component, OnChanges, SimpleChanges, Input } from '@angular/core';
   styleUrls: ['./search-bar.component.css'],
 })
 export class SearchBarComponent {
-  search: string = '';
+  search = '';
 
   searchClick() {
     console.log(this.search);
