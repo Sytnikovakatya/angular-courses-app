@@ -23,8 +23,6 @@ export class ButtonComponent {
 
   public buttonText = '';
 
-  constructor() {}
-
   onClick() {
     this.btnClick.emit();
   }

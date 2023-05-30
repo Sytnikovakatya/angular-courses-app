@@ -13,8 +13,6 @@ export class InputComponent implements OnChanges {
   @Input() bindModelData: unknown;
   @Output() bindModelDataChange = new EventEmitter();
 
-  constructor() {}
-
   updateData(event: Event) {
     this.bindModelData = event;
     this.bindModelDataChange.emit(event);
