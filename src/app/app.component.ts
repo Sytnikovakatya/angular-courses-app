@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { courses as data } from '../app/data/courses';
+import { courses } from '../app/data/courses';
 import { Course } from './interfaces/course.interface';
 
 @Component({
@@ -14,7 +14,7 @@ export class AppComponent implements OnInit {
   courses: Course[] = [];
 
   ngOnInit(): void {
-    this.courses = data;
+    this.courses = courses;
   }
 
   courseTrackBy(index: number, course: Course): number {
