@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { Course } from 'src/app/interfaces/course.interface';
+import { Course } from '@interfaces/course.interface';
 
 @Component({
   selector: 'app-course-card',

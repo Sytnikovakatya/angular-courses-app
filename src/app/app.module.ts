@@ -7,16 +7,16 @@ import { AppComponent } from './app.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { ButtonComponent } from './shared/button/button.component';
-import { InputComponent } from './shared/input/input.component';
+import { ButtonComponent } from '@shared/button/button.component';
+import { InputComponent } from '@shared/input/input.component';
 
-import { BreadcrumbsComponent } from './components/breadcrumbs/breadcrumbs.component';
-import { CourseCardComponent } from './components/course-card/course-card.component';
-import { FooterComponent } from './components/footer/footer.component';
-import { HeaderComponent } from './components/header/header.component';
-import { LogoComponent } from './components/logo/logo.component';
-import { LoaderComponent } from './components/loader/loader.component';
-import { SearchBarComponent } from './components/search-bar/search-bar.component';
+import { BreadcrumbsComponent } from '@components/breadcrumbs/breadcrumbs.component';
+import { CourseCardComponent } from '@components/course-card/course-card.component';
+import { FooterComponent } from '@components/footer/footer.component';
+import { HeaderComponent } from '@components/header/header.component';
+import { LogoComponent } from '@components/logo/logo.component';
+import { LoaderComponent } from '@components/loader/loader.component';
+import { SearchBarComponent } from '@components/search-bar/search-bar.component';
 
 @NgModule({
   declarations: [

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Course } from './interfaces/course.interface';
+import { Course } from '@interfaces/course.interface';
 
-import { courses } from '../app/data/courses';
+import { courses } from '@data/courses';
 
 @Component({
   selector: 'app-root',
