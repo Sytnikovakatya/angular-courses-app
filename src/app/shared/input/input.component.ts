@@ -11,13 +11,13 @@ export class InputComponent implements OnChanges {
   @Input() type: string = 'search';
 
   @Input() bindModelData: unknown;
-  @Output() bindModelDataChange = new EventEmitter();
+  @Output() bindModelDataChange = new EventEmitter<string>();
 
   ngOnChanges(changes: SimpleChanges): void {
     console.log(changes);
   }
 
-  updateData(event: Event) {
+  updateData(event: string) {
     this.bindModelData = event;
     this.bindModelDataChange.emit(event);
   }

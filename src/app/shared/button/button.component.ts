@@ -19,7 +19,7 @@ export class ButtonComponent {
   @Input() type: string = 'button';
   @Input() fontawesome: string;
 
-  @Output() btnClick = new EventEmitter();
+  @Output() btnClick = new EventEmitter<void>();
 
   public buttonText = '';
 
