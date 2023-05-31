@@ -1,1 +1,30 @@
-<p>course-card works!</p>
+<div class="course-card">
+  <div class="card m-5 shadow p-3 mb-5 bg-body rounded" *ngIf="course">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-8">
+          <h5 class="card-title fs-3">Video Course {{ course.id }}. {{ course.name }}</h5>
+        </div>
+        <div class="col-4 text-end">
+          <span class="card-text me-5"
+            ><small class="text-muted"
+              ><i class="fa-regular fa-clock"></i> {{ transformMinute(course.length) }}
+            </small></span
+          >
+          <span class="card-text"
+            ><small class="text-muted"><i class="fa-regular fa-calendar"></i> {{ course.date }}</small></span
+          >
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-8 col-md-10">
+          <p class="card-text">{{ course.description }}</p>
+        </div>
+        <div class="col-2 text-end">
+          <app-button [text]="'Edit'" [fontawesome]="'fa-sharp fa-solid fa-pen'"></app-button>
+          <app-button [text]="'Delete'" [fontawesome]="'fa-solid fa-trash'" (click)="delete(course.id)"></app-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
