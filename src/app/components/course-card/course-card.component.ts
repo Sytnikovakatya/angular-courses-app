@@ -9,7 +9,7 @@ import { Course } from 'src/app/interfaces/course.interface';
 export class CourseCardComponent {
   @Input() course: Course;
 
-  delete(id: number) {
+  delete(id: number): void {
     console.log('Delete №' + id);
   }
 

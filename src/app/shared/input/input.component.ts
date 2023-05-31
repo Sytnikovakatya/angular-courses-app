@@ -13,7 +13,7 @@ export class InputComponent implements OnChanges {
   @Input() bindModelData: unknown;
   @Output() bindModelDataChange = new EventEmitter();
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges(changes: SimpleChanges): void {
     console.log(changes);
   }
 

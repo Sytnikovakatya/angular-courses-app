@@ -8,7 +8,7 @@ import { Component, OnChanges, SimpleChanges, Input } from '@angular/core';
 export class SearchBarComponent {
   search = '';
 
-  searchClick() {
+  searchClick(): void {
     console.log(this.search);
   }
 }

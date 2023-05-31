@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./loader.component.css'],
 })
 export class LoaderComponent {
-  load() {
+  load(): void {
     console.log('Load more');
   }
 }
