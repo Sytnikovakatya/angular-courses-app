@@ -14,8 +14,8 @@ export class CourseCardComponent {
   }
 
   transformMinute(value: number): string {
-    let hours = Math.floor(value / 60);
-    let minutes = Math.floor(value % 60);
+    const hours: number = Math.floor(value / 60);
+    const minutes: number = Math.floor(value % 60);
 
     if (minutes > 0) {
       return hours + 'h ' + (minutes < 10 ? '0' + minutes : minutes) + ' mins';
