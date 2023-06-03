@@ -21,8 +21,35 @@ describe('InputComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should update bindModelData', () => {
-    component.updateData('string');
-    expect(component.bindModelData).toBe('string');
+  it('should render input element with correct attributes', () => {
+    const inputElement = fixture.nativeElement.querySelector('input');
+    expect(inputElement).toBeTruthy();
+    expect(inputElement.getAttribute('class')).toContain('form-control');
+    expect(inputElement.getAttribute('type')).toBe('search');
+    expect(inputElement.getAttribute('placeholder')).toBe('');
+  });
+
+  it('should set custom placeholde if provided', () => {
+    component.placeholder = 'custom-placeholder';
+    fixture.detectChanges();
+    const buttonElement = fixture.nativeElement.querySelector('input');
+    expect(buttonElement.getAttribute('placeholder')).toBe('custom-placeholder');
+  });
+
+  it('should emit event and update model data on input change', () => {
+    const newInputValue = 'New Value';
+
+    let emittedValue: string | undefined;
+    component.bindModelDataChange.subscribe(value => {
+      emittedValue = value;
+    });
+
+    const inputElement = fixture.nativeElement.querySelector('input');
+    inputElement.value = newInputValue;
+    inputElement.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+
+    expect(component.bindModelData).toBe(newInputValue);
+    expect(emittedValue).toBe(newInputValue);
   });
 });
