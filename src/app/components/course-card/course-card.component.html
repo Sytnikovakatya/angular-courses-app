@@ -7,18 +7,18 @@
         </div>
         <div class="col-4 text-end">
           <span class="card-text me-5"
-            ><small class="text-muted"
+            ><small class="text-muted card-duration"
               ><i class="fa-regular fa-clock"></i> {{ transformMinute(course.length) }}
             </small></span
           >
           <span class="card-text"
-            ><small class="text-muted"><i class="fa-regular fa-calendar"></i> {{ course.date }}</small></span
+            ><small class="text-muted card-date"><i class="fa-regular fa-calendar"></i> {{ course.date }}</small></span
           >
         </div>
       </div>
       <div class="row mt-3">
         <div class="col-8 col-md-10">
-          <p class="card-text">{{ course.description }}</p>
+          <p class="card-text card-description">{{ course.description }}</p>
         </div>
         <div class="col-2 text-end">
           <app-button [text]="'Edit'" [fontawesome]="'fa-sharp fa-solid fa-pen'"></app-button>
