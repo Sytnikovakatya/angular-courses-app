@@ -17,7 +17,7 @@ export class InputComponent implements OnChanges {
     console.log(changes);
   }
 
-  updateData(event: string) {
+  updateData(event: string): void {
     this.bindModelData = event;
     this.bindModelDataChange.emit(event);
   }
