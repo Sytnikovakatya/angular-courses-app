@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
 
 import { LoaderComponent } from './loader.component';
 
@@ -30,7 +29,7 @@ describe('LoaderComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should call load method and print console.log', () => {
+  it('should call the load method and print console.log', () => {
     spyOn(console, 'log');
     component.load();
     expect(console.log).toHaveBeenCalledWith('Load more');
