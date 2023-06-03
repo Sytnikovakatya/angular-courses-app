@@ -18,10 +18,12 @@ export class CourseCardComponent {
     const hours: number = Math.floor(value / 60);
     const minutes: number = Math.floor(value % 60);
 
-    if (minutes > 0) {
-      return hours + 'h ' + (minutes < 10 ? '0' + minutes : minutes) + ' mins';
+    if (hours === 0 && minutes < 59) {
+      return minutes + ' min';
+    } else if (minutes > 0) {
+      return hours + 'h ' + (minutes < 10 ? '0' + minutes : minutes) + ' min';
     } else {
-      return hours + ' hours';
+      return hours + (hours === 1 ? ' hour' : ' hours');
     }
   }
 }
