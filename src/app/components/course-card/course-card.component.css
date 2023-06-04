@@ -1,1 +1,8 @@
+.topRated {
+   color: #e8a447 !important; 
+}
 
+.card-title:hover{
+    cursor: pointer;
+    color:darkblue;
+}

@@ -1,10 +1,16 @@
 <div class="course-card">
-  <div class="card m-5 shadow p-3 mb-5 bg-body rounded" *ngIf="course">
+  <div class="card m-5 shadow p-3 mb-5 rounded" *ngIf="course" [ngClass]="{ 'text-bg-dark': isTopRated }">
     <div class="card-body">
       <div class="row">
         <div class="col-8">
-          <h5 class="card-title fs-3">
+          <h5 class="card-title fs-3" (click)="isTopRated = !isTopRated">
             Video Course {{ course.id }}. {{ course.name | uppercase }}
+            <i
+              class="fa-sharp fa-solid fa-star fa-2xs"
+              style="color: transparent"
+              [ngClass]="isTopRated ? 'topRated' : ''"
+            ></i>
+          </h5>
         </div>
         <div class="col-4 text-end">
           <span class="card-text me-5"

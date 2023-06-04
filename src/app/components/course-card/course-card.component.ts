@@ -10,6 +10,8 @@ import { Course } from '@interfaces/course.interface';
 export class CourseCardComponent {
   @Input() course: Course;
 
+  isTopRated = false;
+
   delete(id: number): void {
     console.log('Delete №' + id);
   }
