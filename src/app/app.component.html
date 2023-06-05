@@ -2,8 +2,13 @@
   <app-header></app-header>
   <app-breadcrumbs></app-breadcrumbs>
   <app-search-bar></app-search-bar>
-  <app-course-card *ngFor="let course of courses; index as i; trackBy: courseTrackBy" [course]="course">
-  </app-course-card>
-  <app-loader></app-loader>
+  <ng-container *ngIf="courses.length > 0; else noCourses">
+    <app-course-card *ngFor="let course of courses; index as i; trackBy: courseTrackBy" [course]="course">
+    </app-course-card>
+    <app-loader></app-loader>
+  </ng-container>
+  <ng-template #noCourses>
+    <app-no-courses></app-no-courses>
+  </ng-template>
   <app-footer></app-footer>
 </div>
