@@ -17,6 +17,7 @@ import { HeaderComponent } from '@components/header/header.component';
 import { LogoComponent } from '@components/logo/logo.component';
 import { LoaderComponent } from '@components/loader/loader.component';
 import { SearchBarComponent } from '@components/search-bar/search-bar.component';
+import { NoCoursesComponent } from './components/no-courses/no-courses/no-courses.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { SearchBarComponent } from '@components/search-bar/search-bar.component'
     ButtonComponent,
     InputComponent,
     LoaderComponent,
+    NoCoursesComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, NgbModule, FormsModule],
   providers: [],
