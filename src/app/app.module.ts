@@ -18,6 +18,7 @@ import { LogoComponent } from '@components/logo/logo.component';
 import { LoaderComponent } from '@components/loader/loader.component';
 import { SearchBarComponent } from '@components/search-bar/search-bar.component';
 import { NoCoursesComponent } from './components/no-courses/no-courses/no-courses.component';
+import { DurationPipe } from './pipes/duration/duration.pipe';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { NoCoursesComponent } from './components/no-courses/no-courses/no-course
     InputComponent,
     LoaderComponent,
     NoCoursesComponent,
+    DurationPipe,
   ],
   imports: [BrowserModule, AppRoutingModule, NgbModule, FormsModule],
   providers: [],
