@@ -19,6 +19,7 @@ import { LoaderComponent } from '@components/loader/loader.component';
 import { SearchBarComponent } from '@components/search-bar/search-bar.component';
 import { NoCoursesComponent } from './components/no-courses/no-courses/no-courses.component';
 import { DurationPipe } from './pipes/duration/duration.pipe';
+import { OrderByPipe } from './pipes/orderBy/order-by.pipe';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { DurationPipe } from './pipes/duration/duration.pipe';
     LoaderComponent,
     NoCoursesComponent,
     DurationPipe,
+    OrderByPipe,
   ],
   imports: [BrowserModule, AppRoutingModule, NgbModule, FormsModule],
   providers: [],
