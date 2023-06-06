@@ -14,8 +14,8 @@
         </div>
         <div class="col-4 text-end">
           <span class="card-text me-5"
-            ><small class="text-muted card-duration"
-              ><i class="fa-regular fa-clock"></i> {{ transformMinute(course.length) }}
+            ><small class="text-muted"
+              ><i class="fa-regular fa-clock"></i>{{ course.length | duration }} 
             </small></span
           >
           <span class="card-text"
