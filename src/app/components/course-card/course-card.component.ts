@@ -12,20 +12,20 @@ export class CourseCardComponent {
 
   isTopRated = false;
 
-  delete(id: number): void {
-    console.log('Delete №' + id);
+  higlightCreationDate(date: number): string {
+    const daysOffset = 24 * 60 * 60 * 1000 * 14;
+    const condition = Date.now() - daysOffset;
+
+    if (date < Date.now() && date >= condition) {
+      return 'lightseagreen';
+    } else if (date > Date.now()) {
+      return '#0d6efd';
+    } else {
+      return 'lightgrey';
+    }
   }
 
-  transformMinute(value: number): string {
-    const hours: number = Math.floor(value / 60);
-    const minutes: number = Math.floor(value % 60);
-
-    if (hours === 0 && minutes < 59) {
-      return minutes + ' min';
-    } else if (minutes > 0) {
-      return hours + 'h ' + (minutes < 10 ? '0' + minutes : minutes) + ' min';
-    } else {
-      return hours + (hours === 1 ? ' hour' : ' hours');
-    }
+  delete(id: number): void {
+    console.log('Delete №' + id);
   }
 }
