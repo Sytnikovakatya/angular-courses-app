@@ -6,6 +6,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { Course } from '@interfaces/course.interface';
 
 import { AppComponent } from './app.component';
+import { courses } from '@data/courses';
 
 describe('AppComponent', () => {
   let component: AppComponent;
@@ -85,13 +86,7 @@ describe('AppComponent', () => {
   });
 
   it('should get the id of course', () => {
-    const result = component.courseTrackBy(1, {
-      id: 1,
-      name: 'Javascript',
-      date: '11/02/2023',
-      length: 120,
-      description: 'description',
-    });
+    const result = component.courseTrackBy(1, courses[0]);
     expect(result).toBe(1);
   });
 });
