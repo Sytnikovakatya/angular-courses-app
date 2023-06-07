@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RouterTestingModule } from '@angular/router/testing';
 
@@ -8,6 +8,8 @@ import { Course } from '@interfaces/course.interface';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
+  let component: AppComponent;
+  let fixture: ComponentFixture<AppComponent>;
   @Component({
     selector: 'app-header',
     template: '<div>Mock Header Component</div>',
@@ -64,31 +66,26 @@ describe('AppComponent', () => {
         MockCourseCardComponent,
       ],
     });
+    const fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
   });
 
   it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
+    expect(component).toBeTruthy();
   });
 
   it(`should have as title 'angular-courses-app'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('angular-courses-app');
+    expect(component.title).toEqual('angular-courses-app');
   });
 
   it('should set a list of courses', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    app.ngOnInit();
-    expect(app.courses.length).toBeGreaterThan(0);
+    component.ngOnInit();
+    expect(component.courses.length).toBeGreaterThan(0);
   });
 
   it('should get the id of course', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    const result = app.courseTrackBy(1, {
+    const result = component.courseTrackBy(1, {
       id: 1,
       name: 'Javascript',
       date: '11/02/2023',
