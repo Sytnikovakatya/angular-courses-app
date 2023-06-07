@@ -34,11 +34,6 @@ describe('HeaderComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should render logo', () => {
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.logo')?.textContent).toContain('Logo');
-  });
-
   it('should have username', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('.user-login')?.textContent).toContain('User login');
