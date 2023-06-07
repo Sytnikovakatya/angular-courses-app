@@ -81,7 +81,7 @@ describe('AppComponent', () => {
 
   it('should set a list of courses', () => {
     component.ngOnInit();
-    expect(component.courses.length).toBeGreaterThan(0);
+    expect(component.courses).toHaveSize(3);
   });
 
   it('should get the id of course', () => {
