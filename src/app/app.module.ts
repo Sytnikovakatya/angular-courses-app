@@ -17,7 +17,7 @@ import { HeaderComponent } from '@components/header/header.component';
 import { LogoComponent } from '@components/logo/logo.component';
 import { LoaderComponent } from '@components/loader/loader.component';
 import { SearchBarComponent } from '@components/search-bar/search-bar.component';
-import { NoCoursesComponent } from './components/no-courses/no-courses/no-courses.component';
+import { NoCoursesComponent } from '@components/no-courses/no-courses.component';
 import { HighlightDateDirective } from './directives/hightlight-date/highlight-date.directive';
 import { DurationPipe } from './pipes/duration/duration.pipe';
 import { OrderByPipe } from './pipes/orderBy/order-by.pipe';
