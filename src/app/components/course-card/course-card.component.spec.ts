@@ -37,7 +37,7 @@ describe('CourseCardComponent', () => {
     const mockCourse = {
       id: 1,
       name: 'Javascript',
-      date: '11/02/2023',
+      date: 1686191470410,
       length: 120,
       description: 'description',
     };
