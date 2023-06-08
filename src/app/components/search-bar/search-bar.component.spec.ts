@@ -3,27 +3,29 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SearchBarComponent } from './search-bar.component';
 
+@Component({
+  selector: 'app-input',
+  template: '<div>Mock Input Component</div>',
+})
+class MockInputComponent {
+  @Input() placeholder: string;
+  @Input() bindModelData: string;
+}
+
+@Component({
+  selector: 'app-button',
+  template: '<div>Mock Button Component</div>',
+})
+class MockButtonComponent {
+  @Input() text: string;
+  @Input() type: string;
+  @Input() class: string;
+  @Input() fontawesome: string;
+}
+
 describe('SearchBarComponent', () => {
   let component: SearchBarComponent;
   let fixture: ComponentFixture<SearchBarComponent>;
-  @Component({
-    selector: 'app-input',
-    template: '<div>Mock Input Component</div>',
-  })
-  class MockInputComponent {
-    @Input() placeholder: string;
-    @Input() bindModelData: string;
-  }
-  @Component({
-    selector: 'app-button',
-    template: '<div>Mock Button Component</div>',
-  })
-  class MockButtonComponent {
-    @Input() text: string;
-    @Input() type: string;
-    @Input() class: string;
-    @Input() fontawesome: string;
-  }
 
   beforeEach(() => {
     TestBed.configureTestingModule({
