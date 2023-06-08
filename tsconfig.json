@@ -23,6 +23,8 @@
       "@shared/*":["app/shared/*"],
       "@interfaces/*":["app/interfaces/*"],
       "@data/*":["app/data/*"],
+      "@pipes/*":["app/pipes/*"],
+      "@directives/*":["app/directives/*"],
     },
     "useDefineForClassFields": false,
     "strictPropertyInitialization": false,
