@@ -3,19 +3,20 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CourseCardComponent } from './course-card.component';
 
+@Component({
+  selector: 'app-button',
+  template: '<div>Mock Button Component</div>',
+})
+class MockButtonComponent {
+  @Input() text: string;
+  @Input() type: string;
+  @Input() class: string;
+  @Input() fontawesome: string;
+}
+
 describe('CourseCardComponent', () => {
   let component: CourseCardComponent;
   let fixture: ComponentFixture<CourseCardComponent>;
-  @Component({
-    selector: 'app-button',
-    template: '<div>Mock Button Component</div>',
-  })
-  class MockButtonComponent {
-    @Input() text: string;
-    @Input() type: string;
-    @Input() class: string;
-    @Input() fontawesome: string;
-  }
 
   beforeEach(() => {
     TestBed.configureTestingModule({
