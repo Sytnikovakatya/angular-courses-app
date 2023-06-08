@@ -1,6 +1,16 @@
+import { Component, Input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LoaderComponent } from './loader.component';
+
+@Component({
+  selector: 'app-button',
+  template: '<div>Mock Button Component</div>',
+})
+class MockButtonComponent {
+  @Input() text: string;
+  @Input() class: string;
+}
 
 describe('LoaderComponent', () => {
   let component: LoaderComponent;
@@ -8,7 +18,7 @@ describe('LoaderComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [LoaderComponent],
+      declarations: [LoaderComponent, MockButtonComponent],
     });
     fixture = TestBed.createComponent(LoaderComponent);
     component = fixture.componentInstance;
@@ -17,5 +27,11 @@ describe('LoaderComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should call the load method and print console.log', () => {
+    spyOn(console, 'log');
+    component.load();
+    expect(console.log).toHaveBeenCalledWith('Load more');
   });
 });
