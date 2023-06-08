@@ -10,6 +10,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ButtonComponent } from '@shared/button/button.component';
 import { InputComponent } from '@shared/input/input.component';
 
+import { HighlightDateDirective } from '@directives/hightlight-date/highlight-date.directive';
+import { DurationPipe } from '@pipes/duration/duration.pipe';
+import { OrderByPipe } from '@pipes/orderBy/order-by.pipe';
+
 import { BreadcrumbsComponent } from '@components/breadcrumbs/breadcrumbs.component';
 import { CourseCardComponent } from '@components/course-card/course-card.component';
 import { FooterComponent } from '@components/footer/footer.component';
@@ -18,9 +22,6 @@ import { LogoComponent } from '@components/logo/logo.component';
 import { LoaderComponent } from '@components/loader/loader.component';
 import { SearchBarComponent } from '@components/search-bar/search-bar.component';
 import { NoCoursesComponent } from '@components/no-courses/no-courses.component';
-import { HighlightDateDirective } from './directives/hightlight-date/highlight-date.directive';
-import { DurationPipe } from './pipes/duration/duration.pipe';
-import { OrderByPipe } from './pipes/orderBy/order-by.pipe';
 
 @NgModule({
   declarations: [
