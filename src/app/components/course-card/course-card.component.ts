@@ -12,23 +12,6 @@ export class CourseCardComponent {
 
   isTopRated = false;
 
-  delete(id: number): void {
-    console.log('Delete №' + id);
-  }
-
-  transformMinute(value: number): string {
-    const hours: number = Math.floor(value / 60);
-    const minutes: number = Math.floor(value % 60);
-
-    if (hours === 0 && minutes < 59) {
-      return minutes + ' mins';
-    } else if (minutes > 0) {
-      return hours + 'h ' + (minutes < 10 ? '0' + minutes : minutes) + ' mins';
-    } else {
-      return hours + (hours === 1 ? ' hour' : ' hours');
-    }
-  }
-
   higlightCreationDate(date: number): string {
     const daysOffset = 24 * 60 * 60 * 1000 * 14;
     const condition = Date.now() - daysOffset;
@@ -40,5 +23,9 @@ export class CourseCardComponent {
     } else {
       return 'lightgrey';
     }
+  }
+
+  delete(id: number): void {
+    console.log('Delete №' + id);
   }
 }
