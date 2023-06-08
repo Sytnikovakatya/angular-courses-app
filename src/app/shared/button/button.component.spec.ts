@@ -1,5 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { By } from '@angular/platform-browser';
+
 import { ButtonComponent } from './button.component';
 
 describe('ButtonComponent', () => {
@@ -26,7 +28,7 @@ describe('ButtonComponent', () => {
   });
 
   it('should set default class and type if not provided', () => {
-    const buttonElement = fixture.nativeElement.querySelector('button');
+    const buttonElement = fixture.debugElement.query(By.css('button')).nativeElement;
     expect(buttonElement.getAttribute('class')).toBe('btn btn-primary');
     expect(buttonElement.getAttribute('type')).toBe('button');
   });
@@ -34,13 +36,13 @@ describe('ButtonComponent', () => {
   it('should set custom class if provided', () => {
     component.class = 'custom-class';
     fixture.detectChanges();
-    const buttonElement = fixture.nativeElement.querySelector('button');
+    const buttonElement = fixture.debugElement.query(By.css('button')).nativeElement;
     expect(buttonElement.getAttribute('class')).toBe('custom-class');
   });
 
   it('should call the onClick method when the button is clicked', () => {
     spyOn(component, 'onClick');
-    const buttonElement = fixture.nativeElement.querySelector('button');
+    const buttonElement = fixture.debugElement.query(By.css('button')).nativeElement;
     buttonElement.dispatchEvent(new Event('click'));
     expect(component.onClick).toHaveBeenCalled();
   });
@@ -51,7 +53,7 @@ describe('ButtonComponent', () => {
       clicked = true;
     });
 
-    const buttonElement = fixture.nativeElement.querySelector('button');
+    const buttonElement = fixture.debugElement.query(By.css('button')).nativeElement;
     buttonElement.click();
     expect(clicked).toBe(true);
   });

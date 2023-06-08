@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
+import { By } from '@angular/platform-browser';
 
 import { InputComponent } from './input.component';
 
@@ -22,7 +23,7 @@ describe('InputComponent', () => {
   });
 
   it('should render input element with correct attributes', () => {
-    const inputElement = fixture.nativeElement.querySelector('input');
+    const inputElement = fixture.debugElement.query(By.css('input')).nativeElement;
     expect(inputElement).toBeTruthy();
     expect(inputElement.getAttribute('class')).toContain('form-control');
     expect(inputElement.getAttribute('type')).toBe('search');
@@ -32,7 +33,7 @@ describe('InputComponent', () => {
   it('should set custom placeholde if provided', () => {
     component.placeholder = 'custom-placeholder';
     fixture.detectChanges();
-    const buttonElement = fixture.nativeElement.querySelector('input');
+    const buttonElement = fixture.debugElement.query(By.css('input')).nativeElement;
     expect(buttonElement.getAttribute('placeholder')).toBe('custom-placeholder');
   });
 
@@ -44,7 +45,7 @@ describe('InputComponent', () => {
       emittedValue = value;
     });
 
-    const inputElement = fixture.nativeElement.querySelector('input');
+    const inputElement = fixture.debugElement.query(By.css('input')).nativeElement;
     inputElement.value = newInputValue;
     inputElement.dispatchEvent(new Event('input'));
     fixture.detectChanges();

@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { By } from '@angular/platform-browser';
+
 import { CourseCardComponent } from './course-card.component';
 
 @Component({
@@ -43,10 +45,10 @@ describe('CourseCardComponent', () => {
     component.course = mockCourse;
     fixture.detectChanges();
 
-    const cardTitleElement = fixture.nativeElement.querySelector('.card-title');
-    const cardLengthElement = fixture.nativeElement.querySelector('.card-duration');
-    const cardDateElement = fixture.nativeElement.querySelector('.card-date');
-    const cardDescriptionElement = fixture.nativeElement.querySelector('.card-description');
+    const cardTitleElement = fixture.debugElement.query(By.css('.card-title')).nativeElement;
+    const cardLengthElement = fixture.debugElement.query(By.css('.card-duration')).nativeElement;
+    const cardDateElement = fixture.debugElement.query(By.css('.card-date')).nativeElement;
+    const cardDescriptionElement = fixture.debugElement.query(By.css('.card-description')).nativeElement;
 
     expect(cardTitleElement.textContent.trim()).toBe(`Video Course ${mockCourse.id}. ${mockCourse.name}`);
     expect(cardLengthElement.textContent.trim()).toBe(`${component.transformMinute(mockCourse.length)}`);
