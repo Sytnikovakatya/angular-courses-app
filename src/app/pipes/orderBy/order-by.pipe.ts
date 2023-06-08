@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+
 import { Course } from '@interfaces/course.interface';
 
 @Pipe({
