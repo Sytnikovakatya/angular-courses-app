@@ -4,9 +4,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { Course } from '@interfaces/course.interface';
+import { courses } from '@data/courses';
 
 import { AppComponent } from './app.component';
-import { courses } from '@data/courses';
 
 @Component({
   selector: 'app-course-card',
