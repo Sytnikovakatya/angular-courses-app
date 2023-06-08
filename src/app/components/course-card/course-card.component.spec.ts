@@ -61,6 +61,8 @@ describe('CourseCardComponent', () => {
   });
 
   it('should transform minutes correctly', () => {
+    expect(component.transformMinute(55)).toBe('55 mins');
+    expect(component.transformMinute(60)).toBe('1 hour');
     expect(component.transformMinute(90)).toBe('1h 30 mins');
     expect(component.transformMinute(120)).toBe('2 hours');
     expect(component.transformMinute(125)).toBe('2h 05 mins');
