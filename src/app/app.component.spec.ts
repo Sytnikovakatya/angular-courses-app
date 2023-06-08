@@ -8,50 +8,53 @@ import { Course } from '@interfaces/course.interface';
 import { AppComponent } from './app.component';
 import { courses } from '@data/courses';
 
+@Component({
+  selector: 'app-course-card',
+  template: '<div>Mock Course Card Component</div>',
+})
+class MockCourseCardComponent {
+  @Input() course: Course;
+}
+
+@Component({
+  selector: 'app-header',
+  template: '<div>Mock Header Component</div>',
+})
+class MockHeaderComponent {}
+
+@Component({
+  selector: 'app-logo',
+  template: '<div class="logo">Mock Logo Component</div>',
+})
+class MockLogoComponent {}
+
+@Component({
+  selector: 'app-breadcrumbs',
+  template: '<div>Mock Breadcrumbs Component</div>',
+})
+class MockBreadcrumbsComponent {}
+
+@Component({
+  selector: 'app-search-bar',
+  template: '<div>Mock Search Bar Component</div>',
+})
+class MockSearchBarComponent {}
+
+@Component({
+  selector: 'app-footer',
+  template: '<div>Mock Footer Component</div>',
+})
+class MockFooterComponent {}
+
+@Component({
+  selector: 'app-loader',
+  template: '<div>Mock Loader Component</div>',
+})
+class MockLoaderComponent {}
+
 describe('AppComponent', () => {
   let component: AppComponent;
   let fixture: ComponentFixture<AppComponent>;
-  @Component({
-    selector: 'app-header',
-    template: '<div>Mock Header Component</div>',
-  })
-  class MockHeaderComponent {}
-  @Component({
-    selector: 'app-logo',
-    template: '<div class="logo">Mock Logo Component</div>',
-  })
-  class MockLogoComponent {}
-  @Component({
-    selector: 'app-breadcrumbs',
-    template: '<div>Mock Breadcrumbs Component</div>',
-  })
-  class MockBreadcrumbsComponent {}
-
-  @Component({
-    selector: 'app-search-bar',
-    template: '<div>Mock Search Bar Component</div>',
-  })
-  class MockSearchBarComponent {}
-
-  @Component({
-    selector: 'app-footer',
-    template: '<div>Mock Footer Component</div>',
-  })
-  class MockFooterComponent {}
-
-  @Component({
-    selector: 'app-loader',
-    template: '<div>Mock Loader Component</div>',
-  })
-  class MockLoaderComponent {}
-
-  @Component({
-    selector: 'app-course-card',
-    template: '<div>Mock Course Card Component</div>',
-  })
-  class MockCourseCardComponent {
-    @Input() course: Course;
-  }
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -67,7 +70,7 @@ describe('AppComponent', () => {
         MockCourseCardComponent,
       ],
     });
-    const fixture = TestBed.createComponent(AppComponent);
+    fixture = TestBed.createComponent(AppComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
