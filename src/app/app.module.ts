@@ -10,7 +10,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ButtonComponent } from '@shared/button/button.component';
 import { InputComponent } from '@shared/input/input.component';
 
-import { HighlightDateDirective } from '@directives/hightlight-date/highlight-date.directive';
+import { HighlightDirective } from '@directives/hightlight/highlight.directive';
 import { DurationPipe } from '@pipes/duration/duration.pipe';
 import { OrderByPipe } from '@pipes/orderBy/order-by.pipe';
 
@@ -37,7 +37,7 @@ import { FilterPipe } from './pipes/filter/filter.pipe';
     InputComponent,
     LoaderComponent,
     NoCoursesComponent,
-    HighlightDateDirective,
+    HighlightDirective,
     DurationPipe,
     OrderByPipe,
     FilterPipe,

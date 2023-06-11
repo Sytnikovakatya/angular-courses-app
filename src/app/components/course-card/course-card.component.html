@@ -2,7 +2,7 @@
   <div
     class="card m-5 shadow p-3 mb-5 rounded"
     [ngClass]="{ 'text-bg-dark': isTopRated }"
-    [appHighlightDate]="higlightCreationDate(course.date)"
+    [appHighlight]="higlightByDate(course.date)"
   >
     <div class="card-body">
       <div class="row">

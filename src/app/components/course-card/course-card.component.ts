@@ -12,12 +12,12 @@ export class CourseCardComponent {
 
   isTopRated = false;
 
-  higlightCreationDate(date: number): string {
+  higlightByDate(date: number): string {
     const daysOffset = 24 * 60 * 60 * 1000 * 14;
     const condition = Date.now() - daysOffset;
 
     if (date < Date.now() && date >= condition) {
-      return 'lightseagreen';
+      return 'lightgreen';
     } else if (date > Date.now()) {
       return '#0d6efd';
     } else {
