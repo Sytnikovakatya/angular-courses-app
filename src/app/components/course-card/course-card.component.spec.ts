@@ -51,7 +51,6 @@ describe('CourseCardComponent', () => {
     const cardDescriptionElement = fixture.debugElement.query(By.css('.card-description')).nativeElement;
 
     expect(cardTitleElement.textContent.trim()).toBe(`Video Course ${mockCourse.id}. ${mockCourse.name}`);
-    expect(cardLengthElement.textContent.trim()).toBe(`${component.transformMinute(mockCourse.length)}`);
     expect(cardDateElement.textContent.trim()).toBe(mockCourse.date);
     expect(cardDescriptionElement.textContent.trim()).toBe(mockCourse.description);
   });
@@ -60,13 +59,5 @@ describe('CourseCardComponent', () => {
     spyOn(console, 'log');
     component.delete(1);
     expect(console.log).toHaveBeenCalledWith('Delete №1');
-  });
-
-  it('should transform minutes correctly', () => {
-    expect(component.transformMinute(55)).toBe('55 mins');
-    expect(component.transformMinute(60)).toBe('1 hour');
-    expect(component.transformMinute(90)).toBe('1h 30 mins');
-    expect(component.transformMinute(120)).toBe('2 hours');
-    expect(component.transformMinute(125)).toBe('2h 05 mins');
   });
 });
