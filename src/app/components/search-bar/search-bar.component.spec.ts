@@ -39,4 +39,14 @@ describe('SearchBarComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should emit the search value on searchClick', () => {
+    spyOn(component.newSearchEvent, 'emit');
+    const searchValue = 'Angular';
+    fixture.detectChanges();
+
+    component.searchClick(searchValue);
+
+    expect(component.newSearchEvent.emit).toHaveBeenCalledWith(searchValue);
+  });
 });
