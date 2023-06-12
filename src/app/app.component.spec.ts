@@ -98,11 +98,10 @@ describe('AppComponent', () => {
     expect(result).toBe(3);
   });
 
-  it('should update the filterBy value when newSearchEvent is emitted', () => {
+  it('should update the filterBy value', () => {
     const searchValue = 'Angular';
-    const searchBarComponent = fixture.debugElement.nativeElement.querySelector('app-search-bar');
 
-    searchBarComponent.dispatchEvent(new CustomEvent('newSearchEvent', { detail: searchValue }));
+    component.getSearchValue(searchValue);
 
     expect(component.filterBy).toBe(searchValue);
   });
