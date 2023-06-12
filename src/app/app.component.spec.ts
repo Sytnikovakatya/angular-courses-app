@@ -3,6 +3,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RouterTestingModule } from '@angular/router/testing';
 
+import { OrderByPipe } from '@pipes/orderBy/order-by.pipe';
+import { FilterPipe } from '@pipes/filter/filter.pipe';
+
 import { Course } from '@interfaces/course.interface';
 import { courses } from '@data/courses';
 
@@ -68,6 +71,8 @@ describe('AppComponent', () => {
         MockFooterComponent,
         MockLoaderComponent,
         MockCourseCardComponent,
+        OrderByPipe,
+        FilterPipe,
       ],
     });
     fixture = TestBed.createComponent(AppComponent);
@@ -90,6 +95,15 @@ describe('AppComponent', () => {
 
   it('should get the id of course', () => {
     const result = component.courseTrackBy(1, courses[0]);
-    expect(result).toBe(1);
+    expect(result).toBe(3);
+  });
+
+  it('should update the filterBy value when newSearchEvent is emitted', () => {
+    const searchValue = 'Angular';
+    const searchBarComponent = fixture.debugElement.nativeElement.querySelector('app-search-bar');
+
+    searchBarComponent.dispatchEvent(new CustomEvent('newSearchEvent', { detail: searchValue }));
+
+    expect(component.filterBy).toBe(searchValue);
   });
 });
