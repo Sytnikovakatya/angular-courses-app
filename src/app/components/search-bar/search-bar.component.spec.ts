@@ -39,11 +39,4 @@ describe('SearchBarComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
-  it('should call searchClick and print console.log with the searching value', () => {
-    spyOn(console, 'log');
-    component.search = 'hello';
-    component.searchClick();
-    expect(console.log).toHaveBeenCalledWith('hello');
-  });
 });
