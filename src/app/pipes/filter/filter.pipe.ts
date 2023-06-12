@@ -6,8 +6,7 @@ import { Course } from '@interfaces/course.interface';
   name: 'filter',
 })
 export class FilterPipe implements PipeTransform {
-  transform(value: Course[], filterString = ''): Course[] {
-    if (!value) return [];
+  transform(value: Course[], filterString: string): Course[] {
     if (!filterString) return value;
 
     return value.filter(course => {
