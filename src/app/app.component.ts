@@ -13,6 +13,7 @@ export class AppComponent implements OnInit {
   title = 'angular-courses-app';
 
   courses: Course[] = [];
+  filterBy = '';
 
   ngOnInit(): void {
     this.courses = courses;
@@ -20,5 +21,9 @@ export class AppComponent implements OnInit {
 
   courseTrackBy(index: number, course: Course): number {
     return course.id;
+  }
+
+  getSearchValue(newValue: string) {
+    this.filterBy = newValue;
   }
 }
