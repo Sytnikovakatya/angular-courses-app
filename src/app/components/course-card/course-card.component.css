@@ -1,4 +1,8 @@
-.topRated {
+.fa-star{
+    color: transparent;
+}
+
+.fa-star.topRated {
    color: #e8a447 !important; 
 }
 
