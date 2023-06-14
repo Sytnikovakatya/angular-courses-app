@@ -11,7 +11,7 @@ export class SearchBarComponent {
 
   search = '';
 
-  searchClick(value: string) {
+  searchClick(value: string): void {
     this.newSearchEvent.emit(value);
   }
 }
