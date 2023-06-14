@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
     return course.id;
   }
 
-  getSearchValue(newValue: string) {
-    this.filterBy = newValue;
+  getSearchValue(newValue: string): string {
+    return (this.filterBy = newValue);
   }
 }
