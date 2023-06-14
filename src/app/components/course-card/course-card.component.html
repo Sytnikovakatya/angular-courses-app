@@ -10,7 +10,7 @@
            <h5 class="card-title fs-3" (click)="isTopRated = !isTopRated">
             Video Course {{ course.id }}. {{ course.name | uppercase }}
             <i class="fa-sharp fa-solid fa-star fa-2xs"
-              [ngClass]="isTopRated ? 'topRated' : ''"
+              [class.topRated]="isTopRated"
             ></i>
           </h5>
         </div>
