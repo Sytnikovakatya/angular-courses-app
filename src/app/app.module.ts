@@ -10,6 +10,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ButtonComponent } from '@shared/button/button.component';
 import { InputComponent } from '@shared/input/input.component';
 
+import { HighlightDirective } from '@directives/hightlight/highlight.directive';
+import { DurationPipe } from '@pipes/duration/duration.pipe';
+import { OrderByPipe } from '@pipes/orderBy/order-by.pipe';
+import { FilterPipe } from '@pipes/filter/filter.pipe';
+
 import { BreadcrumbsComponent } from '@components/breadcrumbs/breadcrumbs.component';
 import { CourseCardComponent } from '@components/course-card/course-card.component';
 import { FooterComponent } from '@components/footer/footer.component';
@@ -30,6 +35,10 @@ import { SearchBarComponent } from '@components/search-bar/search-bar.component'
     ButtonComponent,
     InputComponent,
     LoaderComponent,
+    HighlightDirective,
+    DurationPipe,
+    OrderByPipe,
+    FilterPipe,
   ],
   imports: [BrowserModule, AppRoutingModule, NgbModule, FormsModule],
   providers: [],

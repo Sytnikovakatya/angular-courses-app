@@ -1,1 +1,16 @@
+.fa-star{
+    color: transparent;
+}
 
+.fa-star.topRated {
+   color: #e8a447 !important; 
+}
+
+.card-title:hover{
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.special-card {
+    background-color: aliceblue;
+}

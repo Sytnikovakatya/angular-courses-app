@@ -40,10 +40,13 @@ describe('SearchBarComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should call searchClick and print console.log with the searching value', () => {
-    spyOn(console, 'log');
-    component.search = 'hello';
-    component.searchClick();
-    expect(console.log).toHaveBeenCalledWith('hello');
+  it('should emit the search value on searchClick', () => {
+    spyOn(component.newSearchEvent, 'emit');
+    const searchValue = 'Angular';
+    fixture.detectChanges();
+
+    component.searchClick(searchValue);
+
+    expect(component.newSearchEvent.emit).toHaveBeenCalledWith(searchValue);
   });
 });

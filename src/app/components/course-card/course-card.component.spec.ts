@@ -3,6 +3,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { By } from '@angular/platform-browser';
 
+import { DurationPipe } from '@pipes/duration/duration.pipe';
+import { HighlightDirective } from '@directives/hightlight/highlight.directive';
+
 import { CourseCardComponent } from './course-card.component';
 
 @Component({
@@ -16,16 +19,25 @@ class MockButtonComponent {
   @Input() fontawesome: string;
 }
 
+const mockCourse = {
+  id: 1,
+  name: 'Javascript',
+  date: '2023-06-14T04:39:24+00:00',
+  length: 120,
+  description: 'description',
+};
+
 describe('CourseCardComponent', () => {
   let component: CourseCardComponent;
   let fixture: ComponentFixture<CourseCardComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [CourseCardComponent, MockButtonComponent],
+      declarations: [CourseCardComponent, MockButtonComponent, DurationPipe, HighlightDirective],
     });
     fixture = TestBed.createComponent(CourseCardComponent);
     component = fixture.componentInstance;
+    component.course = mockCourse;
     fixture.detectChanges();
   });
 
@@ -33,26 +45,26 @@ describe('CourseCardComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should render the course card with correct details', () => {
-    const mockCourse = {
-      id: 1,
-      name: 'Javascript',
-      date: '11/02/2023',
-      length: 120,
-      description: 'description',
-    };
+  it('should set isTopRated to false by default', () => {
+    expect(component.isTopRated).toBeFalse();
+  });
 
-    component.course = mockCourse;
+  it('should apply "special-card" class when isTopRated is true', () => {
+    component.isTopRated = true;
     fixture.detectChanges();
+    const cardElement = fixture.nativeElement.querySelector('.card');
+    expect(cardElement.classList.contains('special-card')).toBeTrue();
+  });
 
+  it('should render the course card with correct details', () => {
     const cardTitleElement = fixture.debugElement.query(By.css('.card-title')).nativeElement;
     const cardLengthElement = fixture.debugElement.query(By.css('.card-duration')).nativeElement;
     const cardDateElement = fixture.debugElement.query(By.css('.card-date')).nativeElement;
     const cardDescriptionElement = fixture.debugElement.query(By.css('.card-description')).nativeElement;
 
-    expect(cardTitleElement.textContent.trim()).toBe(`Video Course ${mockCourse.id}. ${mockCourse.name}`);
-    expect(cardLengthElement.textContent.trim()).toBe(`${component.transformMinute(mockCourse.length)}`);
-    expect(cardDateElement.textContent.trim()).toBe(mockCourse.date);
+    expect(cardTitleElement.textContent.trim()).toBe(`Video Course 1. JAVASCRIPT`);
+    expect(cardLengthElement.textContent.trim()).toBe('2 hours');
+    expect(cardDateElement.textContent.trim()).toBe('14 Jun 2023');
     expect(cardDescriptionElement.textContent.trim()).toBe(mockCourse.description);
   });
 
@@ -60,13 +72,5 @@ describe('CourseCardComponent', () => {
     spyOn(console, 'log');
     component.delete(1);
     expect(console.log).toHaveBeenCalledWith('Delete №1');
-  });
-
-  it('should transform minutes correctly', () => {
-    expect(component.transformMinute(55)).toBe('55 mins');
-    expect(component.transformMinute(60)).toBe('1 hour');
-    expect(component.transformMinute(90)).toBe('1h 30 mins');
-    expect(component.transformMinute(120)).toBe('2 hours');
-    expect(component.transformMinute(125)).toBe('2h 05 mins');
   });
 });

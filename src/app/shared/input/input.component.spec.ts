@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
+
 import { By } from '@angular/platform-browser';
 
 import { InputComponent } from './input.component';
