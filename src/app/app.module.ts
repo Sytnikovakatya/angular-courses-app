@@ -22,6 +22,7 @@ import { HeaderComponent } from '@components/header/header.component';
 import { LogoComponent } from '@components/logo/logo.component';
 import { LoaderComponent } from '@components/loader/loader.component';
 import { SearchBarComponent } from '@components/search-bar/search-bar.component';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { SearchBarComponent } from '@components/search-bar/search-bar.component'
     DurationPipe,
     OrderByPipe,
     FilterPipe,
+    LoginComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, NgbModule, FormsModule],
   providers: [],
