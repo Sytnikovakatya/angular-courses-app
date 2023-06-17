@@ -22,7 +22,8 @@ import { HeaderComponent } from '@components/header/header.component';
 import { LogoComponent } from '@components/logo/logo.component';
 import { LoaderComponent } from '@components/loader/loader.component';
 import { SearchBarComponent } from '@components/search-bar/search-bar.component';
-import { LoginComponent } from './components/login/login.component';
+import { LoginComponent } from '@components/login/login.component';
+import { DeleteModalComponent } from '@components/delete-modal/delete-modal.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { LoginComponent } from './components/login/login.component';
     OrderByPipe,
     FilterPipe,
     LoginComponent,
+    DeleteModalComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, NgbModule, FormsModule],
   providers: [],
