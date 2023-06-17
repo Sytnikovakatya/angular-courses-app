@@ -9,6 +9,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class DeleteModalComponent {
   @Input() id: number;
+
   constructor(public activeModal: NgbActiveModal) {}
 
   delete(id: number): void {
