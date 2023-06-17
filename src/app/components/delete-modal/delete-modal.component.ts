@@ -11,8 +11,9 @@ export class DeleteModalComponent {
   @Input() id: number;
   constructor(public activeModal: NgbActiveModal) {}
 
-  delete(id: number) {
+  delete(id: number): void {
     console.log('Delete №' + id);
+
     this.activeModal.close('Confirm click');
   }
 }
