@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { Course } from '@interfaces/course.interface';
 
-import { courses } from '@data/courses';
+import { CoursesService } from '@services/courses/courses.service';
 
 @Component({
   selector: 'app-root',
@@ -11,12 +11,13 @@ import { courses } from '@data/courses';
 })
 export class AppComponent implements OnInit {
   title = 'angular-courses-app';
-
-  courses: Course[] = [];
+  authentificated = true;
   filterBy = '';
 
+  constructor(public coursesService: CoursesService) {}
+
   ngOnInit(): void {
-    this.courses = courses;
+    this.coursesService.getAll();
   }
 
   courseTrackBy(index: number, course: Course): number {
