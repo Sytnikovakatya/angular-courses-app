@@ -19,7 +19,7 @@ export class SearchBarComponent {
     this.newSearchEvent.emit(value);
   }
 
-  addCourse() {
+  addCourse(): void {
     this.coursesService.addToCourses({
       id: 4,
       name: 'React',
