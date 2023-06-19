@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Course } from '@interfaces/course.interface';
 
 import { CoursesService } from '@services/courses/courses.service';
+import { AuthService } from '@services/authentication/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -11,12 +12,13 @@ import { CoursesService } from '@services/courses/courses.service';
 })
 export class AppComponent implements OnInit {
   title = 'angular-courses-app';
-  authentificated = true;
+  authentificated = false;
   filterBy = '';
 
-  constructor(public coursesService: CoursesService) {}
+  constructor(public coursesService: CoursesService, public authService: AuthService) {}
 
   ngOnInit(): void {
+    this.authentificated = this.authService.isAuthenticated();
     this.coursesService.getAll();
   }
 
