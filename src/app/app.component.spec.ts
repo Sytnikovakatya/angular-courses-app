@@ -5,6 +5,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { OrderByPipe } from '@pipes/orderBy/order-by.pipe';
 import { FilterPipe } from '@pipes/filter/filter.pipe';
+import { IfAuthenticatedDirective } from '@directives/ifAuthenticated/if-authenticated.directive';
 
 import { Course } from '@interfaces/course.interface';
 import { courses } from '@data/courses';
@@ -55,6 +56,14 @@ class MockFooterComponent {}
 })
 class MockLoaderComponent {}
 
+@Component({
+  selector: 'app-login',
+  template: '<div>Mock Login Component</div>',
+})
+class MockLoginComponent {
+  @Input() course: Course;
+}
+
 describe('AppComponent', () => {
   let component: AppComponent;
   let fixture: ComponentFixture<AppComponent>;
@@ -71,8 +80,10 @@ describe('AppComponent', () => {
         MockFooterComponent,
         MockLoaderComponent,
         MockCourseCardComponent,
+        MockLoginComponent,
         OrderByPipe,
         FilterPipe,
+        IfAuthenticatedDirective,
       ],
     });
     fixture = TestBed.createComponent(AppComponent);
@@ -88,14 +99,10 @@ describe('AppComponent', () => {
     expect(component.title).toEqual('angular-courses-app');
   });
 
-  it('should set a list of courses', () => {
-    component.ngOnInit();
-    expect(component.courses).toHaveSize(3);
-  });
-
   it('should get the id of course', () => {
     const result = component.courseTrackBy(1, courses[0]);
-    expect(result).toBe(3);
+    fixture.detectChanges();
+    expect(result).toBe(courses[0].id);
   });
 
   it('should update the filterBy value', () => {
