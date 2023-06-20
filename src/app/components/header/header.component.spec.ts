@@ -1,6 +1,10 @@
 import { Component, Input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { IfAuthenticatedDirective } from '@directives/ifAuthenticated/if-authenticated.directive';
+
+import { AuthService } from '@services/authentication/auth.service';
+
 import { HeaderComponent } from './header.component';
 
 @Component({
@@ -21,11 +25,17 @@ class MockButtonComponent {
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
   let fixture: ComponentFixture<HeaderComponent>;
+  let authServiceSpy: jasmine.SpyObj<AuthService>;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [HeaderComponent, MockLogoComponent, MockButtonComponent],
-    });
+  beforeEach(async () => {
+    const authServiceMock = jasmine.createSpyObj('AuthService', ['isAuthenticated', 'getUserInfo', 'logout']);
+
+    await TestBed.configureTestingModule({
+      declarations: [HeaderComponent, MockLogoComponent, MockButtonComponent, IfAuthenticatedDirective],
+      providers: [{ provide: AuthService, useValue: authServiceMock }],
+    }).compileComponents();
+
+    authServiceSpy = TestBed.inject(AuthService) as jasmine.SpyObj<AuthService>;
     fixture = TestBed.createComponent(HeaderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -35,8 +45,15 @@ describe('HeaderComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should have username', () => {
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.user-login')?.textContent).toContain('User login');
+  it('should initialize authenticated and user properties on ngOnInit', () => {
+    authServiceSpy.isAuthenticated.and.returnValue(true);
+    authServiceSpy.getUserInfo.and.returnValue('testuser');
+
+    component.ngOnInit();
+
+    expect(authServiceSpy.isAuthenticated).toHaveBeenCalled();
+    expect(authServiceSpy.getUserInfo).toHaveBeenCalled();
+    expect(component.authentificated).toBeTrue();
+    expect(component.user).toBe('testuser');
   });
 });
