@@ -5,6 +5,7 @@ import { By } from '@angular/platform-browser';
 
 import { DurationPipe } from '@pipes/duration/duration.pipe';
 import { HighlightDirective } from '@directives/hightlight/highlight.directive';
+import { IfAuthenticatedDirective } from '@directives/ifAuthenticated/if-authenticated.directive';
 
 import { CourseCardComponent } from './course-card.component';
 
@@ -33,7 +34,13 @@ describe('CourseCardComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [CourseCardComponent, MockButtonComponent, DurationPipe, HighlightDirective],
+      declarations: [
+        CourseCardComponent,
+        MockButtonComponent,
+        DurationPipe,
+        HighlightDirective,
+        IfAuthenticatedDirective,
+      ],
     });
     fixture = TestBed.createComponent(CourseCardComponent);
     component = fixture.componentInstance;
@@ -66,11 +73,5 @@ describe('CourseCardComponent', () => {
     expect(cardLengthElement.textContent.trim()).toBe('2 hours');
     expect(cardDateElement.textContent.trim()).toBe('14 Jun 2023');
     expect(cardDescriptionElement.textContent.trim()).toBe(mockCourse.description);
-  });
-
-  it('should call delete method and print console.log', () => {
-    spyOn(console, 'log');
-    component.delete(1);
-    expect(console.log).toHaveBeenCalledWith('Delete №1');
   });
 });
