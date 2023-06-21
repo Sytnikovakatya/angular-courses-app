@@ -12,7 +12,7 @@ import { CoursesService } from '@services/courses/courses.service';
 export class DeleteModalComponent {
   @Input() id: number;
 
-  constructor(public activeModal: NgbActiveModal, public coursesService: CoursesService) {}
+  constructor(public activeModal: NgbActiveModal, private coursesService: CoursesService) {}
 
   delete(id: number): void {
     this.coursesService.removeCourse(id);

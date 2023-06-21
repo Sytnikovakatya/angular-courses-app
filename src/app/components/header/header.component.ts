@@ -11,7 +11,7 @@ export class HeaderComponent implements OnInit {
   user: string | null = '';
   authentificated = false;
 
-  constructor(public authService: AuthService) {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
     this.authentificated = this.authService.isAuthenticated();

@@ -12,7 +12,7 @@ export class LoginComponent {
   email = '';
   password = '';
 
-  constructor(public authService: AuthService) {}
+  constructor(private authService: AuthService) {}
 
   login(email: string): void {
     this.authService.login(email);
