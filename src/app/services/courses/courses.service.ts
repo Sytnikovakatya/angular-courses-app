@@ -8,8 +8,6 @@ import { courses } from '@data/courses';
   providedIn: 'root',
 })
 export class CoursesService {
-  constructor() {}
-
   courses: Course[] = [];
 
   getCourses(): Course[] {

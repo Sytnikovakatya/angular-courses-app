@@ -8,7 +8,6 @@ import { Subject, Observable } from 'rxjs';
 export class AuthService {
   private _eventSubject: Subject<boolean> = new Subject();
   public event$: Observable<boolean> = this._eventSubject.asObservable();
-  constructor() {}
 
   login(userEmail: string): void {
     if (userEmail) {
