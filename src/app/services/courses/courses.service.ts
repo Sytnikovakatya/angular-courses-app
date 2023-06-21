@@ -31,14 +31,8 @@ export class CoursesService {
 
   updateCourse(item: Course): void {
     this.courses.forEach((course, index) => {
-      if (course.name === item.name) {
-        this.courses[index] = {
-          id: course.id,
-          name: 'New name',
-          date: course.date,
-          length: course.length,
-          description: 'New Description',
-        };
+      if (course.id === item.id) {
+        this.courses[index] = { ...course, name: 'New name', description: 'New Description' };
       }
     });
   }
