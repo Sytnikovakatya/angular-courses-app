@@ -13,7 +13,7 @@ export class SearchBarComponent {
 
   search = '';
 
-  constructor(public coursesService: CoursesService) {}
+  constructor(private coursesService: CoursesService) {}
 
   searchClick(value: string): void {
     this.newSearchEvent.emit(value);
