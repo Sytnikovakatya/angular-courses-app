@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
   filterBy = '';
   courses: Course[] = [];
 
-  constructor(public coursesService: CoursesService, public authService: AuthService) {}
+  constructor(private coursesService: CoursesService, private authService: AuthService) {}
 
   ngOnInit(): void {
     this.authentificated = this.authService.isAuthenticated();
