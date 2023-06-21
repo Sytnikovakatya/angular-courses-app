@@ -1,0 +1,16 @@
+.container {
+  display: flex;
+  justify-content: center;
+  margin-top: 5%;
+}
+
+.card {
+  background: hsla(0, 0%, 100%, 0.8);
+  backdrop-filter: blur(30px);
+  max-width: 500px;
+}
+
+.one-row {
+  display: flex;
+  justify-content: space-between;
+}

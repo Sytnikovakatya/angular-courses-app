@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { CoursesService } from '@services/courses/courses.service';
+
 import { SearchBarComponent } from './search-bar.component';
 
 @Component({
@@ -26,13 +28,17 @@ class MockButtonComponent {
 describe('SearchBarComponent', () => {
   let component: SearchBarComponent;
   let fixture: ComponentFixture<SearchBarComponent>;
+  let coursesService: CoursesService;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       declarations: [SearchBarComponent, MockInputComponent, MockButtonComponent],
-    });
+      providers: [CoursesService],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(SearchBarComponent);
     component = fixture.componentInstance;
+    coursesService = TestBed.inject(CoursesService);
     fixture.detectChanges();
   });
 
@@ -48,5 +54,13 @@ describe('SearchBarComponent', () => {
     component.searchClick(searchValue);
 
     expect(component.newSearchEvent.emit).toHaveBeenCalledWith(searchValue);
+  });
+
+  it('should call addToCourses method on button click', () => {
+    const addCourseSpy = spyOn(coursesService, 'addToCourses');
+
+    component.addCourse();
+
+    expect(addCourseSpy).toHaveBeenCalled();
   });
 });

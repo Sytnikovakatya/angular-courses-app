@@ -1,0 +1,40 @@
+<div class="container py-5 mb-5">
+      <div class="card shadow-lg">
+        <div class="card-body p-5">
+            <div class="one-row">
+              <h2 class="fw-bold">Login</h2>
+              <span class="text-danger" *ngIf="!validation">*Wrong e-mail or password</span>
+            </div>
+            <form (ngSubmit)="login(email)">
+              <div class="row my-5">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <div class="one-row">
+                      <label class="mb-2 fw-bolder">Email:</label>
+                      <span>*required</span>
+                    </div>
+                    <app-input [type]="'email'" [placeholder]="'Enter e-mail'" [(bindModelData)]="email"></app-input>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="form-group mt-4">
+                      <div class="one-row">
+                        <label class="mb-2 fw-bolder">Password:</label>
+                        <span>*required</span>
+                      </div>
+                    <app-input [type]="'password'" [placeholder]="'Enter password'" [(bindModelData)]="password"></app-input>
+                  </div>
+                </div>
+              </div>
+              <div class="one-row mb-4 mt-4">
+                <a href="#!">Forgot password?</a>
+                <div class="form-group">
+                  <app-button [text]="'Login'" [class]="'btn btn-success px-5'" [type]="'submit'"></app-button>
+                </div>
+              </div>        
+          </form>
+        </div>
+      </div>
+</div>
+
+

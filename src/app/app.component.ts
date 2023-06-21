@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import { Course } from '@interfaces/course.interface';
 
-import { courses } from '@data/courses';
+import { CoursesService } from '@services/courses/courses.service';
+import { AuthService } from '@services/authentication/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -11,12 +12,15 @@ import { courses } from '@data/courses';
 })
 export class AppComponent implements OnInit {
   title = 'angular-courses-app';
-
-  courses: Course[] = [];
+  authentificated = false;
   filterBy = '';
+  courses: Course[] = [];
+
+  constructor(private coursesService: CoursesService, private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.courses = courses;
+    this.authentificated = this.authService.isAuthenticated();
+    this.courses = this.coursesService.getCourses();
   }
 
   courseTrackBy(index: number, course: Course): number {

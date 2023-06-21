@@ -1,5 +1,5 @@
-<div class="bg-light">
-  <app-header></app-header>
+<app-header></app-header>
+<div class="bg-light" *appIfAuthenticated="authentificated">
   <app-breadcrumbs></app-breadcrumbs>
   <app-search-bar (newSearchEvent)="getSearchValue($event)"></app-search-bar>
   <ng-container *ngIf="courses.length > 0; else noCourses">
@@ -12,5 +12,7 @@
       No data! <br />Feel free to add new course
     </p>
   </ng-template>
-  <app-footer></app-footer>
 </div>
+<app-login *appIfAuthenticated="!authentificated"></app-login>
+<app-footer></app-footer>
+
