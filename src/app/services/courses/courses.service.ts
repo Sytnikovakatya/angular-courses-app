@@ -25,7 +25,7 @@ export class CoursesService {
   }
 
   getCourseById(id: number): void {
-    let chosenCourse = this.courses.filter((course: Course) => course.id === id);
+    const chosenCourse = this.courses.filter((course: Course) => course.id === id);
     console.log(chosenCourse[0]);
   }
 
