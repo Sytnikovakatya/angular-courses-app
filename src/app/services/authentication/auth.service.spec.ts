@@ -28,7 +28,7 @@ describe('AuthService', () => {
       const userEmail = 'test@example.com';
       let emittedValue: boolean | undefined;
 
-      service.event$.subscribe(value => {
+      service.isAuthentificated$.subscribe(value => {
         emittedValue = value;
       });
 
@@ -61,7 +61,7 @@ describe('AuthService', () => {
     it('should emit authentication event', () => {
       let emittedValue: boolean | undefined;
 
-      service.event$.subscribe(value => {
+      service.isAuthentificated$.subscribe(value => {
         emittedValue = value;
       });
 

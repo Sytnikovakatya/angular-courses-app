@@ -6,8 +6,8 @@ import { Subject, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  private _eventSubject: Subject<boolean> = new Subject();
-  public event$: Observable<boolean> = this._eventSubject.asObservable();
+  private isAuthentificated: Subject<boolean> = new Subject();
+  public isAuthentificated$: Observable<boolean> = this.isAuthentificated.asObservable();
 
   login(userEmail: string): void {
     if (userEmail) {
@@ -19,14 +19,14 @@ export class AuthService {
       window.alert('Please, enter your email and password');
     }
 
-    this._eventSubject.next(true);
+    this.isAuthentificated.next(true);
   }
 
   logout(): void {
     localStorage.removeItem('name');
     localStorage.setItem('authenticated', 'false');
 
-    this._eventSubject.next(false);
+    this.isAuthentificated.next(false);
   }
 
   isAuthenticated(): boolean {
