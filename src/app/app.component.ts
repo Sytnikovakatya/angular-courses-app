@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.authentificated = this.authService.isAuthenticated();
-    this.coursesService.getAll();
+    this.coursesService.getCourses();
   }
 
   courseTrackBy(index: number, course: Course): number {

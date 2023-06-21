@@ -12,7 +12,7 @@ export class CoursesService {
 
   courses: Course[] = [];
 
-  getAll(): Course[] {
+  getCourses(): Course[] {
     return (this.courses = courses);
   }
 

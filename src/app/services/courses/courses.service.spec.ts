@@ -10,7 +10,7 @@ describe('CoursesService', () => {
 
   it('should return all courses', () => {
     const service = MockRender(CoursesService).point.componentInstance;
-    expect(service.getAll()).toEqual(courses);
+    expect(service.getCourses()).toEqual(courses);
   });
 
   it('should add a new course to the list', () => {
@@ -38,7 +38,7 @@ describe('CoursesService', () => {
     };
     spyOn(window, 'alert');
     const service = MockRender(CoursesService).point.componentInstance;
-    service.getAll();
+    service.getCourses();
     service.addToCourses(newItem);
     expect(window.alert).toHaveBeenCalledWith('This Video course already exists!');
     expect(service.courses.length).toBe(courses.length);
@@ -48,7 +48,6 @@ describe('CoursesService', () => {
     const id = 1;
     spyOn(console, 'log');
     const service = MockRender(CoursesService).point.componentInstance;
-    service.getAll();
     service.getCourseById(id);
     const courseIndex = service.courses.findIndex(course => course.id === id);
     expect(console.log).toHaveBeenCalledWith(courses[courseIndex]);
@@ -63,7 +62,7 @@ describe('CoursesService', () => {
       description: 'New Description',
     };
     const service = MockRender(CoursesService).point.componentInstance;
-    expect(service.getAll()).toEqual(courses);
+    service.getCourses();
     service.updateCourse(updatedCourse);
     const updatedCourseIndex = service.courses.findIndex(course => course.id === updatedCourse.id);
     expect(service.courses[updatedCourseIndex]).toEqual(updatedCourse);
@@ -72,7 +71,7 @@ describe('CoursesService', () => {
   it('should remove a course', () => {
     const id = 1;
     const service = MockRender(CoursesService).point.componentInstance;
-    service.getAll();
+    service.getCourses();
     const expectedCourses = courses.filter(course => course.id !== id);
     const result = service.removeCourse(id);
     expect(result).toEqual(expectedCourses);
