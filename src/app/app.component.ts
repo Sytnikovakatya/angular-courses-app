@@ -14,12 +14,13 @@ export class AppComponent implements OnInit {
   title = 'angular-courses-app';
   authentificated = false;
   filterBy = '';
+  courses: Course[] = [];
 
   constructor(public coursesService: CoursesService, public authService: AuthService) {}
 
   ngOnInit(): void {
     this.authentificated = this.authService.isAuthenticated();
-    this.coursesService.getCourses();
+    this.courses = this.coursesService.getCourses();
   }
 
   courseTrackBy(index: number, course: Course): number {
