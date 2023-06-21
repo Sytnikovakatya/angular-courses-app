@@ -3,11 +3,16 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { By } from '@angular/platform-browser';
 
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 import { DurationPipe } from '@pipes/duration/duration.pipe';
 import { HighlightDirective } from '@directives/hightlight/highlight.directive';
 import { IfAuthenticatedDirective } from '@directives/ifAuthenticated/if-authenticated.directive';
 
+import { CoursesService } from '@services/courses/courses.service';
+
 import { CourseCardComponent } from './course-card.component';
+import { DeleteModalComponent } from '@components/delete-modal/delete-modal.component';
 
 @Component({
   selector: 'app-button',
@@ -31,9 +36,11 @@ const mockCourse = {
 describe('CourseCardComponent', () => {
   let component: CourseCardComponent;
   let fixture: ComponentFixture<CourseCardComponent>;
+  let modalService: NgbModal;
+  let coursesService: CoursesService;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       declarations: [
         CourseCardComponent,
         MockButtonComponent,
@@ -41,9 +48,13 @@ describe('CourseCardComponent', () => {
         HighlightDirective,
         IfAuthenticatedDirective,
       ],
-    });
+      providers: [NgbModal, CoursesService],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(CourseCardComponent);
     component = fixture.componentInstance;
+    modalService = TestBed.inject(NgbModal);
+    coursesService = TestBed.inject(CoursesService);
     component.course = mockCourse;
     fixture.detectChanges();
   });
@@ -73,5 +84,33 @@ describe('CourseCardComponent', () => {
     expect(cardLengthElement.textContent.trim()).toBe('2 hours');
     expect(cardDateElement.textContent.trim()).toBe('14 Jun 2023');
     expect(cardDescriptionElement.textContent.trim()).toBe(mockCourse.description);
+  });
+
+  it('should call editCourse method with correct parameters', () => {
+    const course = {
+      id: 1,
+      name: 'Test Course',
+      date: '2023-06-14T04:39:24+00:00',
+      length: 60,
+      description: 'Test Description',
+    };
+    const getCourseByIdSpy = spyOn(coursesService, 'getCourseById');
+    const updateCourseSpy = spyOn(coursesService, 'updateCourse');
+
+    component.editCourse(course);
+
+    expect(getCourseByIdSpy).toHaveBeenCalledWith(course.id);
+    expect(updateCourseSpy).toHaveBeenCalledWith(course);
+  });
+
+  it('should open delete modal with correct id', () => {
+    const id = 1;
+    const modalRef = jasmine.createSpyObj('NgbModalRef', ['componentInstance']);
+    spyOn(modalService, 'open').and.returnValue(modalRef);
+
+    component.delete(id);
+
+    expect(modalService.open).toHaveBeenCalledWith(DeleteModalComponent);
+    expect(modalRef.componentInstance.id).toEqual(id);
   });
 });
