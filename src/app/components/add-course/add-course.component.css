@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+.card {
+  background: hsla(0, 0%, 100%, 0.8);
+  backdrop-filter: blur(30px);
+}
+
+.card-body {
+  width: 800px;
+}
+
+.one-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+#floatingTextarea2 {
+  height: 200px;
+}
