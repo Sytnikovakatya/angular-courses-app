@@ -25,6 +25,7 @@ import { SearchBarComponent } from '@components/search-bar/search-bar.component'
 import { LoginComponent } from '@components/login/login.component';
 import { DeleteModalComponent } from '@components/delete-modal/delete-modal.component';
 import { IfAuthenticatedDirective } from './directives/ifAuthenticated/if-authenticated.directive';
+import { AddCourseComponent } from './components/add-course/add-course.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { IfAuthenticatedDirective } from './directives/ifAuthenticated/if-authen
     LoginComponent,
     DeleteModalComponent,
     IfAuthenticatedDirective,
+    AddCourseComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, NgbModule, FormsModule],
   providers: [],
