@@ -28,6 +28,7 @@ import { SearchBarComponent } from '@components/search-bar/search-bar.component'
 import { LoginComponent } from '@components/login/login.component';
 import { DeleteModalComponent } from '@components/delete-modal/delete-modal.component';
 import { AddCourseComponent } from '@components/add-course/add-course.component';
+import { AuthorsComponent } from './components/authors/authors.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { AddCourseComponent } from '@components/add-course/add-course.component'
     IfAuthenticatedDirective,
     AddCourseComponent,
     DateInputComponent,
+    AuthorsComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, NgbModule, FormsModule],
   providers: [],
