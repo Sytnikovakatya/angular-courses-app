@@ -39,13 +39,7 @@
               </div>
                    <div class="row my-2">
                    <div class="col-md-4">
-                        <div class="form-group">
-                            <div class="one-row">
-                            <label class="mb-2 fw-bolder">Date:</label>
-                            <span>*required</span>
-                            </div>
-                            <app-input [type]="'date'" [(bindModelData)]="date"></app-input>
-                        </div>
+                        <app-date-input [(bindModelData)]="date"></app-date-input>
                     </div>
               </div>
                    <div class="row mb-3">
