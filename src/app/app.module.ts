@@ -26,6 +26,7 @@ import { LoginComponent } from '@components/login/login.component';
 import { DeleteModalComponent } from '@components/delete-modal/delete-modal.component';
 import { IfAuthenticatedDirective } from './directives/ifAuthenticated/if-authenticated.directive';
 import { AddCourseComponent } from './components/add-course/add-course.component';
+import { DateInputComponent } from './shared/date-input/date-input.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { AddCourseComponent } from './components/add-course/add-course.component
     DeleteModalComponent,
     IfAuthenticatedDirective,
     AddCourseComponent,
+    DateInputComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, NgbModule, FormsModule],
   providers: [],
