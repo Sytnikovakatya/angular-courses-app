@@ -9,8 +9,7 @@ import { Course } from '@interfaces/course.interface';
 export class AddCourseComponent {
   title = '';
   description = '';
-  duration = '';
-  authors = '';
+  duration: number;
   date = '';
 
   saveCourse(): void {
@@ -18,7 +17,7 @@ export class AddCourseComponent {
       id: 7,
       name: this.title,
       date: this.date,
-      length: Number(this.duration),
+      length: this.duration,
       description: this.description,
     };
 
