@@ -26,6 +26,28 @@ class MockButtonComponent {
   @Input() fontawesome: string;
 }
 
+@Component({
+  selector: 'app-duration',
+  template: '<div>Mock Duration Component</div>',
+})
+class MockDurationComponent {
+  @Input() bindModelData: number;
+}
+
+@Component({
+  selector: 'app-date-input',
+  template: '<div>Mock Date Input Component</div>',
+})
+class MockDateInputComponent {
+  @Input() bindModelData: string;
+}
+
+@Component({
+  selector: 'app-authors',
+  template: '<div>Mock Authors Component</div>',
+})
+class MockAuthorsComponent {}
+
 describe('AddCourseComponent', () => {
   let component: AddCourseComponent;
   let fixture: ComponentFixture<AddCourseComponent>;
@@ -33,7 +55,14 @@ describe('AddCourseComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [FormsModule],
-      declarations: [AddCourseComponent, MockInputComponent, MockButtonComponent],
+      declarations: [
+        AddCourseComponent,
+        MockInputComponent,
+        MockButtonComponent,
+        MockDurationComponent,
+        MockDateInputComponent,
+        MockAuthorsComponent,
+      ],
     });
     fixture = TestBed.createComponent(AddCourseComponent);
     component = fixture.componentInstance;
@@ -57,7 +86,7 @@ describe('AddCourseComponent', () => {
       id: 7,
       name: component.title,
       date: component.date,
-      length: Number(component.duration),
+      length: component.duration,
       description: component.description,
     });
     expect(console.log).toHaveBeenCalledWith('Save new Course');
