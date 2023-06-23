@@ -1,1 +1,14 @@
-<p>duration works!</p>
+<div class="form-group">
+    <div class="row">
+        <div class="col">
+          <div class="d-flex justify-content-between">
+            <label class="mb-2 fw-bolder">Duration:</label>
+            <span>*required</span>
+          </div>
+          <input class="form-control" type="number" placeholder="minutes" [ngModel]="bindModelData" (ngModelChange)="updateData($event)"/>
+        </div>
+        <div class="col ali d-flex align-items-center">
+            {{bindModelData|duration}}
+        </div>
+    </div>      
+</div>
