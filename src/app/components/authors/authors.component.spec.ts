@@ -1,6 +1,16 @@
+import { Component, Input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AuthorsComponent } from './authors.component';
+
+@Component({
+  selector: 'app-input',
+  template: '<div>Mock Input Component</div>',
+})
+class MockInputComponent {
+  @Input() placeholder: string;
+  @Input() bindModelData: string;
+}
 
 describe('AuthorsComponent', () => {
   let component: AuthorsComponent;
@@ -8,7 +18,7 @@ describe('AuthorsComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [AuthorsComponent]
+      declarations: [AuthorsComponent, MockInputComponent],
     });
     fixture = TestBed.createComponent(AuthorsComponent);
     component = fixture.componentInstance;
