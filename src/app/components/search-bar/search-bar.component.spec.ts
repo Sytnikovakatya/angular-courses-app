@@ -12,6 +12,7 @@ import { SearchBarComponent } from './search-bar.component';
 class MockInputComponent {
   @Input() placeholder: string;
   @Input() bindModelData: string;
+  @Input() type: string;
 }
 
 @Component({
