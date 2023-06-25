@@ -1,9 +1,10 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-date-input',
   templateUrl: './date-input.component.html',
   styleUrls: ['./date-input.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DateInputComponent {
   @Input() class: string = 'form-control';

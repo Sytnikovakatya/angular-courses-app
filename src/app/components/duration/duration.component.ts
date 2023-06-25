@@ -1,9 +1,10 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-duration',
   templateUrl: './duration.component.html',
   styleUrls: ['./duration.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DurationComponent {
   @Input() bindModelData: number;
