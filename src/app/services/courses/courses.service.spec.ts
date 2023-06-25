@@ -72,7 +72,7 @@ describe('CoursesService', () => {
     const service = MockRender(CoursesService).point.componentInstance;
     service.getCourses();
     const expectedCourses = courses.filter(course => course.id !== id);
-    const result = service.removeCourse(id);
-    expect(result).toEqual(expectedCourses);
+    service.removeCourse(id);
+    expect(courses).toEqual(expectedCourses);
   });
 });
