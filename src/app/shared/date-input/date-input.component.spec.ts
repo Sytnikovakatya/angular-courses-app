@@ -1,3 +1,4 @@
+import { ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FormsModule } from '@angular/forms';
@@ -8,11 +9,18 @@ describe('DateInputComponent', () => {
   let component: DateInputComponent;
   let fixture: ComponentFixture<DateInputComponent>;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       imports: [FormsModule],
       declarations: [DateInputComponent],
-    });
+    })
+      .overrideComponent(DateInputComponent, {
+        set: {
+          changeDetection: ChangeDetectionStrategy.Default,
+        },
+      })
+      .compileComponents();
+
     fixture = TestBed.createComponent(DateInputComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
