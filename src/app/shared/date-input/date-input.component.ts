@@ -1,16 +1,13 @@
 import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-  selector: 'app-input',
-  templateUrl: './input.component.html',
-  styleUrls: ['./input.component.css'],
+  selector: 'app-date-input',
+  templateUrl: './date-input.component.html',
+  styleUrls: ['./date-input.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class InputComponent {
-  @Input() placeholder: string = '';
+export class DateInputComponent {
   @Input() class: string = 'form-control';
-  @Input() type: string = 'text';
-
   @Input() bindModelData: string;
   @Output() bindModelDataChange = new EventEmitter<string>();
 

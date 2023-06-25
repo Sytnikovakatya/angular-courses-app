@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { By } from '@angular/platform-browser';
@@ -49,7 +49,13 @@ describe('CourseCardComponent', () => {
         IfAuthenticatedDirective,
       ],
       providers: [NgbModal, CoursesService],
-    }).compileComponents();
+    })
+      .overrideComponent(CourseCardComponent, {
+        set: {
+          changeDetection: ChangeDetectionStrategy.Default,
+        },
+      })
+      .compileComponents();
 
     fixture = TestBed.createComponent(CourseCardComponent);
     component = fixture.componentInstance;

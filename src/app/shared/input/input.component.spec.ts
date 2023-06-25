@@ -27,7 +27,7 @@ describe('InputComponent', () => {
     const inputElement = fixture.debugElement.query(By.css('input')).nativeElement;
     expect(inputElement).toBeTruthy();
     expect(inputElement.getAttribute('class')).toContain('form-control');
-    expect(inputElement.getAttribute('type')).toBe('search');
+    expect(inputElement.getAttribute('type')).toBe('text');
     expect(inputElement.getAttribute('placeholder')).toBe('');
   });
 

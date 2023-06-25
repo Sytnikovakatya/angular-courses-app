@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -8,6 +8,7 @@ import { CoursesService } from '@services/courses/courses.service';
   selector: 'app-delete-modal',
   templateUrl: './delete-modal.component.html',
   styleUrls: ['./delete-modal.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DeleteModalComponent {
   @Input() id: number;

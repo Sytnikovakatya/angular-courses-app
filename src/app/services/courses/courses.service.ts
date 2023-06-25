@@ -33,9 +33,11 @@ export class CoursesService {
     });
   }
 
-  removeCourse(id: number): Course[] {
-    return courses.filter(course => {
-      return course.id !== id;
+  removeCourse(id: number): void {
+    courses.forEach((course, index) => {
+      if (course.id === id) {
+        courses.splice(index, 1);
+      }
     });
   }
 }

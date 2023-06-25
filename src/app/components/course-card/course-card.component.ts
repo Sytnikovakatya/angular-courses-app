@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -12,6 +12,7 @@ import { DeleteModalComponent } from '@components/delete-modal/delete-modal.comp
   selector: 'app-course-card',
   templateUrl: './course-card.component.html',
   styleUrls: ['./course-card.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CourseCardComponent {
   @Input() course: Course;

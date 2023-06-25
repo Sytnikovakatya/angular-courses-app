@@ -5,6 +5,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { OrderByPipe } from '@pipes/orderBy/order-by.pipe';
 import { FilterPipe } from '@pipes/filter/filter.pipe';
+
 import { IfAuthenticatedDirective } from '@directives/ifAuthenticated/if-authenticated.directive';
 
 import { Course } from '@interfaces/course.interface';
