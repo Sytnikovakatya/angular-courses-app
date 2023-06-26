@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { IfAuthenticatedDirective } from '@directives/ifAuthenticated/if-authenticated.directive';
+import { IfAuthenticatedDirective } from '@shared/directives/ifAuthenticated/if-authenticated.directive';
 
-import { AuthService } from '@services/authentication/auth.service';
+import { AuthService } from 'app/core/services/authentication/auth.service';
 
 import { HeaderComponent } from './header.component';
 
