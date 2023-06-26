@@ -2,11 +2,11 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { Course } from '@interfaces/course.interface';
+import { Course } from '@shared/interfaces/course.interface';
 
 import { CoursesService } from '@services/courses/courses.service';
 
-import { DeleteModalComponent } from '@components/delete-modal/delete-modal.component';
+import { DeleteModalComponent } from '../delete-modal/delete-modal.component';
 
 @Component({
   selector: 'app-course-card',

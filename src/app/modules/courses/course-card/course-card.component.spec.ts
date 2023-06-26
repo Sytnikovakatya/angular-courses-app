@@ -12,7 +12,7 @@ import { IfAuthenticatedDirective } from '@directives/ifAuthenticated/if-authent
 import { CoursesService } from '@services/courses/courses.service';
 
 import { CourseCardComponent } from './course-card.component';
-import { DeleteModalComponent } from '@components/delete-modal/delete-modal.component';
+import { DeleteModalComponent } from '../delete-modal/delete-modal.component';
 
 @Component({
   selector: 'app-button',
