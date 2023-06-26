@@ -1,7 +1,7 @@
 import { MockBuilder, MockRender } from 'ng-mocks';
 
-import { Course } from '@interfaces/course.interface';
-import { courses } from '@data/courses';
+import { Course } from '@shared/interfaces/course.interface';
+import { courses } from 'app/core/data/courses';
 
 import { CoursesService } from './courses.service';
 

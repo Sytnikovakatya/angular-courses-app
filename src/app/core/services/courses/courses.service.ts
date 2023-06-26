@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 
-import { Course } from '@interfaces/course.interface';
+import { Course } from '@shared/interfaces/course.interface';
 
-import { courses } from '@data/courses';
+import { courses } from 'app/core/data/courses';
 
 @Injectable({
   providedIn: 'root',
