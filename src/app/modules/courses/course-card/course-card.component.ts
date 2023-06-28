@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -19,11 +20,11 @@ export class CourseCardComponent {
 
   isTopRated = false;
 
-  constructor(private modalService: NgbModal, public coursesService: CoursesService) {}
+  constructor(private modalService: NgbModal, public coursesService: CoursesService, private router: Router) {}
 
   editCourse(course: Course): void {
     this.coursesService.getCourseById(course.id);
-    this.coursesService.updateCourse(course);
+    this.router.navigate(['/courses', course.id]);
   }
 
   delete(id: number): void {
