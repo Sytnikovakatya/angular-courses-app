@@ -1,31 +1,66 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+
 import { Course } from '@shared/interfaces/course.interface';
+import { courses } from '@data/courses';
+
+import { CoursesService } from '@services/courses/courses.service';
 
 @Component({
   selector: 'app-add-course',
   templateUrl: './add-course.component.html',
   styleUrls: ['./add-course.component.css'],
 })
-export class AddCourseComponent {
+export class AddCourseComponent implements OnInit {
+  currentCourse: Course;
+
+  id = 0;
   title = '';
   description = '';
   duration: number;
-  date = '';
+  date = new Date().toDateString();
+
+  constructor(private route: ActivatedRoute, private router: Router, private coursesService: CoursesService) {}
+
+  ngOnInit(): void {
+    this.route.paramMap.subscribe(params => {
+      let id = params.get('id');
+      if (id && id !== 'new') {
+        this.currentCourse = this.coursesService.getCourseById(+id);
+
+        this.id = this.currentCourse.id;
+        this.title = this.currentCourse.name;
+        this.description = this.currentCourse.description;
+        this.duration = this.currentCourse.length;
+        this.date = this.currentCourse.date;
+      }
+    });
+  }
 
   saveCourse(): void {
-    const newCourse: Course = {
-      id: 7,
-      name: this.title,
-      date: this.date,
-      length: this.duration,
-      description: this.description,
-    };
-
-    console.log('Save new Course');
-    console.log(newCourse);
+    if (this.id > 0) {
+      const editCourse: Course = {
+        ...this.currentCourse,
+        name: this.title,
+        date: this.date,
+        length: this.duration,
+        description: this.description,
+      };
+      this.coursesService.updateCourse(editCourse);
+    } else {
+      const newCourse: Course = {
+        id: 7,
+        name: this.title,
+        date: this.date,
+        length: this.duration,
+        description: this.description,
+      };
+      this.coursesService.addToCourses(newCourse);
+    }
+    this.router.navigate(['/courses']);
   }
 
   close(): void {
-    console.log('Close page');
+    this.router.navigate(['/courses']);
   }
 }
