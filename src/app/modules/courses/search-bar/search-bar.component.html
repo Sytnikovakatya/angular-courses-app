@@ -1,0 +1,17 @@
+<div class="search-bar mx-5 mt-5">
+  <div class="row">
+    <form class="d-flex" role="search">
+      <app-input [placeholder]="'Type to search'" [type]="'search'" [(bindModelData)]="search"></app-input>
+      <app-button
+        [text]="'Search'"
+        [class]="'btn btn-outline-success search-btn'"
+        [type]="'submit'"
+        (click)="searchClick(search)"
+      ></app-button>
+    </form>
+  </div>
+  <p class="text-end">
+    <app-button [text]="'Add course'" [fontawesome]="'fa-solid fa-plus'" (click)="addCourse()"></app-button>
+  </p>
+</div>
+
