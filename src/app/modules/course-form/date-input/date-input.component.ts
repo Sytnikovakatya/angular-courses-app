@@ -8,6 +8,7 @@ import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from 
 })
 export class DateInputComponent {
   @Input() class: string = 'form-control';
+  @Input() value = '';
   @Input() bindModelData: string;
   @Output() bindModelDataChange = new EventEmitter<string>();
 

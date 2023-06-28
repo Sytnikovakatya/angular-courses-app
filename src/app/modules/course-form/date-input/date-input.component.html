@@ -3,5 +3,5 @@
         <label class="mb-2 fw-bolder">Date:</label>
             <span>*required</span>
     </div>
-    <input [class]="class" type="date" [ngModel]="bindModelData" (ngModelChange)="updateData($event)"/>
+    <input [class]="class" [value]="value" type="date" [ngModel]="bindModelData" (ngModelChange)="updateData($event)"/>
 </div>
