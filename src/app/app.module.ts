@@ -6,10 +6,12 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+import { BreadcrumbModule } from 'xng-breadcrumb';
+import { BreadcrumbService } from 'xng-breadcrumb';
+
 import { SharedModule } from '@shared/shared.module';
 import { CoreModule } from './core/core.module';
 
-import { SearchBarModule } from '@components/search-bar/search-bar.module';
 import { LoginModule } from '@components/login/login.module';
 import { CourseFormModule } from '@components/course-form/course-form.module';
 import { CoursesModule } from '@components/courses/courses.module';
@@ -24,15 +26,15 @@ import { AppComponent } from './app.component';
     AppRoutingModule,
     NgbModule,
     FormsModule,
+    BreadcrumbModule,
     CoreModule,
     SharedModule,
-    SearchBarModule,
     LoginModule,
-    CourseFormModule,
     CoursesModule,
+    CourseFormModule,
     BreadcrumbsModule,
   ],
-  providers: [],
+  providers: [BreadcrumbService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
