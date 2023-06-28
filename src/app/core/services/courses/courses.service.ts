@@ -20,15 +20,15 @@ export class CoursesService {
     }
   }
 
-  getCourseById(id: number): void {
+  getCourseById(id: number): Course {
     const chosenCourse = courses.filter((course: Course) => course.id === id);
-    console.log(chosenCourse[0]);
+    return chosenCourse[0];
   }
 
   updateCourse(item: Course): void {
     courses.forEach((course, index) => {
       if (course.id === item.id) {
-        courses[index] = { ...course, name: 'New name', description: 'New Description' };
+        courses[index] = item;
       }
     });
   }
