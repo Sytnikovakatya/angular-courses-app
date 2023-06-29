@@ -9,15 +9,19 @@ export class AuthService {
   private isAuthentificated: Subject<boolean> = new Subject();
   public isAuthentificated$: Observable<boolean> = this.isAuthentificated.asObservable();
 
+  get loggedInUser(): string | null {
+    const user = localStorage.getItem('name');
+    return user;
+  }
+
   login(userEmail: string): void {
     if (userEmail) {
       localStorage.setItem('name', userEmail);
       localStorage.setItem('authenticated', 'true');
+      this.isAuthentificated.next(true);
     } else {
       window.alert('Please, enter your email and password');
     }
-
-    this.isAuthentificated.next(true);
   }
 
   logout(): void {
@@ -30,9 +34,5 @@ export class AuthService {
   isAuthenticated(): boolean {
     const authenticated = localStorage.getItem('authenticated') === 'true';
     return authenticated;
-  }
-
-  getUserInfo(): string | null {
-    return localStorage.getItem('name');
   }
 }
