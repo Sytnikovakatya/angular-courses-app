@@ -11,8 +11,6 @@ export class AuthService {
 
   login(userEmail: string): void {
     if (userEmail) {
-      console.log('Logged in successful!');
-
       localStorage.setItem('name', userEmail);
       localStorage.setItem('authenticated', 'true');
     } else {
