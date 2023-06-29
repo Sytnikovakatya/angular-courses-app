@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { AuthService } from '@services/authentication/auth.service';
 
@@ -12,10 +13,10 @@ export class LoginComponent {
   email = '';
   password = '';
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   login(email: string): void {
     this.authService.login(email);
-    window.location.reload();
+    this.router.navigate(['/courses']);
   }
 }
