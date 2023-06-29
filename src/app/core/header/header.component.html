@@ -3,8 +3,8 @@
     <a class="navbar-brand">
       <app-logo></app-logo>
     </a>
-    <div class="d-flex" *appIfAuthenticated="authentificated">
-      <span class="user-login"> <i class="fa-solid fa-user"></i> {{user}} </span>
+    <div class="d-flex" *appIfAuthenticated="authenticated">
+      <span class="user-login"> <i class="fa-solid fa-user"></i> {{authService.loggedInUser}} </span>
       <span>
         <app-button
           [text]="'Log out'"
