@@ -9,19 +9,17 @@ import { AuthService } from '@services/authentication/auth.service';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-  user: string | null = '';
-  authentificated = false;
+  user = '';
+  authenticated = false;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(public authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
-    this.authentificated = this.authService.isAuthenticated();
-    this.user = this.authService.getUserInfo();
+    this.authService.isAuthentificated$.subscribe(authenticated => (this.authenticated = authenticated));
   }
 
   logout(): void {
     this.authService.logout();
-    this.authentificated = !this.authentificated;
     this.router.navigate(['/login']);
   }
 }
