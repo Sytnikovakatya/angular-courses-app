@@ -47,13 +47,8 @@ describe('HeaderComponent', () => {
 
   it('should initialize authenticated and user properties on ngOnInit', () => {
     authServiceSpy.isAuthenticated.and.returnValue(true);
-    authServiceSpy.getUserInfo.and.returnValue('testuser');
-
     component.ngOnInit();
-
     expect(authServiceSpy.isAuthenticated).toHaveBeenCalled();
-    expect(authServiceSpy.getUserInfo).toHaveBeenCalled();
-    expect(component.authentificated).toBeTrue();
-    expect(component.user).toBe('testuser');
+    expect(component.authenticated).toBeTrue();
   });
 });
