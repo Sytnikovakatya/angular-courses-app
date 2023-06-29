@@ -94,7 +94,7 @@ describe('AuthService', () => {
       const userEmail = 'test@example.com';
       localStorage.setItem('name', userEmail);
 
-      const result = service.getUserInfo();
+      const result = service.loggedInUser;
 
       expect(result).toBe(userEmail);
     });
@@ -102,7 +102,7 @@ describe('AuthService', () => {
     it('should return null if user info is not available in local storage', () => {
       localStorage.removeItem('name');
 
-      const result = service.getUserInfo();
+      const result = service.loggedInUser;
 
       expect(result).toBeNull();
     });
