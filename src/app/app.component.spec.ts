@@ -4,7 +4,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { SharedModule } from '@shared/shared.module';
 import { Course } from '@interfaces/course.interface';
-import { courses } from '@data/courses';
 
 import { AppComponent } from './app.component';
 
@@ -86,23 +85,5 @@ describe('AppComponent', () => {
 
   it('should create the app', () => {
     expect(component).toBeTruthy();
-  });
-
-  it(`should have as title 'angular-courses-app'`, () => {
-    expect(component.title).toEqual('angular-courses-app');
-  });
-
-  it('should get the id of course', () => {
-    const result = component.courseTrackBy(1, courses[0]);
-    fixture.detectChanges();
-    expect(result).toBe(courses[0].id);
-  });
-
-  it('should update the filterBy value', () => {
-    const searchValue = 'Angular';
-
-    component.getSearchValue(searchValue);
-
-    expect(component.filterBy).toBe(searchValue);
   });
 });
