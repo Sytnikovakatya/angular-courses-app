@@ -10,14 +10,12 @@ import { AuthService } from '@services/authentication/auth.service';
   styleUrls: ['./course-list.component.css'],
 })
 export class CourseListComponent implements OnInit {
-  authentificated = false;
   filterBy = '';
   courses: Course[] = [];
 
   constructor(private coursesService: CoursesService, private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.authentificated = this.authService.isAuthenticated();
     this.courses = this.coursesService.getCourses();
   }
 
