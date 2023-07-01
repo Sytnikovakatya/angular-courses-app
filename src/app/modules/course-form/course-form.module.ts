@@ -14,6 +14,6 @@ import { DateInputComponent } from './date-input/date-input.component';
 @NgModule({
   declarations: [AddCourseComponent, AuthorsComponent, DurationComponent, DateInputComponent],
   imports: [CommonModule, SharedModule, FormsModule, CourseFormRoutingModule],
-  exports: [AddCourseComponent, AuthorsComponent, DurationComponent],
+  exports: [AddCourseComponent],
 })
 export class CourseFormModule {}
