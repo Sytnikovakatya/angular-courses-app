@@ -4,7 +4,7 @@
       <app-logo></app-logo>
     </a>
     <div class="d-flex" *appIfAuthenticated="authenticated">
-      <span class="user-login"> <i class="fa-solid fa-user"></i> {{authService.loggedInUser}} </span>
+      <span class="user-login"> <i class="fa-solid fa-user"></i> {{authService.user|async}} </span>
       <span>
         <app-button
           [text]="'Log out'"

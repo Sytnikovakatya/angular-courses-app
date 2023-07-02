@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AuthService } from '@services/authentication/auth.service';
@@ -9,7 +9,6 @@ import { AuthService } from '@services/authentication/auth.service';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-  user = '';
   authenticated = false;
 
   constructor(public authService: AuthService, private router: Router) {}
