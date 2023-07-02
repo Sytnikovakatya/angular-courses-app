@@ -1,25 +1,26 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { authGuard } from './core/guards/auth.guard';
+import { authGuard } from '@core/guards/auth.guard';
+
+import { NotFoundComponent } from '@shared/components/not-found/not-found.component';
+import { RoutePaths } from '@shared/enums/route-paths';
 
 import { LoginComponent } from '@components/login/login/login.component';
 
-import { NotFoundComponent } from '@shared/components/not-found/not-found.component';
-
 const routes: Routes = [
   { path: '', redirectTo: 'courses', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent },
+  { path: RoutePaths.Login, component: LoginComponent },
   {
-    path: 'courses',
+    path: RoutePaths.Courses,
     loadChildren: () => import('./modules/courses/courses.module').then(m => m.CoursesModule),
     canMatch: [authGuard],
   },
   {
-    path: 'courses/:id',
+    path: RoutePaths.EditCourse,
     loadChildren: () => import('./modules/course-form/course-form.module').then(m => m.CourseFormModule),
   },
   {
-    path: 'courses/new',
+    path: RoutePaths.NewCourse,
     loadChildren: () => import('./modules/course-form/course-form.module').then(m => m.CourseFormModule),
   },
 
