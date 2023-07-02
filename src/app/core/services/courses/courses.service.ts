@@ -20,9 +20,8 @@ export class CoursesService {
     }
   }
 
-  getCourseById(id: number): Course {
-    const chosenCourse = courses.filter((course: Course) => course.id === id);
-    return chosenCourse[0];
+  getCourseById(id: number): Course | undefined {
+    return courses.find((course: Course) => course.id === id);
   }
 
   updateCourse(item: Course): void {
