@@ -1,0 +1,40 @@
+<div class="course-card">
+  <div
+    class="card m-5 shadow p-3 mb-5 rounded"
+    [ngClass]="{ 'special-card': isTopRated }"
+    [appHighlight]="course.date"
+  >
+    <div class="card-body">
+      <div class="row">
+        <div class="col-8">
+           <h5 class="card-title fs-3" (click)="isTopRated = !isTopRated">
+            Video Course {{ course.id }}. {{ course.name | uppercase }}
+            <i class="fa-sharp fa-solid fa-star fa-2xs"
+              [class.topRated]="isTopRated"
+            ></i>
+          </h5>
+        </div>
+        <div class="col-4 text-end">
+          <span class="card-text me-5"
+            ><small class="text-muted card-duration"><i class="fa-regular fa-clock"></i> {{ course.length | duration }} </small></span
+          >
+          <span class="card-text"
+            ><small class="text-muted card-date"
+              ><i class="fa-regular fa-calendar"></i> {{ course.date | date : 'd MMM y' }}</small
+            ></span
+          >
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-8 col-md-10">
+          <p class="card-text card-description">{{ course.description }}</p>
+        </div>
+        <div class="col-2 text-end">
+          <app-button [text]="'Edit'" [fontawesome]="'fa-sharp fa-solid fa-pen'" (click)="editCourse(course)"></app-button>
+          <app-button [text]="'Delete'" [fontawesome]="'fa-solid fa-trash'" (click)="delete(course.id)"></app-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,18 +1,9 @@
 <app-header></app-header>
-<div class="bg-light" *appIfAuthenticated="authentificated">
-  <app-breadcrumbs></app-breadcrumbs>
-  <app-search-bar (newSearchEvent)="getSearchValue($event)"></app-search-bar>
-  <ng-container *ngIf="courses.length > 0; else noCourses">
-    <app-course-card *ngFor="let course of courses |filter:filterBy |orderBy ; index as i; trackBy: courseTrackBy" [course]="course">
-    </app-course-card>
-    <app-loader></app-loader>
-  </ng-container>
-  <ng-template #noCourses>
-    <p class="text-center font-monospace fs-4 card m-5 shadow p-5 mb-5 rounded">
-      No data! <br />Feel free to add new course
-    </p>
-  </ng-template>
+<div [ngClass]="{ 'bg-light': authenticated }">
+  <div *appIfAuthenticated="authenticated">
+    <app-breadcrumbs></app-breadcrumbs>
+  </div>
+  <router-outlet></router-outlet>
 </div>
-<app-login *appIfAuthenticated="!authentificated"></app-login>
 <app-footer></app-footer>
 

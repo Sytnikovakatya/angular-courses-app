@@ -1,0 +1,7 @@
+<div class="form-group">
+    <div class="d-flex justify-content-between">
+        <label class="mb-2 fw-bolder">Date:</label>
+            <span>*required</span>
+    </div>
+    <input [class]="class" [value]="value" type="date" [ngModel]="bindModelData" (ngModelChange)="updateData($event)"/>
+</div>

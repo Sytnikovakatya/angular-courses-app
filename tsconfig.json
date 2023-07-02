@@ -19,13 +19,14 @@
     "target": "ES2022",
     "module": "ES2022",
     "paths": {
-      "@components/*":["app/components/*"],
+      "@components/*":["app/modules/*"],
       "@shared/*":["app/shared/*"],
-      "@interfaces/*":["app/interfaces/*"],
-      "@data/*":["app/data/*"],
-      "@pipes/*":["app/pipes/*"],
-      "@directives/*":["app/directives/*"],
-      "@services/*":["app/services/*"]
+      "@interfaces/*":["app/shared/interfaces/*"],
+      "@data/*":["app/core/data/*"],
+      "@pipes/*":["app/shared/pipes/*"],
+      "@directives/*":["app/shared/directives/*"],
+      "@services/*":["app/core/services/*"],
+      "@core/*":["app/core/*"]
     },
     "useDefineForClassFields": false,
     "strictPropertyInitialization": false,

@@ -3,60 +3,34 @@ import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { ButtonComponent } from '@shared/button/button.component';
-import { InputComponent } from '@shared/input/input.component';
-import { DateInputComponent } from '@shared/date-input/date-input.component';
+import { BreadcrumbModule } from 'xng-breadcrumb';
+import { BreadcrumbService } from 'xng-breadcrumb';
 
-import { HighlightDirective } from '@directives/hightlight/highlight.directive';
-import { IfAuthenticatedDirective } from '@directives/ifAuthenticated/if-authenticated.directive';
+import { SharedModule } from '@shared/shared.module';
+import { CoreModule } from '@core/core.module';
 
-import { DurationPipe } from '@pipes/duration/duration.pipe';
-import { OrderByPipe } from '@pipes/orderBy/order-by.pipe';
-import { FilterPipe } from '@pipes/filter/filter.pipe';
+import { LoginModule } from '@components/login/login.module';
+import { BreadcrumbsModule } from '@components/breadcrumbs/breadcrumbs.module';
 
-import { BreadcrumbsComponent } from '@components/breadcrumbs/breadcrumbs.component';
-import { CourseCardComponent } from '@components/course-card/course-card.component';
-import { FooterComponent } from '@components/footer/footer.component';
-import { HeaderComponent } from '@components/header/header.component';
-import { LogoComponent } from '@components/logo/logo.component';
-import { LoaderComponent } from '@components/loader/loader.component';
-import { SearchBarComponent } from '@components/search-bar/search-bar.component';
-import { LoginComponent } from '@components/login/login.component';
-import { DeleteModalComponent } from '@components/delete-modal/delete-modal.component';
-import { AddCourseComponent } from '@components/add-course/add-course.component';
-import { AuthorsComponent } from '@components/authors/authors.component';
-import { DurationComponent } from '@components/duration/duration.component';
+import { AppComponent } from './app.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HeaderComponent,
-    BreadcrumbsComponent,
-    FooterComponent,
-    SearchBarComponent,
-    CourseCardComponent,
-    LogoComponent,
-    ButtonComponent,
-    InputComponent,
-    LoaderComponent,
-    HighlightDirective,
-    DurationPipe,
-    OrderByPipe,
-    FilterPipe,
-    LoginComponent,
-    DeleteModalComponent,
-    IfAuthenticatedDirective,
-    AddCourseComponent,
-    DateInputComponent,
-    AuthorsComponent,
-    DurationComponent,
+  declarations: [AppComponent],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    NgbModule,
+    FormsModule,
+    BreadcrumbModule,
+    CoreModule,
+    SharedModule,
+    LoginModule,
+    BreadcrumbsModule,
   ],
-  imports: [BrowserModule, AppRoutingModule, NgbModule, FormsModule],
-  providers: [],
+  providers: [BreadcrumbService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
