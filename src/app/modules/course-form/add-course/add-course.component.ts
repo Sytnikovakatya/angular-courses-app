@@ -13,7 +13,6 @@ import { CoursesService } from '@services/courses/courses.service';
 export class AddCourseComponent implements OnInit {
   currentCourse: Course;
 
-  id = 0;
   title = '';
   description = '';
   duration: number;
@@ -28,7 +27,6 @@ export class AddCourseComponent implements OnInit {
         const findCourse = this.coursesService.getCourseById(+id);
         if (findCourse) {
           this.currentCourse = findCourse;
-          this.id = this.currentCourse.id;
           this.title = this.currentCourse.name;
           this.description = this.currentCourse.description;
           this.duration = this.currentCourse.length;
@@ -39,7 +37,8 @@ export class AddCourseComponent implements OnInit {
   }
 
   saveCourse(): void {
-    if (this.id > 0) {
+    const idParam = this.route.snapshot.paramMap.get('id');
+    if (idParam !== 'new') {
       const editCourse: Course = {
         ...this.currentCourse,
         name: this.title,
