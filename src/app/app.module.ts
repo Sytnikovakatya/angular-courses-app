@@ -10,7 +10,7 @@ import { BreadcrumbModule } from 'xng-breadcrumb';
 import { BreadcrumbService } from 'xng-breadcrumb';
 
 import { SharedModule } from '@shared/shared.module';
-import { CoreModule } from './core/core.module';
+import { CoreModule } from '@core/core.module';
 
 import { LoginModule } from '@components/login/login.module';
 import { BreadcrumbsModule } from '@components/breadcrumbs/breadcrumbs.module';
