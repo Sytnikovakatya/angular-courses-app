@@ -13,8 +13,6 @@ import { SharedModule } from '@shared/shared.module';
 import { CoreModule } from './core/core.module';
 
 import { LoginModule } from '@components/login/login.module';
-import { CourseFormModule } from '@components/course-form/course-form.module';
-import { CoursesModule } from '@components/courses/courses.module';
 import { BreadcrumbsModule } from '@components/breadcrumbs/breadcrumbs.module';
 
 import { AppComponent } from './app.component';
@@ -30,8 +28,6 @@ import { AppComponent } from './app.component';
     CoreModule,
     SharedModule,
     LoginModule,
-    CoursesModule,
-    CourseFormModule,
     BreadcrumbsModule,
   ],
   providers: [BreadcrumbService],
