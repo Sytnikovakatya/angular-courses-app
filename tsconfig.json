@@ -25,7 +25,8 @@
       "@data/*":["app/core/data/*"],
       "@pipes/*":["app/shared/pipes/*"],
       "@directives/*":["app/shared/directives/*"],
-      "@services/*":["app/core/services/*"]
+      "@services/*":["app/core/services/*"],
+      "@core/*":["app/core/*"]
     },
     "useDefineForClassFields": false,
     "strictPropertyInitialization": false,
