@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Course } from '@shared/interfaces/course.interface';
-import { courses } from '@data/courses';
 
 import { CoursesService } from '@services/courses/courses.service';
 
@@ -26,13 +25,15 @@ export class AddCourseComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       let id = params.get('id');
       if (id && id !== 'new') {
-        this.currentCourse = this.coursesService.getCourseById(+id);
-
-        this.id = this.currentCourse.id;
-        this.title = this.currentCourse.name;
-        this.description = this.currentCourse.description;
-        this.duration = this.currentCourse.length;
-        this.date = this.currentCourse.date;
+        const findCourse = this.coursesService.getCourseById(+id);
+        if (findCourse) {
+          this.currentCourse = findCourse;
+          this.id = this.currentCourse.id;
+          this.title = this.currentCourse.name;
+          this.description = this.currentCourse.description;
+          this.duration = this.currentCourse.length;
+          this.date = this.currentCourse.date;
+        }
       }
     });
   }
