@@ -5,8 +5,6 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { Course } from '@shared/interfaces/course.interface';
 
-import { CoursesService } from '@services/courses/courses.service';
-
 import { DeleteModalComponent } from '../delete-modal/delete-modal.component';
 
 @Component({
@@ -20,10 +18,9 @@ export class CourseCardComponent {
 
   isTopRated = false;
 
-  constructor(private modalService: NgbModal, public coursesService: CoursesService, private router: Router) {}
+  constructor(private modalService: NgbModal, private router: Router) {}
 
   editCourse(course: Course): void {
-    this.coursesService.getCourseById(course.id);
     this.router.navigate(['/courses', course.id]);
   }
 
