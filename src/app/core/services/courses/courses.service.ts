@@ -40,12 +40,8 @@ export class CoursesService {
     return this.http.patch<Course>(this.apiUrl + `/${id}`, course, this.httpOptions).pipe(catchError(this.handleError));
   }
 
-  removeCourse(id: number): void {
-    courses.forEach((course, index) => {
-      if (course.id === id) {
-        courses.splice(index, 1);
-      }
-    });
+  removeCourse(id: number): Observable<Course> {
+    return this.http.delete<Course>(this.apiUrl + `/${id}`).pipe(catchError(this.handleError));
   }
 
   handleError(error: { error: { message: string }; status: number }) {
