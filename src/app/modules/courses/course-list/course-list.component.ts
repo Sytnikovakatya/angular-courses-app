@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Course } from '@interfaces/course.interface';
 
 import { CoursesService } from '@services/courses/courses.service';
-import { AuthService } from '@services/authentication/auth.service';
 
 @Component({
   selector: 'app-course-list',
@@ -13,7 +12,7 @@ export class CourseListComponent implements OnInit {
   filterBy = '';
   courses: Course[] = [];
 
-  constructor(private coursesService: CoursesService, private authService: AuthService) {}
+  constructor(private coursesService: CoursesService) {}
 
   ngOnInit(): void {
     this.coursesService.getCourses().subscribe(courses => (this.courses = courses));
