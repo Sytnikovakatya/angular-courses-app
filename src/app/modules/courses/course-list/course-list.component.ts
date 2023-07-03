@@ -16,7 +16,7 @@ export class CourseListComponent implements OnInit {
   constructor(private coursesService: CoursesService, private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.courses = this.coursesService.getCourses();
+    this.coursesService.getCourses().subscribe(courses => (this.courses = courses));
   }
 
   courseTrackBy(index: number, course: Course): number {
