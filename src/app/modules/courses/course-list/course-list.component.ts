@@ -9,6 +9,7 @@ import { CoursesService } from '@services/courses/courses.service';
   styleUrls: ['./course-list.component.css'],
 })
 export class CourseListComponent implements OnInit {
+  amountOfCourses = 5;
   filterBy = '';
   courses: Course[] = [];
 
@@ -24,5 +25,10 @@ export class CourseListComponent implements OnInit {
 
   getSearchValue(newValue: string): string {
     return (this.filterBy = newValue);
+  }
+
+  load(): void {
+    this.amountOfCourses += 5;
+    this.coursesService.loadMoreCourses(this.amountOfCourses).subscribe(courses => (this.courses = courses));
   }
 }
