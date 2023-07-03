@@ -16,8 +16,7 @@ export class DeleteModalComponent {
   constructor(public activeModal: NgbActiveModal, private coursesService: CoursesService) {}
 
   delete(id: number): void {
-    this.coursesService.removeCourse(id);
-
+    this.coursesService.removeCourse(id).subscribe();
     this.activeModal.close('Confirm click');
   }
 }
