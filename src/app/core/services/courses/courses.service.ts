@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable, catchError, throwError } from 'rxjs';
 
@@ -12,6 +12,11 @@ import { courses } from '@data/courses';
 })
 export class CoursesService {
   private apiUrl = 'http://localhost:3004/courses';
+
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+  };
+
   constructor(private http: HttpClient) {}
 
   getCourses(): Observable<Course[]> {
@@ -31,13 +36,8 @@ export class CoursesService {
     return this.http.get<Course>(this.apiUrl + `/${id}`).pipe(catchError(this.handleError));
   }
 
-  updateCourse(item: Course): void {
-    courses.forEach((course, index) => {
-      if (course.id === item.id) {
-        //courses[index] = item;
-        console.log(item);
-      }
-    });
+  updateCourse(id: number, course: Course): Observable<Course> {
+    return this.http.patch<Course>(this.apiUrl + `/${id}`, course, this.httpOptions).pipe(catchError(this.handleError));
   }
 
   removeCourse(id: number): void {
