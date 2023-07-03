@@ -6,6 +6,6 @@ export interface Course {
   date: string;
   length: number;
   description: string;
-  authors: Author[];
-  isTopRated: boolean;
+  authors?: Author[];
+  isTopRated?: boolean;
 }
