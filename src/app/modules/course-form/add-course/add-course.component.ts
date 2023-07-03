@@ -11,29 +11,25 @@ import { CoursesService } from '@services/courses/courses.service';
   styleUrls: ['./add-course.component.css'],
 })
 export class AddCourseComponent implements OnInit {
-  currentCourse: Course;
-
-  title = '';
-  description = '';
-  duration: number;
-  date = new Date().toDateString();
+  course: Course = {
+    id: 0,
+    name: '',
+    description: '',
+    length: 0,
+    date: '',
+  };
 
   constructor(private route: ActivatedRoute, private router: Router, private coursesService: CoursesService) {}
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(params => {
-      let id = params.get('id');
-      if (id && id !== 'new') {
-        const findCourse = this.coursesService.getCourseById(+id);
-        if (findCourse) {
-          this.currentCourse = findCourse;
-          this.title = this.currentCourse.name;
-          this.description = this.currentCourse.description;
-          this.duration = this.currentCourse.length;
-          this.date = this.currentCourse.date;
-        }
-      }
-    });
+    this.getCourse();
+  }
+
+  getCourse(): void {
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id && id !== 'new') {
+      this.coursesService.getCourseById(+id).subscribe(course => (this.course = course));
+    }
   }
 
   saveCourse(): void {

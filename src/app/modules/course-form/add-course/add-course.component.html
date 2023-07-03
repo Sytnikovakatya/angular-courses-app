@@ -10,7 +10,7 @@
                             <label class="mb-2 fw-bolder">Title:</label>
                             <span>*required</span>
                             </div>
-                            <app-input [placeholder]="'Enter title'" [(bindModelData)]="title"></app-input>
+                            <app-input [placeholder]="'Enter title'" [(bindModelData)]="course.name"></app-input>
                         </div>
                     </div>
                     <div class="col-md-12">
@@ -20,7 +20,7 @@
                                 <span>*required</span>
                             </div>
                             <div class="form-floating">
-                                <textarea class="form-control" placeholder="Add description" id="floatingTextarea2" [(ngModel)]="description" name="description"></textarea>
+                                <textarea class="form-control" placeholder="Add description" id="floatingTextarea2" [(ngModel)]="course.description" name="description"></textarea>
                                 <label for="floatingTextarea2">Add description</label>
                             </div>
                         </div>
@@ -28,12 +28,12 @@
               </div>
               <div class="row my-2">
                    <div class="col-md-8">
-                        <app-duration [(bindModelData)]="duration"></app-duration>
+                        <app-duration [(bindModelData)]="course.length"></app-duration>
                     </div>
               </div>
                    <div class="row my-2">
                    <div class="col-md-4">
-                        <app-date-input [(bindModelData)]="date" [value]="date"></app-date-input>
+                        <app-date-input [(bindModelData)]="course.date"></app-date-input>
                     </div>
               </div>
                    <div class="row mb-3">
