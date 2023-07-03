@@ -23,6 +23,10 @@ export class CoursesService {
     return this.http.get<Course[]>(this.apiUrl + '?start=0&count=5').pipe(catchError(this.handleError));
   }
 
+  loadMoreCourses(amount: number): Observable<Course[]> {
+    return this.http.get<Course[]>(this.apiUrl + `?start=0&count=${amount}`);
+  }
+
   addToCourses(newItem: Course): void {
     if (courses.some(course => course.id === newItem.id)) {
       window.alert('This Video course already exists!');
