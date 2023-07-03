@@ -2,7 +2,7 @@
   <ng-container *ngIf="courses.length > 0; else noCourses">
     <app-course-card *ngFor="let course of courses |filter:filterBy |orderBy ; index as i; trackBy: courseTrackBy" [course]="course">
     </app-course-card>
-    <app-loader></app-loader>
+    <app-loader (newLoadEvent)="load()"></app-loader>
   </ng-container>
   <ng-template #noCourses>
     <p class="text-center font-monospace fs-4 card m-5 shadow p-5 mb-5 rounded">
