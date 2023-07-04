@@ -10,7 +10,6 @@ import { CoursesService } from '@services/courses/courses.service';
 })
 export class CourseListComponent implements OnInit {
   amountOfCourses = 5;
-  filterBy = '';
   courses: Course[] = [];
 
   constructor(private coursesService: CoursesService) {}
@@ -23,8 +22,8 @@ export class CourseListComponent implements OnInit {
     return course.id;
   }
 
-  getSearchValue(newValue: string): string {
-    return (this.filterBy = newValue);
+  getSearchValue(newValue: string): void {
+    this.coursesService.searchCourse(newValue).subscribe(courses => (this.courses = courses));
   }
 
   load(): void {
