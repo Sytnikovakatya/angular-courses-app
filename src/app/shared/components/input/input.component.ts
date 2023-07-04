@@ -10,7 +10,6 @@ export class InputComponent {
   @Input() placeholder = '';
   @Input() class: string = 'form-control';
   @Input() type: string = 'text';
-  @Input() value = 'hello everyone';
   @Input() id = '';
 
   @Input() bindModelData: string;
