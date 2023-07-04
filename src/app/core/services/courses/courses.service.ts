@@ -22,7 +22,11 @@ export class CoursesService {
   }
 
   loadMoreCourses(amount: number): Observable<Course[]> {
-    return this.http.get<Course[]>(this.apiUrl + `?start=0&count=${amount}`);
+    return this.http.get<Course[]>(this.apiUrl + `?start=0&count=${amount}`).pipe(catchError(this.handleError));
+  }
+
+  searchCourse(term: string): Observable<Course[]> {
+    return this.http.get<Course[]>(this.apiUrl + `?textFragment=${term}`).pipe(catchError(this.handleError));
   }
 
   createCourse(newItem: unknown): Observable<Course> {
