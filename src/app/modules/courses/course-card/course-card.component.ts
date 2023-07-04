@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -14,6 +14,7 @@ import { DeleteModalComponent } from '../delete-modal/delete-modal.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CourseCardComponent {
+  @Output() newDeleteEvent = new EventEmitter<string>();
   @Input() course: Course;
 
   isTopRated = false;
@@ -25,7 +26,11 @@ export class CourseCardComponent {
   }
 
   delete(id: number): void {
-    const modalRef = this.modalService.open(DeleteModalComponent);
+    const modalRef = this.modalService.open(DeleteModalComponent, { centered: true });
     modalRef.componentInstance.id = id;
+
+    modalRef.result.then(() => {
+      this.newDeleteEvent.emit(id.toString());
+    });
   }
 }
