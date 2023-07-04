@@ -2,8 +2,6 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { CoursesService } from '@services/courses/courses.service';
-
 @Component({
   selector: 'app-delete-modal',
   templateUrl: './delete-modal.component.html',
@@ -13,10 +11,9 @@ import { CoursesService } from '@services/courses/courses.service';
 export class DeleteModalComponent {
   @Input() id: number;
 
-  constructor(public activeModal: NgbActiveModal, private coursesService: CoursesService) {}
+  constructor(public activeModal: NgbActiveModal) {}
 
-  delete(id: number): void {
-    this.coursesService.removeCourse(id).subscribe();
-    this.activeModal.close('Confirm click');
+  delete(): void {
+    this.activeModal.close(this.id);
   }
 }
