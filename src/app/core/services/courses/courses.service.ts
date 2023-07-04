@@ -5,8 +5,6 @@ import { Observable, catchError, throwError } from 'rxjs';
 
 import { Course } from '@shared/interfaces/course.interface';
 
-import { courses } from '@data/courses';
-
 @Injectable({
   providedIn: 'root',
 })
@@ -27,13 +25,8 @@ export class CoursesService {
     return this.http.get<Course[]>(this.apiUrl + `?start=0&count=${amount}`);
   }
 
-  addToCourses(newItem: Course): void {
-    if (courses.some(course => course.id === newItem.id)) {
-      window.alert('This Video course already exists!');
-    } else {
-      //courses.push(newItem);
-      console.log(newItem);
-    }
+  createCourse(newItem: unknown): Observable<Course> {
+    return this.http.post<Course>(this.apiUrl, newItem).pipe(catchError(this.handleError));
   }
 
   getCourseById(id: number): Observable<Course> {
