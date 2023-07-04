@@ -11,12 +11,17 @@ import { CoursesService } from '@services/courses/courses.service';
   styleUrls: ['./add-course.component.css'],
 })
 export class AddCourseComponent implements OnInit {
+  id = this.route.snapshot.paramMap.get('id');
+  author = '';
+
   course: Course = {
     id: 0,
     name: '',
     description: '',
     length: 0,
-    date: '',
+    date: new Date().toDateString(),
+    authors: [],
+    isTopRated: false,
   };
 
   constructor(private route: ActivatedRoute, private router: Router, private coursesService: CoursesService) {}
@@ -26,34 +31,19 @@ export class AddCourseComponent implements OnInit {
   }
 
   getCourse(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id && id !== 'new') {
-      this.coursesService.getCourseById(+id).subscribe(course => (this.course = course));
+    if (this.id && this.id !== 'new') {
+      this.coursesService.getCourseById(+this.id).subscribe(course => (this.course = course));
     }
   }
 
   saveCourse(): void {
-    const idParam = this.route.snapshot.paramMap.get('id');
-    if (idParam !== 'new') {
-      const editCourse: Course = {
-        ...this.currentCourse,
-        name: this.title,
-        date: this.date,
-        length: this.duration,
-        description: this.description,
-      };
-      this.coursesService.updateCourse(editCourse);
+    this.course.authors = this.author ? [{ id: 1, name: this.author }] : [];
+
+    if (this.id && this.id !== 'new') {
+      this.coursesService.updateCourse(+this.id, this.course).subscribe(() => this.router.navigate(['/courses']));
     } else {
-      const newCourse: Course = {
-        id: 7,
-        name: this.title,
-        date: this.date,
-        length: this.duration,
-        description: this.description,
-      };
-      this.coursesService.addToCourses(newCourse);
+      this.coursesService.createCourse(this.course).subscribe(() => this.router.navigate(['/courses']));
     }
-    this.router.navigate(['/courses']);
   }
 
   close(): void {
