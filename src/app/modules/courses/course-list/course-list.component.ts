@@ -36,7 +36,7 @@ export class CourseListComponent implements OnInit {
     this.coursesService.loadMoreCourses(this.amountOfCourses).subscribe(courses => (this.courses = courses));
   }
 
-  deleteCourse(id: string) {
+  deleteCourse(id: string): void {
     this.courses = this.courses.filter(course => course.id !== +id);
     this.coursesService.removeCourse(+id).subscribe();
   }

@@ -8,7 +8,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 export class LoaderComponent {
   @Output() newLoadEvent = new EventEmitter();
 
-  load() {
+  load(): void {
     this.newLoadEvent.emit();
   }
 }

@@ -26,7 +26,7 @@ export class SearchBarComponent {
     this.router.navigate(['/courses/new']);
   }
 
-  changeSortValue(select: NgForm) {
+  changeSortValue(select: NgForm): void {
     this.newSortEvent.emit(select.value.value);
   }
 }
