@@ -29,6 +29,10 @@ export class CoursesService {
     return this.http.get<Course[]>(this.apiUrl + `?textFragment=${term}`).pipe(catchError(this.handleError));
   }
 
+  orderCourses(value: string): Observable<Course[]> {
+    return this.http.get<Course[]>(this.apiUrl + `?sort=${value}`).pipe(catchError(this.handleError));
+  }
+
   createCourse(newItem: unknown): Observable<Course> {
     return this.http.post<Course>(this.apiUrl, newItem).pipe(catchError(this.handleError));
   }
