@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { Output, EventEmitter } from '@angular/core';
 
-import { ActivatedRoute, Router } from '@angular/router';
+import { NgForm } from '@angular/forms';
 
-import { CoursesService } from '@services/courses/courses.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-search-bar',
@@ -12,17 +12,21 @@ import { CoursesService } from '@services/courses/courses.service';
 })
 export class SearchBarComponent {
   @Output() newSearchEvent = new EventEmitter<string>();
+  @Output() newSortEvent = new EventEmitter<string>();
 
   search = '';
 
-  constructor(private coursesService: CoursesService, private router: Router, private route: ActivatedRoute) {}
+  constructor(private router: Router, private route: ActivatedRoute) {}
 
   searchClick(value: string): void {
     this.newSearchEvent.emit(value);
   }
 
   addCourse(): void {
-    this.router.navigate(['new'], { relativeTo: this.route });
-    //this.router.navigate(['/courses/new']);
+    this.router.navigate(['/courses/new']);
+  }
+
+  changeSortValue(select: NgForm) {
+    this.newSortEvent.emit(select.value.value);
   }
 }
