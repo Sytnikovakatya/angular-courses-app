@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+
 import { Course } from '@interfaces/course.interface';
 
 import { CoursesService } from '@services/courses/courses.service';
@@ -24,6 +25,10 @@ export class CourseListComponent implements OnInit {
 
   getSearchValue(newValue: string): void {
     this.coursesService.searchCourse(newValue).subscribe(courses => (this.courses = courses));
+  }
+
+  getSortValue(value: string): void {
+    this.coursesService.orderCourses(value).subscribe(courses => (this.courses = courses));
   }
 
   load(): void {
