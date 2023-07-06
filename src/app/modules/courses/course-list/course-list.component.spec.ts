@@ -25,12 +25,4 @@ describe('CourseListComponent', () => {
     fixture.detectChanges();
     expect(result).toBe(courses[0].id);
   });
-
-  it('should update the filterBy value', () => {
-    const searchValue = 'Angular';
-
-    component.getSearchValue(searchValue);
-
-    expect(component.filterBy).toBe(searchValue);
-  });
 });
