@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+
+import { User } from '@shared/interfaces/user.interface';
+
 import { AuthService } from '@services/authentication/auth.service';
 
 @Component({
@@ -6,12 +10,10 @@ import { AuthService } from '@services/authentication/auth.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent implements OnInit {
-  authenticated = false;
+export class AppComponent {
+  user?: User | null;
 
-  constructor(private authService: AuthService) {}
-
-  ngOnInit(): void {
-    this.authService.isAuthentificated$.subscribe(authenticated => (this.authenticated = authenticated));
+  constructor(private authService: AuthService, public http: HttpClient) {
+    this.authService.user.subscribe(user => (this.user = user));
   }
 }
