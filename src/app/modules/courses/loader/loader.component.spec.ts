@@ -29,9 +29,9 @@ describe('LoaderComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should call the load method and print console.log', () => {
-    spyOn(console, 'log');
+  it('should emit newLoadEvent when load() is called', () => {
+    spyOn(component.newLoadEvent, 'emit');
     component.load();
-    expect(console.log).toHaveBeenCalledWith('Load more');
+    expect(component.newLoadEvent.emit).toHaveBeenCalled();
   });
 });
