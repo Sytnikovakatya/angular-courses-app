@@ -44,7 +44,7 @@ describe('DeleteModalComponent', () => {
     spyOn(coursesService, 'removeCourse');
     spyOn(component.activeModal, 'close');
 
-    component.delete(courseId);
+    component.delete();
 
     expect(coursesService.removeCourse).toHaveBeenCalledWith(courseId);
     expect(component.activeModal.close).toHaveBeenCalledWith('Confirm click');
