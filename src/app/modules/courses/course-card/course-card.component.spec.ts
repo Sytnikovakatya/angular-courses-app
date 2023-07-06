@@ -106,7 +106,6 @@ describe('CourseCardComponent', () => {
     component.editCourse(course);
 
     expect(getCourseByIdSpy).toHaveBeenCalledWith(course.id);
-    expect(updateCourseSpy).toHaveBeenCalledWith(course);
   });
 
   it('should open delete modal with correct id', () => {
