@@ -1,43 +1,69 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
-import { Subject, Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, catchError, throwError, map } from 'rxjs';
+
+import { User } from '@shared/interfaces/user.interface';
+import { Token } from '@shared/interfaces/token.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private userSubject: BehaviorSubject<string | null>;
-  public user: Observable<string | null>;
+  private apiUrl = 'http://localhost:3004/auth';
 
-  private isAuthentificated: Subject<boolean> = new Subject();
-  public isAuthentificated$: Observable<boolean> = this.isAuthentificated.asObservable();
+  private userSubject: BehaviorSubject<User | null>;
+  public user: Observable<User | null>;
 
-  constructor() {
-    this.userSubject = new BehaviorSubject<string | null>(localStorage.getItem('name'));
+  constructor(private http: HttpClient, private router: Router) {
+    this.userSubject = new BehaviorSubject(JSON.parse(localStorage.getItem('user')!));
     this.user = this.userSubject.asObservable();
   }
 
-  login(userEmail: string): void {
-    if (userEmail) {
-      localStorage.setItem('name', userEmail);
-      localStorage.setItem('authenticated', 'true');
-      this.isAuthentificated.next(true);
-      this.userSubject.next(userEmail);
-    } else {
-      window.alert('Please, enter your email and password');
-    }
+  public get userValue() {
+    return this.userSubject.value;
+  }
+
+  login(credentials: { login: string; password: string }): Observable<Token> {
+    return this.http.post<Token>(this.apiUrl + '/login', credentials).pipe(catchError(this.handleError));
   }
 
   logout(): void {
-    localStorage.removeItem('name');
     localStorage.setItem('authenticated', 'false');
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
 
-    this.isAuthentificated.next(false);
     this.userSubject.next(null);
+
+    this.router.navigate(['/login']);
   }
 
   isAuthenticated(): boolean {
     const authenticated = localStorage.getItem('authenticated') === 'true';
     return authenticated;
+  }
+
+  getUserInfo(): Observable<User> {
+    return this.http.post<User>(this.apiUrl + '/userinfo', { token: localStorage.getItem('token') }).pipe(
+      map(user => {
+        localStorage.setItem('user', JSON.stringify(user));
+        this.userSubject.next(user);
+        return user;
+      })
+    );
+  }
+
+  handleError(error: { error: { message: string }; status: number }) {
+    let errorMessage = '';
+    if (error.error instanceof ErrorEvent) {
+      errorMessage = error.error.message;
+    } else {
+      errorMessage = `Error Code: ${error.status}`;
+    }
+    window.alert('Error. Unauthorized');
+    return throwError(() => {
+      return errorMessage;
+    });
   }
 }
