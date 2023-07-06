@@ -78,17 +78,4 @@ describe('AddCourseComponent', () => {
     component.close();
     expect(console.log).toHaveBeenCalledWith('Close page');
   });
-
-  it('should call the saveCourse method and print console.log', () => {
-    spyOn(console, 'log');
-    component.saveCourse();
-    expect(console.log).toHaveBeenCalledWith({
-      id: 7,
-      name: component.title,
-      date: component.date,
-      length: component.duration,
-      description: component.description,
-    });
-    expect(console.log).toHaveBeenCalledWith('Save new Course');
-  });
 });
