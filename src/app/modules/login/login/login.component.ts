@@ -15,8 +15,17 @@ export class LoginComponent {
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  login(email: string): void {
-    this.authService.login(email);
-    this.router.navigate(['/courses']);
+  login(): void {
+    const credentials = {
+      login: this.email,
+      password: this.password,
+    };
+    this.authService.login(credentials).subscribe(response => {
+      localStorage.setItem('token', response.token);
+      localStorage.setItem('authenticated', 'true');
+
+      this.authService.getUserInfo().subscribe();
+      this.router.navigate(['/courses']);
+    });
   }
 }
