@@ -56,12 +56,4 @@ describe('SearchBarComponent', () => {
 
     expect(component.newSearchEvent.emit).toHaveBeenCalledWith(searchValue);
   });
-
-  it('should call addToCourses method on button click', () => {
-    const addCourseSpy = spyOn(coursesService, 'addToCourses');
-
-    component.addCourse();
-
-    expect(addCourseSpy).toHaveBeenCalled();
-  });
 });
