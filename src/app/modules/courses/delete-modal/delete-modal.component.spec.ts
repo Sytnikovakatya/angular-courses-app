@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { CoursesService } from '@services/courses/courses.service';
@@ -23,6 +25,7 @@ describe('DeleteModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
       declarations: [DeleteModalComponent, MockButtonComponent],
       providers: [NgbActiveModal, CoursesService],
     }).compileComponents();
