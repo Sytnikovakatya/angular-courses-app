@@ -1,6 +1,11 @@
 import { Component, Input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+
+import { FormsModule } from '@angular/forms';
+
 import { CoursesService } from '@services/courses/courses.service';
 
 import { SearchBarComponent } from './search-bar.component';
@@ -33,6 +38,7 @@ describe('SearchBarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [FormsModule, RouterTestingModule, HttpClientTestingModule],
       declarations: [SearchBarComponent, MockInputComponent, MockButtonComponent],
       providers: [CoursesService],
     }).compileComponents();
