@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+
 import { By } from '@angular/platform-browser';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -41,6 +43,7 @@ describe('CourseCardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
       declarations: [
         CourseCardComponent,
         MockButtonComponent,
