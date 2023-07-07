@@ -1,8 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+
 import { courses } from '@data/courses';
 
 import { CourseListComponent } from './course-list.component';
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-search-bar',
+  template: '<div>Mock Search Bar Component</div>',
+})
+class MockSearchBarComponent {}
 
 describe('CourseListComponent', () => {
   let component: CourseListComponent;
@@ -10,7 +19,8 @@ describe('CourseListComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [CourseListComponent],
+      imports: [HttpClientTestingModule],
+      declarations: [CourseListComponent, MockSearchBarComponent],
     });
     fixture = TestBed.createComponent(CourseListComponent);
     component = fixture.componentInstance;
