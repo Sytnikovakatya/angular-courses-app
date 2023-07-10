@@ -11,7 +11,7 @@ import { CoursesService } from '@services/courses/courses.service';
   styleUrls: ['./add-course.component.css'],
 })
 export class AddCourseComponent implements OnInit {
-  id = this.route.snapshot.paramMap.get('id');
+  id: string | null;
   author = '';
 
   course: Course = {
@@ -27,6 +27,7 @@ export class AddCourseComponent implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router, private coursesService: CoursesService) {}
 
   ngOnInit(): void {
+    this.id = this.route.snapshot.paramMap.get('id');
     this.getCourse();
   }
 
