@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { User } from '@shared/interfaces/user.interface';
 
@@ -14,7 +13,7 @@ export class HeaderComponent {
   authenticated = false;
   user?: User | null;
 
-  constructor(public authService: AuthService, private router: Router) {
+  constructor(public authService: AuthService) {
     this.authService.user.subscribe(user => (this.user = user));
   }
 
