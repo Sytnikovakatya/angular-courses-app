@@ -33,7 +33,7 @@ export class CoursesService {
     return this.http.get<Course[]>(this.apiUrl + `?sort=${value}`).pipe(catchError(this.handleError));
   }
 
-  createCourse(newItem: unknown): Observable<Course> {
+  createCourse(newItem: Course): Observable<Course> {
     return this.http.post<Course>(this.apiUrl, newItem).pipe(catchError(this.handleError));
   }
 
