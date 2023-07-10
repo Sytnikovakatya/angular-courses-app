@@ -14,8 +14,8 @@ import { DeleteModalComponent } from '../delete-modal/delete-modal.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CourseCardComponent {
-  @Output() newDeleteEvent = new EventEmitter<string>();
   @Input() course: Course;
+  @Output() newDeleteEvent = new EventEmitter<string>();
 
   isTopRated = false;
 
