@@ -13,7 +13,7 @@ import { AuthService } from '@services/authentication/auth.service';
 export class AppComponent {
   user?: User | null;
 
-  constructor(private authService: AuthService, public http: HttpClient) {
+  constructor(private authService: AuthService, private http: HttpClient) {
     this.authService.user.subscribe(user => (this.user = user));
   }
 }
