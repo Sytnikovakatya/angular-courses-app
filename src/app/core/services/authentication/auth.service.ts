@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
-import { Observable, BehaviorSubject, catchError, throwError, map } from 'rxjs';
+import { Observable, BehaviorSubject, map } from 'rxjs';
 
 import { User } from '@shared/interfaces/user.interface';
 import { Token } from '@shared/interfaces/token.interface';
@@ -26,7 +26,7 @@ export class AuthService {
   }
 
   login(credentials: { login: string; password: string }): Observable<Token> {
-    return this.http.post<Token>(this.apiUrl + '/login', credentials).pipe(catchError(this.handleError));
+    return this.http.post<Token>(this.apiUrl + '/login', credentials);
   }
 
   logout(): void {
@@ -52,18 +52,5 @@ export class AuthService {
         return user;
       })
     );
-  }
-
-  handleError(error: { error: { message: string }; status: number }) {
-    let errorMessage = '';
-    if (error.error instanceof ErrorEvent) {
-      errorMessage = error.error.message;
-    } else {
-      errorMessage = `Error Code: ${error.status}`;
-    }
-    window.alert('Error. Unauthorized');
-    return throwError(() => {
-      return errorMessage;
-    });
   }
 }
