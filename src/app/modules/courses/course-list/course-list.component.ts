@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+
+import { Subscription } from 'rxjs';
 
 import { Course } from '@interfaces/course.interface';
 
@@ -9,14 +11,19 @@ import { CoursesService } from '@services/courses/courses.service';
   templateUrl: './course-list.component.html',
   styleUrls: ['./course-list.component.css'],
 })
-export class CourseListComponent implements OnInit {
+export class CourseListComponent implements OnInit, OnDestroy {
   amountOfCourses = 5;
   courses: Course[] = [];
+  subscription: Subscription;
 
   constructor(private coursesService: CoursesService) {}
 
   ngOnInit(): void {
-    this.coursesService.getCourses().subscribe(courses => (this.courses = courses));
+    this.subscription = this.coursesService.getCourses().subscribe(courses => (this.courses = courses));
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   courseTrackBy(index: number, course: Course): number {
