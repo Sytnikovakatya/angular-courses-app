@@ -1,5 +1,4 @@
-import { Component } from '@angular/core';
-import { Author } from '@interfaces/author';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-authors',
@@ -7,6 +6,12 @@ import { Author } from '@interfaces/author';
   styleUrls: ['./authors.component.css'],
 })
 export class AuthorsComponent {
-  authorName = '';
-  authors: Author[] = [];
+  @Input() class: string = 'form-control';
+  @Input() bindModelData: string;
+  @Output() bindModelDataChange = new EventEmitter<string>();
+
+  updateData(event: string): void {
+    this.bindModelData = event;
+    this.bindModelDataChange.emit(event);
+  }
 }

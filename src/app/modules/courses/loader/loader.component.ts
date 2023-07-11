@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-loader',
@@ -6,7 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./loader.component.css'],
 })
 export class LoaderComponent {
+  @Output() newLoadEvent = new EventEmitter();
+
   load(): void {
-    console.log('Load more');
+    this.newLoadEvent.emit();
   }
 }

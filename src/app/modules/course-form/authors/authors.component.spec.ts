@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { FormsModule } from '@angular/forms';
+
 import { AuthorsComponent } from './authors.component';
 
 @Component({
@@ -19,6 +21,7 @@ describe('AuthorsComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [AuthorsComponent, MockInputComponent],
+      imports: [FormsModule],
     });
     fixture = TestBed.createComponent(AuthorsComponent);
     component = fixture.componentInstance;

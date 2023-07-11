@@ -1,42 +1,51 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+import { Observable } from 'rxjs';
 
 import { Course } from '@shared/interfaces/course.interface';
-
-import { courses } from 'app/core/data/courses';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CoursesService {
-  getCourses(): Course[] {
-    return courses;
+  private apiUrl = 'http://localhost:3004/courses';
+
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+  };
+
+  constructor(private http: HttpClient) {}
+
+  getCourses(): Observable<Course[]> {
+    return this.http.get<Course[]>(this.apiUrl + '?start=0&count=5');
   }
 
-  addToCourses(newItem: Course): void {
-    if (courses.some(course => course.id === newItem.id)) {
-      window.alert('This Video course already exists!');
-    } else {
-      courses.push(newItem);
-    }
+  loadMoreCourses(amount: number): Observable<Course[]> {
+    return this.http.get<Course[]>(this.apiUrl + `?start=0&count=${amount}`);
   }
 
-  getCourseById(id: number): Course | undefined {
-    return courses.find((course: Course) => course.id === id);
+  searchCourse(term: string): Observable<Course[]> {
+    return this.http.get<Course[]>(this.apiUrl + `?textFragment=${term}`);
   }
 
-  updateCourse(item: Course): void {
-    courses.forEach((course, index) => {
-      if (course.id === item.id) {
-        courses[index] = item;
-      }
-    });
+  orderCourses(value: string): Observable<Course[]> {
+    return this.http.get<Course[]>(this.apiUrl + `?sort=${value}`);
   }
 
-  removeCourse(id: number): void {
-    courses.forEach((course, index) => {
-      if (course.id === id) {
-        courses.splice(index, 1);
-      }
-    });
+  createCourse(newItem: Course): Observable<Course> {
+    return this.http.post<Course>(this.apiUrl, newItem);
+  }
+
+  getCourseById(id: number): Observable<Course> {
+    return this.http.get<Course>(this.apiUrl + `/${id}`);
+  }
+
+  updateCourse(id: number, course: Course): Observable<Course> {
+    return this.http.patch<Course>(this.apiUrl + `/${id}`, course, this.httpOptions);
+  }
+
+  removeCourse(id: number): Observable<Course> {
+    return this.http.delete<Course>(this.apiUrl + `/${id}`);
   }
 }

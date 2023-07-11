@@ -3,5 +3,5 @@
         <label class="mb-2 fw-bolder">Authors:</label>
         <span>*required</span>
     </div>
-    <app-input [placeholder]="'Add authors'" [(bindModelData)]="authorName"></app-input>
+    <input  placeholder="Add authors" class="form-control" type="text" [ngModel]="bindModelData" (ngModelChange)="updateData($event)"/>
 </div>

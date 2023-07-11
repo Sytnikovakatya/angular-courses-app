@@ -3,6 +3,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FormsModule } from '@angular/forms';
 
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+
 import { AddCourseComponent } from './add-course.component';
 
 @Component({
@@ -46,7 +49,9 @@ class MockDateInputComponent {
   selector: 'app-authors',
   template: '<div>Mock Authors Component</div>',
 })
-class MockAuthorsComponent {}
+class MockAuthorsComponent {
+  @Input() bindModelData: string;
+}
 
 describe('AddCourseComponent', () => {
   let component: AddCourseComponent;
@@ -54,7 +59,7 @@ describe('AddCourseComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [FormsModule],
+      imports: [FormsModule, RouterTestingModule, HttpClientTestingModule],
       declarations: [
         AddCourseComponent,
         MockInputComponent,
@@ -77,18 +82,5 @@ describe('AddCourseComponent', () => {
     spyOn(console, 'log');
     component.close();
     expect(console.log).toHaveBeenCalledWith('Close page');
-  });
-
-  it('should call the saveCourse method and print console.log', () => {
-    spyOn(console, 'log');
-    component.saveCourse();
-    expect(console.log).toHaveBeenCalledWith({
-      id: 7,
-      name: component.title,
-      date: component.date,
-      length: component.duration,
-      description: component.description,
-    });
-    expect(console.log).toHaveBeenCalledWith('Save new Course');
   });
 });
