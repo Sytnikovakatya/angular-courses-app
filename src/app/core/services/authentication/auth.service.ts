@@ -14,11 +14,15 @@ export class AuthService {
   private apiUrl = 'http://localhost:3004/auth';
 
   private userSubject: BehaviorSubject<User | null>;
-  public user: Observable<User | null>;
+  public user$: Observable<User | null>;
 
   constructor(private http: HttpClient, private router: Router) {
     this.userSubject = new BehaviorSubject(JSON.parse(localStorage.getItem('user')!));
-    this.user = this.userSubject.asObservable();
+    this.user$ = this.userSubject.asObservable();
+  }
+
+  get user() {
+    return this.user$;
   }
 
   public get userValue() {
