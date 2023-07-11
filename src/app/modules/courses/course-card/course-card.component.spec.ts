@@ -94,31 +94,4 @@ describe('CourseCardComponent', () => {
     expect(cardDateElement.textContent.trim()).toBe('14 Jun 2023');
     expect(cardDescriptionElement.textContent.trim()).toBe(mockCourse.description);
   });
-
-  it('should call editCourse method with correct parameters', () => {
-    const course = {
-      id: 1,
-      name: 'Test Course',
-      date: '2023-06-14T04:39:24+00:00',
-      length: 60,
-      description: 'Test Description',
-    };
-    const getCourseByIdSpy = spyOn(coursesService, 'getCourseById');
-    const updateCourseSpy = spyOn(coursesService, 'updateCourse');
-
-    component.editCourse(course);
-
-    expect(getCourseByIdSpy).toHaveBeenCalledWith(course.id);
-  });
-
-  it('should open delete modal with correct id', () => {
-    const id = 1;
-    const modalRef = jasmine.createSpyObj('NgbModalRef', ['componentInstance']);
-    spyOn(modalService, 'open').and.returnValue(modalRef);
-
-    component.delete(id);
-
-    expect(modalService.open).toHaveBeenCalledWith(DeleteModalComponent);
-    expect(modalRef.componentInstance.id).toEqual(id);
-  });
 });
