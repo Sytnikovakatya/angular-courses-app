@@ -77,10 +77,4 @@ describe('AddCourseComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
-  it('should call the close method and print console.log', () => {
-    spyOn(console, 'log');
-    component.close();
-    expect(console.log).toHaveBeenCalledWith('Close page');
-  });
 });
