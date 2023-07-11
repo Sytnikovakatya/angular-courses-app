@@ -13,11 +13,13 @@ import { Token } from '@shared/interfaces/token.interface';
 export class AuthService {
   private apiUrl = 'http://localhost:3004/auth';
 
+  userInfo: User | null;
+
   private userSubject: BehaviorSubject<User | null>;
   public user$: Observable<User | null>;
 
   constructor(private http: HttpClient, private router: Router) {
-    this.userSubject = new BehaviorSubject(JSON.parse(localStorage.getItem('user')!));
+    this.userSubject = new BehaviorSubject(this.userInfo);
     this.user$ = this.userSubject.asObservable();
   }
 
@@ -35,7 +37,6 @@ export class AuthService {
 
   logout(): void {
     localStorage.setItem('authenticated', 'false');
-    localStorage.removeItem('user');
     localStorage.removeItem('token');
 
     this.userSubject.next(null);
@@ -51,7 +52,7 @@ export class AuthService {
   getUserInfo(): Observable<User> {
     return this.http.post<User>(this.apiUrl + '/userinfo', { token: localStorage.getItem('token') }).pipe(
       map(user => {
-        localStorage.setItem('user', JSON.stringify(user));
+        this.userInfo = user;
         this.userSubject.next(user);
         return user;
       })
