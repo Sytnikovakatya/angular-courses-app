@@ -1,10 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
-import { Subscription } from 'rxjs';
+import { Subscription, debounceTime, distinctUntilChanged } from 'rxjs';
 
 import { Course } from '@interfaces/course.interface';
 
 import { CoursesService } from '@services/courses/courses.service';
+import { SpinnerOverlayService } from '@services/spinner-overlay/spinner-overlay.service';
 
 @Component({
   selector: 'app-course-list',
@@ -13,10 +14,11 @@ import { CoursesService } from '@services/courses/courses.service';
 })
 export class CourseListComponent implements OnInit, OnDestroy {
   amountOfCourses = 5;
+  loading$ = this.loader.loading$;
   courses: Course[] = [];
   subscription: Subscription;
 
-  constructor(private coursesService: CoursesService) {}
+  constructor(private coursesService: CoursesService, public loader: SpinnerOverlayService) {}
 
   ngOnInit(): void {
     this.subscription = this.coursesService.getCourses().subscribe(courses => (this.courses = courses));
@@ -31,7 +33,12 @@ export class CourseListComponent implements OnInit, OnDestroy {
   }
 
   getSearchValue(newValue: string): void {
-    this.coursesService.searchCourse(newValue).subscribe(courses => (this.courses = courses));
+    if (newValue.length >= 3) {
+      this.coursesService
+        .searchCourse(newValue)
+        .pipe(debounceTime(300), distinctUntilChanged())
+        .subscribe(courses => (this.courses = courses));
+    }
   }
 
   getSortValue(value: string): void {
