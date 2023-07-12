@@ -13,7 +13,6 @@ export class ErrorInterceptor implements HttpInterceptor {
         } else {
           errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
         }
-        window.alert(errorMessage);
         return throwError(() => {
           return errorMessage;
         });
