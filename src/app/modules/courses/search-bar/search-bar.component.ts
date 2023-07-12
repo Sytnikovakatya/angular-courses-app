@@ -22,6 +22,10 @@ export class SearchBarComponent {
     this.newSearchEvent.emit(value);
   }
 
+  handleSearchInput(value: string): void {
+    this.newSearchEvent.emit(value);
+  }
+
   addCourse(): void {
     this.router.navigate(['/courses/new']);
   }
