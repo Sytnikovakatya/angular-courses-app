@@ -24,6 +24,7 @@ export class LoginComponent {
       localStorage.setItem('token', response.token);
       localStorage.setItem('authenticated', 'true');
 
+      this.authService.isAuthentificated.next(true);
       this.authService.getUserInfo().subscribe();
       this.router.navigate(['/courses']);
     });
