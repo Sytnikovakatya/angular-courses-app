@@ -14,12 +14,15 @@ import { AuthService } from '@services/authentication/auth.service';
 })
 export class AppComponent implements OnInit, OnDestroy {
   user?: User | null;
+  authenticated = false;
   subscription: Subscription;
 
   constructor(private authService: AuthService, private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.subscription = this.authService.user.subscribe(user => (this.user = user));
+    this.subscription = this.authService.isAuthentificated.subscribe(
+      authenticated => (this.authenticated = authenticated)
+    );
   }
 
   ngOnDestroy(): void {
