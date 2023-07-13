@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
-import { Subscription, debounceTime, distinctUntilChanged } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 import { Course } from '@interfaces/course.interface';
 
@@ -14,9 +14,10 @@ import { SpinnerOverlayService } from '@services/spinner-overlay/spinner-overlay
 })
 export class CourseListComponent implements OnInit, OnDestroy {
   amountOfCourses = 5;
-  loading$ = this.loader.loading$;
   courses: Course[] = [];
   subscription: Subscription;
+
+  loading$ = this.loader.loading$;
 
   constructor(private coursesService: CoursesService, public loader: SpinnerOverlayService) {}
 
@@ -33,12 +34,7 @@ export class CourseListComponent implements OnInit, OnDestroy {
   }
 
   getSearchValue(newValue: string): void {
-    if (newValue.length >= 3) {
-      this.coursesService
-        .searchCourse(newValue)
-        .pipe(debounceTime(300), distinctUntilChanged())
-        .subscribe(courses => (this.courses = courses));
-    }
+    this.coursesService.searchCourse(newValue).subscribe(courses => (this.courses = courses));
   }
 
   getSortValue(value: string): void {
