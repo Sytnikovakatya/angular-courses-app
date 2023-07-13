@@ -1,29 +1,46 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Output, EventEmitter } from '@angular/core';
-
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 
-import { ActivatedRoute, Router } from '@angular/router';
+import { Observable, Subject, Subscription, debounceTime, distinctUntilChanged, filter } from 'rxjs';
 
 @Component({
   selector: 'app-search-bar',
   templateUrl: './search-bar.component.html',
   styleUrls: ['./search-bar.component.css'],
 })
-export class SearchBarComponent {
+export class SearchBarComponent implements OnInit, OnDestroy {
   @Output() newSearchEvent = new EventEmitter<string>();
   @Output() newSortEvent = new EventEmitter<string>();
 
   search = '';
 
-  constructor(private router: Router, private route: ActivatedRoute) {}
+  inputValue: Subject<string> = new Subject<string>();
+  trigger$: Observable<string> = this.inputValue.pipe(
+    debounceTime(300),
+    distinctUntilChanged(),
+    filter((termSearch: string) => {
+      return termSearch.trim().length >= 3 || termSearch.length === 0;
+    })
+  );
 
-  searchClick(value: string): void {
-    this.newSearchEvent.emit(value);
+  subscription: Subscription;
+
+  constructor(private router: Router) {}
+
+  ngOnInit(): void {
+    this.subscription = this.trigger$.subscribe(currentValue => {
+      this.newSearchEvent.emit(currentValue);
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   handleSearchInput(value: string): void {
-    this.newSearchEvent.emit(value);
+    this.inputValue.next(value);
   }
 
   addCourse(): void {
