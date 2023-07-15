@@ -20,7 +20,7 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(private authService: AuthService, private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.subscription = this.authService.isAuthentificated.subscribe(
+    this.subscription = this.authService.isAuthenticated.subscribe(
       authenticated => (this.authenticated = authenticated)
     );
   }
