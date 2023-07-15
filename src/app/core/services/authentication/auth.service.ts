@@ -16,11 +16,11 @@ export class AuthService {
   private userSubject: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(null);
   public user$: Observable<User | null> = this.userSubject.asObservable();
 
-  public isAuthentificated: BehaviorSubject<boolean> = new BehaviorSubject(
+  public authentication: BehaviorSubject<boolean> = new BehaviorSubject(
     JSON.parse(localStorage.getItem('authenticated')!)
   );
 
-  public isAuthentificated$: Observable<boolean> = this.isAuthentificated.asObservable();
+  public isAuthenticated$: Observable<boolean> = this.authentication.asObservable();
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -29,7 +29,7 @@ export class AuthService {
   }
 
   get isAuthenticated(): Observable<boolean> {
-    return this.isAuthentificated$;
+    return this.isAuthenticated$;
   }
 
   public get userValue(): User | null {
@@ -45,7 +45,7 @@ export class AuthService {
     localStorage.removeItem('token');
 
     this.userSubject.next(null);
-    this.isAuthentificated.next(false);
+    this.authentication.next(false);
 
     this.router.navigate(['/login']);
   }
