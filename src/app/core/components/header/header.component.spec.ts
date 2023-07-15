@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+
 import { IfAuthenticatedDirective } from '@directives/ifAuthenticated/if-authenticated.directive';
 
 import { AuthService } from '@services/authentication/auth.service';
@@ -25,30 +27,51 @@ class MockButtonComponent {
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
   let fixture: ComponentFixture<HeaderComponent>;
-  let authServiceSpy: jasmine.SpyObj<AuthService>;
+  let authService: AuthService;
 
   beforeEach(async () => {
-    const authServiceMock = jasmine.createSpyObj('AuthService', ['isAuthenticated', 'getUserInfo', 'logout']);
-
     await TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
       declarations: [HeaderComponent, MockLogoComponent, MockButtonComponent, IfAuthenticatedDirective],
-      providers: [{ provide: AuthService, useValue: authServiceMock }],
+      providers: [AuthService],
     }).compileComponents();
-
-    authServiceSpy = TestBed.inject(AuthService) as jasmine.SpyObj<AuthService>;
     fixture = TestBed.createComponent(HeaderComponent);
     component = fixture.componentInstance;
+    authService = TestBed.inject(AuthService);
     fixture.detectChanges();
+  });
+
+  afterEach(() => {
+    fixture.destroy();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should initialize authenticated and user properties on ngOnInit', () => {
-    authServiceSpy.isAuthenticated.and.returnValue(true);
+  it('should subscribe to authentication changes', () => {
+    authService.authentication.next(true);
+
     component.ngOnInit();
-    expect(authServiceSpy.isAuthenticated).toHaveBeenCalled();
-    expect(component.authenticated).toBeTrue();
+
+    expect(component.authenticated).toBe(true);
+  });
+
+  it('should unsubscribe from subscriptions on component destroy', () => {
+    spyOn(component.subscription1$, 'unsubscribe');
+    spyOn(component.subscription2$, 'unsubscribe');
+
+    component.ngOnDestroy();
+
+    expect(component.subscription1$.unsubscribe).toHaveBeenCalled();
+    expect(component.subscription2$.unsubscribe).toHaveBeenCalled();
+  });
+
+  it('should call authService.logout() when logout() is called', () => {
+    spyOn(authService, 'logout');
+
+    component.logout();
+
+    expect(authService.logout).toHaveBeenCalled();
   });
 });
