@@ -1,12 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-
-import { FormsModule } from '@angular/forms';
-
-import { CoursesService } from '@services/courses/courses.service';
+import { FormsModule, NgForm } from '@angular/forms';
 
 import { SearchBarComponent } from './search-bar.component';
 
@@ -34,18 +31,15 @@ class MockButtonComponent {
 describe('SearchBarComponent', () => {
   let component: SearchBarComponent;
   let fixture: ComponentFixture<SearchBarComponent>;
-  let coursesService: CoursesService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [FormsModule, RouterTestingModule, HttpClientTestingModule],
       declarations: [SearchBarComponent, MockInputComponent, MockButtonComponent],
-      providers: [CoursesService],
     }).compileComponents();
 
     fixture = TestBed.createComponent(SearchBarComponent);
     component = fixture.componentInstance;
-    coursesService = TestBed.inject(CoursesService);
     fixture.detectChanges();
   });
 
@@ -53,13 +47,17 @@ describe('SearchBarComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should emit the search value on searchClick', () => {
-    spyOn(component.newSearchEvent, 'emit');
-    const searchValue = 'Angular';
-    fixture.detectChanges();
+  it('should navigate to add course page', () => {
+    const routerSpy = spyOn(component['router'], 'navigate');
 
-    component.searchClick(searchValue);
+    component.addCourse();
 
-    expect(component.newSearchEvent.emit).toHaveBeenCalledWith(searchValue);
+    expect(routerSpy).toHaveBeenCalledWith(['/courses/new']);
+  });
+
+  it('should unsubscribe from subscription on component destroy', () => {
+    spyOn(component.subscription, 'unsubscribe');
+    component.ngOnDestroy();
+    expect(component.subscription.unsubscribe).toHaveBeenCalled();
   });
 });
