@@ -60,6 +60,12 @@ class MockLoginComponent {
   @Input() course: Course;
 }
 
+@Component({
+  selector: 'app-loading-block',
+  template: '<div>Mock Loading Block Component</div>',
+})
+class MockLoadingBlockComponent {}
+
 describe('AppComponent', () => {
   let component: AppComponent;
   let fixture: ComponentFixture<AppComponent>;
@@ -77,6 +83,7 @@ describe('AppComponent', () => {
         MockLoaderComponent,
         MockCourseCardComponent,
         MockLoginComponent,
+        MockLoadingBlockComponent,
       ],
     });
     fixture = TestBed.createComponent(AppComponent);
