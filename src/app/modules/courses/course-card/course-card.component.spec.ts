@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ChangeDetectorRef, Component, Input } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
@@ -14,7 +14,6 @@ import { IfAuthenticatedDirective } from '@directives/ifAuthenticated/if-authent
 import { CoursesService } from '@services/courses/courses.service';
 
 import { CourseCardComponent } from './course-card.component';
-import { DeleteModalComponent } from '../delete-modal/delete-modal.component';
 
 @Component({
   selector: 'app-button',
@@ -39,10 +38,9 @@ describe('CourseCardComponent', () => {
   let component: CourseCardComponent;
   let fixture: ComponentFixture<CourseCardComponent>;
   let modalService: NgbModal;
-  let coursesService: CoursesService;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       declarations: [
         CourseCardComponent,
@@ -52,21 +50,14 @@ describe('CourseCardComponent', () => {
         IfAuthenticatedDirective,
       ],
       providers: [NgbModal, CoursesService],
-    })
-      .overrideComponent(CourseCardComponent, {
-        set: {
-          changeDetection: ChangeDetectionStrategy.Default,
-        },
-      })
-      .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CourseCardComponent);
     component = fixture.componentInstance;
-    modalService = TestBed.inject(NgbModal);
-    coursesService = TestBed.inject(CoursesService);
     component.course = mockCourse;
+    modalService = TestBed.inject(NgbModal);
     fixture.detectChanges();
-  });
+  }));
 
   it('should create', () => {
     expect(component).toBeTruthy();
@@ -78,7 +69,7 @@ describe('CourseCardComponent', () => {
 
   it('should apply "special-card" class when isTopRated is true', () => {
     component.isTopRated = true;
-    fixture.detectChanges();
+    fixture.componentRef.injector.get(ChangeDetectorRef).detectChanges();
     const cardElement = fixture.nativeElement.querySelector('.card');
     expect(cardElement.classList.contains('special-card')).toBeTrue();
   });
@@ -89,9 +80,32 @@ describe('CourseCardComponent', () => {
     const cardDateElement = fixture.debugElement.query(By.css('.card-date')).nativeElement;
     const cardDescriptionElement = fixture.debugElement.query(By.css('.card-description')).nativeElement;
 
+    fixture.componentRef.injector.get(ChangeDetectorRef).detectChanges();
     expect(cardTitleElement.textContent.trim()).toBe(`Video Course 1. JAVASCRIPT`);
     expect(cardLengthElement.textContent.trim()).toBe('2 hours');
     expect(cardDateElement.textContent.trim()).toBe('14 Jun 2023');
     expect(cardDescriptionElement.textContent.trim()).toBe(mockCourse.description);
+  });
+
+  it('should navigate to edit course on editCourse', () => {
+    const courseId = 1;
+    spyOn(component['router'], 'navigate');
+
+    component.editCourse({
+      id: 1,
+      name: 'Javascript New',
+      date: '2017-09-28T04:39:24+00:00',
+      length: 120,
+      isTopRated: false,
+      description: 'New description',
+      authors: [
+        {
+          id: 8413,
+          name: 'Greta',
+        },
+      ],
+    });
+
+    expect(component['router'].navigate).toHaveBeenCalledWith(['/courses', courseId]);
   });
 });
