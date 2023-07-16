@@ -1,9 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { ChangeDetectorRef } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
 import { ButtonComponent } from './button.component';
-import { ChangeDetectionStrategy } from '@angular/core';
 
 describe('ButtonComponent', () => {
   let component: ButtonComponent;
@@ -12,13 +11,7 @@ describe('ButtonComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ButtonComponent],
-    })
-      .overrideComponent(ButtonComponent, {
-        set: {
-          changeDetection: ChangeDetectionStrategy.Default,
-        },
-      })
-      .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ButtonComponent);
     component = fixture.componentInstance;
@@ -43,8 +36,8 @@ describe('ButtonComponent', () => {
 
   it('should set custom class if provided', () => {
     component.class = 'custom-class';
-    fixture.detectChanges();
     const buttonElement = fixture.debugElement.query(By.css('button')).nativeElement;
+    fixture.componentRef.injector.get(ChangeDetectorRef).detectChanges();
     expect(buttonElement.getAttribute('class')).toBe('custom-class');
   });
 
