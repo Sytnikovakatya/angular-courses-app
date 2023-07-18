@@ -2,10 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
-import { Observable, BehaviorSubject, map, Subject } from 'rxjs';
+import { Observable, BehaviorSubject, map, tap } from 'rxjs';
 
-import { User } from '@shared/interfaces/user.interface';
-import { Token } from '@shared/interfaces/token.interface';
+import { Store } from '@ngrx/store';
+
+import { User } from '@interfaces/user.interface';
+import { Token } from '@interfaces/token.interface';
+
+import * as AuthActions from '@store/authentication/auth.actions';
+import { AppState } from '@store/app.state';
 
 @Injectable({
   providedIn: 'root',
@@ -22,7 +27,7 @@ export class AuthService {
 
   public isAuthenticated$: Observable<boolean> = this.authentication.asObservable();
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router, private store: Store<AppState>) {}
 
   get user(): Observable<User | null> {
     return this.user$;
@@ -37,7 +42,19 @@ export class AuthService {
   }
 
   login(credentials: { login: string; password: string }): Observable<Token> {
-    return this.http.post<Token>(this.apiUrl + '/login', credentials);
+    this.store.dispatch(AuthActions.login({ credentials }));
+    return this.http.post<Token>(this.apiUrl + '/login', credentials).pipe(
+      tap(token => {
+        localStorage.setItem('authenticated', 'true');
+        localStorage.setItem('token', token.token);
+
+        this.authentication.next(true);
+
+        this.store.dispatch(AuthActions.loginSuccess({ token }));
+
+        this.router.navigate(['/courses']);
+      })
+    );
   }
 
   logout(): void {
@@ -47,12 +64,15 @@ export class AuthService {
     this.userSubject.next(null);
     this.authentication.next(false);
 
+    this.store.dispatch(AuthActions.logout());
+
     this.router.navigate(['/login']);
   }
 
   getUserInfo(): Observable<User> {
     return this.http.post<User>(this.apiUrl + '/userinfo', { token: localStorage.getItem('token') }).pipe(
       map(user => {
+        this.store.dispatch(AuthActions.getUserInfo({ user }));
         this.userSubject.next(user);
         return user;
       })
