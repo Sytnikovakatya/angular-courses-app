@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { AuthService } from '@services/authentication/auth.service';
+
+import { Token } from '@shared/interfaces/token.interface';
 
 @Component({
   selector: 'app-login',
@@ -13,20 +14,15 @@ export class LoginComponent {
   email = '';
   password = '';
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService) {}
 
   login(): void {
     const credentials = {
       login: this.email,
       password: this.password,
     };
-    this.authService.login(credentials).subscribe(response => {
-      localStorage.setItem('token', response.token);
-      localStorage.setItem('authenticated', 'true');
-
-      this.authService.authentication.next(true);
+    this.authService.login(credentials).subscribe(() => {
       this.authService.getUserInfo().subscribe();
-      this.router.navigate(['/courses']);
     });
   }
 }
