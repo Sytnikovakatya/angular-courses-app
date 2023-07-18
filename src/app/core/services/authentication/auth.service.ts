@@ -10,6 +10,7 @@ import { User } from '@interfaces/user.interface';
 import { Token } from '@interfaces/token.interface';
 
 import * as AuthActions from '@store/authentication/auth.actions';
+import * as CoursesActions from '@store/courses/courses.actions';
 import { AppState } from '@store/app.state';
 
 @Injectable({
@@ -65,6 +66,7 @@ export class AuthService {
     this.authentication.next(false);
 
     this.store.dispatch(AuthActions.logout());
+    this.store.dispatch(CoursesActions.resetCourses());
 
     this.router.navigate(['/login']);
   }
