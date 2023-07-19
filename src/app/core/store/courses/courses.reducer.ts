@@ -14,10 +14,25 @@ const initialState: CoursesState = {
 
 export const coursesReducer = createReducer(
   initialState,
-  on(CoursesActions.setCourses, (state, { courses }) => ({ ...state, courses })),
-  on(CoursesActions.searchCourses, state => ({ ...state })),
-  on(CoursesActions.sortCourses, (state, { courses }) => ({ ...state, courses })),
-  on(CoursesActions.loadMoreCourses, (state, { courses }) => ({ ...state, courses })),
+  on(CoursesActions.setCourses, state => ({ ...state, error: null })),
+  on(CoursesActions.setCoursesSuccess, (state, { courses }) => ({ ...state, courses })),
+  on(CoursesActions.searchCoursesFailure, (state, { errorMsg }) => ({ ...state, error: errorMsg })),
+
+  on(CoursesActions.getCourse, state => ({ ...state, error: null })),
+  on(CoursesActions.getCourseSuccess, state => ({ ...state, error: null })),
+  on(CoursesActions.getCourseFailure, (state, { errorMsg }) => ({ ...state, error: errorMsg })),
+
+  on(CoursesActions.searchCourses, state => ({ ...state, error: null })),
+  on(CoursesActions.searchCoursesSuccess, (state, { courses }) => ({ ...state, courses })),
+  on(CoursesActions.searchCoursesFailure, (state, { errorMsg }) => ({ ...state, error: errorMsg })),
+
+  on(CoursesActions.sortCourses, state => ({ ...state, error: null })),
+  on(CoursesActions.sortCoursesSuccess, (state, { courses }) => ({ ...state, courses })),
+  on(CoursesActions.sortCoursesFailure, (state, { errorMsg }) => ({ ...state, error: errorMsg })),
+
+  on(CoursesActions.loadMoreCourses, state => ({ ...state, error: null })),
+  on(CoursesActions.loadMoreCoursesSuccess, (state, { courses }) => ({ ...state, courses })),
+  on(CoursesActions.loadMoreCoursesFailure, (state, { errorMsg }) => ({ ...state, error: errorMsg })),
 
   on(CoursesActions.createCourse, state => ({ ...state, error: null })),
   on(CoursesActions.createCourseSuccess, (state, { course }) => ({ ...state, courses: [...state.courses, course] })),
