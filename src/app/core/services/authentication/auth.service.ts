@@ -6,12 +6,12 @@ import { Observable, BehaviorSubject, map, tap } from 'rxjs';
 
 import { Store } from '@ngrx/store';
 
-import { User } from '@interfaces/user.interface';
-import { Token } from '@interfaces/token.interface';
-
 import * as AuthActions from '@store/authentication/auth.actions';
 import * as CoursesActions from '@store/courses/courses.actions';
 import { AppState } from '@store/app.state';
+
+import { User } from '@interfaces/user.interface';
+import { Token } from '@interfaces/token.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -43,7 +43,6 @@ export class AuthService {
   }
 
   login(credentials: { login: string; password: string }): Observable<Token> {
-    this.store.dispatch(AuthActions.login({ credentials }));
     return this.http.post<Token>(this.apiUrl + '/login', credentials).pipe(
       tap(token => {
         localStorage.setItem('authenticated', 'true');
@@ -51,7 +50,7 @@ export class AuthService {
 
         this.authentication.next(true);
 
-        this.store.dispatch(AuthActions.loginSuccess({ token }));
+        this.store.dispatch(AuthActions.getUserInfo());
 
         this.router.navigate(['/courses']);
       })
@@ -74,7 +73,6 @@ export class AuthService {
   getUserInfo(): Observable<User> {
     return this.http.post<User>(this.apiUrl + '/userinfo', { token: localStorage.getItem('token') }).pipe(
       map(user => {
-        this.store.dispatch(AuthActions.getUserInfo({ user }));
         this.userSubject.next(user);
         return user;
       })
