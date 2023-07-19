@@ -2,7 +2,12 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { User } from '@shared/interfaces/user.interface';
 
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
+
+import { Store } from '@ngrx/store';
+import { AppState } from '@store/app.state';
+import * as AuthActions from '@store/authentication/auth.actions';
+import { selectUserInfo } from '@store/authentication/auth.selectors';
 
 import { AuthService } from '@services/authentication/auth.service';
 
@@ -16,11 +21,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
   user?: User | null;
   subscription1$: Subscription;
   subscription2$: Subscription;
+  getState$: Observable<User | null>;
 
-  constructor(public authService: AuthService) {}
+  constructor(public authService: AuthService, private store: Store<AppState>) {
+    this.getState$ = this.store.select(selectUserInfo);
+  }
 
   ngOnInit(): void {
-    this.subscription1$ = this.authService.user.subscribe(user => (this.user = user));
+    this.subscription1$ = this.getState$.subscribe(user => {
+      this.user = user;
+    });
     this.subscription2$ = this.authService.isAuthenticated.subscribe(
       authenticated => (this.authenticated = authenticated)
     );
@@ -32,6 +42,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   logout(): void {
-    this.authService.logout();
+    this.store.dispatch(AuthActions.logout());
   }
 }
