@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+
+import { Observable, Subscription } from 'rxjs';
 
 import { Store } from '@ngrx/store';
 
@@ -7,17 +9,18 @@ import { Course } from '@shared/interfaces/course.interface';
 
 import { AppState } from '@store/app.state';
 import * as CoursesActions from '@store/courses/courses.actions';
-
-import { CoursesService } from '@services/courses/courses.service';
+import { selectEditCourse } from '@store/courses/courses.selectors';
 
 @Component({
   selector: 'app-add-course',
   templateUrl: './add-course.component.html',
   styleUrls: ['./add-course.component.css'],
 })
-export class AddCourseComponent implements OnInit {
+export class AddCourseComponent implements OnInit, OnDestroy {
   id: string | null;
   author = '';
+  subscription: Subscription;
+  getState$: Observable<Course | null>;
 
   course: Course = {
     id: 0,
@@ -29,21 +32,25 @@ export class AddCourseComponent implements OnInit {
     isTopRated: false,
   };
 
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private coursesService: CoursesService,
-    private store: Store<AppState>
-  ) {}
+  constructor(private route: ActivatedRoute, private router: Router, private store: Store<AppState>) {
+    this.getState$ = this.store.select(selectEditCourse);
+  }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
+    this.subscription = this.getState$.subscribe(course => {
+      course ? (this.course = course) : this.course;
+    });
     this.getCourse();
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   getCourse(): void {
     if (this.id && this.id !== 'new') {
-      this.coursesService.getCourseById(+this.id).subscribe(course => (this.course = course));
+      this.store.dispatch(CoursesActions.getCourse({ id: +this.id }));
     }
   }
 
