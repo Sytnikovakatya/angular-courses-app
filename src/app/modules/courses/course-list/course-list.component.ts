@@ -1,14 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 
 import { AppState } from '@store/app.state';
 import * as CoursesActions from '@store/courses/courses.actions';
+import { selectCourses } from '@store/courses/courses.selectors';
 
 import { Course } from '@interfaces/course.interface';
 
-import { CoursesService } from '@services/courses/courses.service';
 import { SpinnerOverlayService } from '@services/spinner-overlay/spinner-overlay.service';
 
 @Component({
@@ -20,17 +20,19 @@ export class CourseListComponent implements OnInit, OnDestroy {
   amountOfCourses = 5;
   courses: Course[] = [];
   subscription: Subscription;
+  getState$: Observable<Course[]>;
 
   loading$ = this.loader.loading$;
 
-  constructor(
-    private coursesService: CoursesService,
-    public loader: SpinnerOverlayService,
-    private store: Store<AppState>
-  ) {}
+  constructor(public loader: SpinnerOverlayService, private store: Store<AppState>) {
+    this.getState$ = this.store.select(selectCourses);
+  }
 
   ngOnInit(): void {
-    this.subscription = this.coursesService.getCourses().subscribe(courses => (this.courses = courses));
+    this.store.dispatch(CoursesActions.setCourses());
+    this.subscription = this.getState$.subscribe(courses => {
+      this.courses = courses;
+    });
   }
 
   ngOnDestroy(): void {
@@ -42,16 +44,16 @@ export class CourseListComponent implements OnInit, OnDestroy {
   }
 
   getSearchValue(newValue: string): void {
-    this.coursesService.searchCourse(newValue).subscribe(courses => (this.courses = courses));
+    this.store.dispatch(CoursesActions.searchCourses({ newValue }));
   }
 
   getSortValue(value: string): void {
-    this.coursesService.orderCourses(value).subscribe(courses => (this.courses = courses));
+    this.store.dispatch(CoursesActions.sortCourses({ value: value }));
   }
 
   load(): void {
     this.amountOfCourses += 5;
-    this.coursesService.loadMoreCourses(this.amountOfCourses).subscribe(courses => (this.courses = courses));
+    this.store.dispatch(CoursesActions.loadMoreCourses({ amount: this.amountOfCourses }));
   }
 
   deleteCourse(id: string): void {
