@@ -22,7 +22,9 @@ import { ErrorInterceptor } from '@interceptors/error/error.interceptor';
 import { NetworkInterceptor } from '@interceptors/network/network.interceptor';
 
 import { authReducer } from '@store/authentication/auth.reducer';
-import { courseReducer } from '@store/course-form/course-form.reducer';
+import { coursesReducer } from '@store/courses/courses.reducer';
+import { AuthEffects } from '@store/authentication/auth.effects';
+import { CoursesEffects } from '@store/courses/courses.effects';
 
 import { LoginModule } from '@components/login/login.module';
 import { BreadcrumbsModule } from '@components/breadcrumbs/breadcrumbs.module';
@@ -42,8 +44,8 @@ import { AppComponent } from './app.component';
     SharedModule,
     LoginModule,
     BreadcrumbsModule,
-    StoreModule.forRoot({ course: courseReducer, auth: authReducer }),
-    EffectsModule.forRoot([]),
+    StoreModule.forRoot({ courses: coursesReducer, auth: authReducer }),
+    EffectsModule.forRoot([AuthEffects, CoursesEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: !isDevMode(),
