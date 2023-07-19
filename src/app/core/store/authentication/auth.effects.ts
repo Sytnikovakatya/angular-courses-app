@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
+
 import { catchError, exhaustMap, map } from 'rxjs/operators';
 import { of } from 'rxjs';
+
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+
 import { AuthService } from '@services/authentication/auth.service';
 import * as AuthActions from './auth.actions';
 
@@ -17,6 +20,17 @@ export class AuthEffects {
         )
       )
     )
+  );
+
+  logout$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AuthActions.logout),
+        map(action => {
+          this.authService.logout();
+        })
+      ),
+    { dispatch: false }
   );
 
   getUserInfo$ = createEffect(() =>
