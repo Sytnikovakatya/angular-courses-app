@@ -4,11 +4,13 @@ import * as CoursesActions from './courses.actions';
 
 export interface CoursesState {
   courses: Course[];
+  course: Course | null;
   error: string | null;
 }
 
 const initialState: CoursesState = {
   courses: [],
+  course: null,
   error: null,
 };
 
@@ -19,7 +21,7 @@ export const coursesReducer = createReducer(
   on(CoursesActions.searchCoursesFailure, (state, { errorMsg }) => ({ ...state, error: errorMsg })),
 
   on(CoursesActions.getCourse, state => ({ ...state, error: null })),
-  on(CoursesActions.getCourseSuccess, state => ({ ...state, error: null })),
+  on(CoursesActions.getCourseSuccess, (state, { course }) => ({ ...state, course: course })),
   on(CoursesActions.getCourseFailure, (state, { errorMsg }) => ({ ...state, error: errorMsg })),
 
   on(CoursesActions.searchCourses, state => ({ ...state, error: null })),
