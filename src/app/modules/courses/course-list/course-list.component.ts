@@ -1,6 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
+
+import { AppState } from '@store/app.state';
+import * as CoursesActions from '@store/courses/courses.actions';
 
 import { Course } from '@interfaces/course.interface';
 
@@ -19,7 +23,11 @@ export class CourseListComponent implements OnInit, OnDestroy {
 
   loading$ = this.loader.loading$;
 
-  constructor(private coursesService: CoursesService, public loader: SpinnerOverlayService) {}
+  constructor(
+    private coursesService: CoursesService,
+    public loader: SpinnerOverlayService,
+    private store: Store<AppState>
+  ) {}
 
   ngOnInit(): void {
     this.subscription = this.coursesService.getCourses().subscribe(courses => (this.courses = courses));
@@ -48,6 +56,6 @@ export class CourseListComponent implements OnInit, OnDestroy {
 
   deleteCourse(id: string): void {
     this.courses = this.courses.filter(course => course.id !== +id);
-    this.coursesService.removeCourse(+id).subscribe();
+    this.store.dispatch(CoursesActions.removeCourse({ id: +id }));
   }
 }
