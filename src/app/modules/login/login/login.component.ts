@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 
-import { AuthService } from '@services/authentication/auth.service';
+import { Store } from '@ngrx/store';
 
-import { Token } from '@shared/interfaces/token.interface';
+import { AppState } from '@store/app.state';
+import * as AuthActions from '@store/authentication/auth.actions';
 
 @Component({
   selector: 'app-login',
@@ -14,15 +15,13 @@ export class LoginComponent {
   email = '';
   password = '';
 
-  constructor(private authService: AuthService) {}
+  constructor(private store: Store<AppState>) {}
 
   login(): void {
     const credentials = {
       login: this.email,
       password: this.password,
     };
-    this.authService.login(credentials).subscribe(() => {
-      this.authService.getUserInfo().subscribe();
-    });
+    this.store.dispatch(AuthActions.login({ credentials }));
   }
 }
