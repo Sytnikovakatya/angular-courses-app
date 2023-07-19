@@ -23,7 +23,7 @@ export const authReducer = createReducer(
   initialAuthState,
   on(AuthActions.login, state => ({ ...state, error: null })),
   on(AuthActions.loginSuccess, (state, { token }) => ({ ...state, token, error: null })),
-  on(AuthActions.loginFailure, (state, { errorMsg }) => ({ ...state, error: errorMsg })),
+  on(AuthActions.loginFailure, state => ({ ...state, error: 'Incorrect email and/or password.' })),
 
   on(AuthActions.getUserInfo, state => ({ ...state, error: null })),
   on(AuthActions.getUserInfoSuccess, (state, { user }) => ({ ...state, user, isAuthenticated: true, error: null })),
