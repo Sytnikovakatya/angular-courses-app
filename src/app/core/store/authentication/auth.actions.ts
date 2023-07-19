@@ -9,5 +9,6 @@ export const loginFailure = createAction('[Auth] Login Failure', props<{ errorMs
 
 export const logout = createAction('[Auth] Logout');
 
-export const getUserInfo = createAction('[Auth] Get User Info', props<{ user: User }>());
+export const getUserInfo = createAction('[Auth] Get User Info');
+export const getUserInfoSuccess = createAction('[Auth] Get User Info Success', props<{ user: User }>());
 export const getUserInfoFailure = createAction('[Auth] Get User Info Failure', props<{ errorMsg: string }>());
