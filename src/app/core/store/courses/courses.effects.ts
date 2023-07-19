@@ -10,6 +10,30 @@ import * as CoursesActions from './courses.actions';
 
 @Injectable()
 export class CoursesEffects {
+  set$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(CoursesActions.setCourses),
+      exhaustMap(() =>
+        this.coursesService.getCourses().pipe(
+          map(courses => CoursesActions.setCoursesSuccess({ courses })),
+          catchError((error: { message: string }) => of(CoursesActions.setCoursesFailure({ errorMsg: error.message })))
+        )
+      )
+    )
+  );
+
+  get$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(CoursesActions.getCourse),
+      exhaustMap(({ id }) =>
+        this.coursesService.getCourseById(id).pipe(
+          map(course => CoursesActions.getCourseSuccess({ course })),
+          catchError((error: { message: string }) => of(CoursesActions.getCourseFailure({ errorMsg: error.message })))
+        )
+      )
+    )
+  );
+
   add$ = createEffect(() =>
     this.actions$.pipe(
       ofType(CoursesActions.createCourse),
@@ -46,6 +70,46 @@ export class CoursesEffects {
           map(() => CoursesActions.removeCourseSuccess({ id })),
           catchError((error: { message: string }) =>
             of(CoursesActions.removeCourseFailure({ errorMsg: error.message }))
+          )
+        )
+      )
+    )
+  );
+
+  load$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(CoursesActions.loadMoreCourses),
+      exhaustMap(({ amount }) =>
+        this.coursesService.loadMoreCourses(amount).pipe(
+          map(courses => CoursesActions.loadMoreCoursesSuccess({ courses })),
+          catchError((error: { message: string }) =>
+            of(CoursesActions.loadMoreCoursesFailure({ errorMsg: error.message }))
+          )
+        )
+      )
+    )
+  );
+
+  sort$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(CoursesActions.sortCourses),
+      exhaustMap(({ value }) =>
+        this.coursesService.orderCourses(value).pipe(
+          map(courses => CoursesActions.sortCoursesSuccess({ courses })),
+          catchError((error: { message: string }) => of(CoursesActions.sortCoursesFailure({ errorMsg: error.message })))
+        )
+      )
+    )
+  );
+
+  search$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(CoursesActions.searchCourses),
+      exhaustMap(({ newValue }) =>
+        this.coursesService.searchCourse(newValue).pipe(
+          map(courses => CoursesActions.searchCoursesSuccess({ courses })),
+          catchError((error: { message: string }) =>
+            of(CoursesActions.searchCoursesFailure({ errorMsg: error.message }))
           )
         )
       )
