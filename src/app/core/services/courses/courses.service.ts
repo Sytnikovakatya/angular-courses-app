@@ -3,12 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 import { Observable, tap } from 'rxjs';
-import { Store } from '@ngrx/store';
 
 import { Course } from '@shared/interfaces/course.interface';
-
-import { AppState } from '@store/app.state';
-import * as CoursesActions from '@store/courses/courses.actions';
 
 @Injectable({
   providedIn: 'root',
@@ -20,30 +16,22 @@ export class CoursesService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
 
-  constructor(private http: HttpClient, private store: Store<AppState>, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   getCourses(): Observable<Course[]> {
-    return this.http
-      .get<Course[]>(this.apiUrl + '?start=0&count=5')
-      .pipe(tap(courses => this.store.dispatch(CoursesActions.setCourses({ courses }))));
+    return this.http.get<Course[]>(this.apiUrl + '?start=0&count=5');
   }
 
   loadMoreCourses(amount: number): Observable<Course[]> {
-    return this.http
-      .get<Course[]>(this.apiUrl + `?start=0&count=${amount}`)
-      .pipe(tap(courses => this.store.dispatch(CoursesActions.loadMoreCourses({ courses }))));
+    return this.http.get<Course[]>(this.apiUrl + `?start=0&count=${amount}`);
   }
 
   searchCourse(term: string): Observable<Course[]> {
-    return this.http
-      .get<Course[]>(this.apiUrl + `?textFragment=${term}`)
-      .pipe(tap(courses => this.store.dispatch(CoursesActions.searchCourses({ courses }))));
+    return this.http.get<Course[]>(this.apiUrl + `?textFragment=${term}`);
   }
 
   orderCourses(value: string): Observable<Course[]> {
-    return this.http
-      .get<Course[]>(this.apiUrl + `?sort=${value}`)
-      .pipe(tap(courses => this.store.dispatch(CoursesActions.sortCourses({ courses }))));
+    return this.http.get<Course[]>(this.apiUrl + `?sort=${value}`);
   }
 
   createCourse(newItem: Course): Observable<Course> {
