@@ -7,7 +7,6 @@ import { Observable, BehaviorSubject, map, tap } from 'rxjs';
 import { Store } from '@ngrx/store';
 
 import * as AuthActions from '@store/authentication/auth.actions';
-import * as CoursesActions from '@store/courses/courses.actions';
 import { AppState } from '@store/app.state';
 
 import { User } from '@interfaces/user.interface';
@@ -20,7 +19,6 @@ export class AuthService {
   private apiUrl = 'http://localhost:3004/auth';
 
   private userSubject: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(null);
-  public user$: Observable<User | null> = this.userSubject.asObservable();
 
   public authentication: BehaviorSubject<boolean> = new BehaviorSubject(
     JSON.parse(localStorage.getItem('authenticated')!)
@@ -29,10 +27,6 @@ export class AuthService {
   public isAuthenticated$: Observable<boolean> = this.authentication.asObservable();
 
   constructor(private http: HttpClient, private router: Router, private store: Store<AppState>) {}
-
-  get user(): Observable<User | null> {
-    return this.user$;
-  }
 
   get isAuthenticated(): Observable<boolean> {
     return this.isAuthenticated$;
@@ -63,9 +57,6 @@ export class AuthService {
 
     this.userSubject.next(null);
     this.authentication.next(false);
-
-    this.store.dispatch(AuthActions.logout());
-    this.store.dispatch(CoursesActions.resetCourses());
 
     this.router.navigate(['/login']);
   }
