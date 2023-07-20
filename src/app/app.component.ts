@@ -1,9 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 
 import { Subscription } from 'rxjs';
-
-import { User } from '@shared/interfaces/user.interface';
 
 import { AuthService } from '@services/authentication/auth.service';
 
@@ -13,11 +10,10 @@ import { AuthService } from '@services/authentication/auth.service';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit, OnDestroy {
-  user?: User | null;
   authenticated = false;
   subscription: Subscription;
 
-  constructor(private authService: AuthService, private http: HttpClient) {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
     this.subscription = this.authService.isAuthenticated.subscribe(
