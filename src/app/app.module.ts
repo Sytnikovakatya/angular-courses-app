@@ -19,7 +19,6 @@ import { CoreModule } from '@core/core.module';
 
 import { TokenInterceptor } from '@interceptors/token/token.interceptor';
 import { ErrorInterceptor } from '@interceptors/error/error.interceptor';
-import { NetworkInterceptor } from '@interceptors/network/network.interceptor';
 
 import { authReducer } from '@store/authentication/auth.reducer';
 import { coursesReducer } from '@store/courses/courses.reducer';
@@ -61,11 +60,6 @@ import { AppComponent } from './app.component';
       multi: true,
     },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: NetworkInterceptor,
-      multi: true,
-    },
   ],
   bootstrap: [AppComponent],
 })
