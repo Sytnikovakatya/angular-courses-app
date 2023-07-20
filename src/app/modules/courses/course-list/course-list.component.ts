@@ -6,10 +6,9 @@ import { Store } from '@ngrx/store';
 import { AppState } from '@store/app.state';
 import * as CoursesActions from '@store/courses/courses.actions';
 import { selectCourses } from '@store/courses/courses.selectors';
+import { selectLoading } from '@store/courses/courses.selectors';
 
 import { Course } from '@interfaces/course.interface';
-
-import { SpinnerOverlayService } from '@services/spinner-overlay/spinner-overlay.service';
 
 @Component({
   selector: 'app-course-list',
@@ -19,24 +18,30 @@ import { SpinnerOverlayService } from '@services/spinner-overlay/spinner-overlay
 export class CourseListComponent implements OnInit, OnDestroy {
   amountOfCourses = 5;
   courses: Course[] = [];
-  subscription: Subscription;
-  getState$: Observable<Course[]>;
+  loading = false;
 
-  loading$ = this.loader.loading$;
+  subscription1: Subscription;
+  subscription2: Subscription;
 
-  constructor(public loader: SpinnerOverlayService, private store: Store<AppState>) {
-    this.getState$ = this.store.select(selectCourses);
+  getStateCourses$: Observable<Course[]>;
+  getStateLoading$: Observable<boolean>;
+
+  constructor(private store: Store<AppState>) {
+    this.getStateCourses$ = this.store.select(selectCourses);
+    this.getStateLoading$ = this.store.select(selectLoading);
   }
 
   ngOnInit(): void {
     this.store.dispatch(CoursesActions.setCourses());
-    this.subscription = this.getState$.subscribe(courses => {
+    this.subscription1 = this.getStateCourses$.subscribe(courses => {
       this.courses = courses;
     });
+    this.subscription2 = this.getStateLoading$.subscribe(loading => (this.loading = loading));
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.subscription1.unsubscribe();
+    this.subscription2.unsubscribe();
   }
 
   courseTrackBy(index: number, course: Course): number {
