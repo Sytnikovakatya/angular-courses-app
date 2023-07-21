@@ -20,7 +20,7 @@ export class AddCourseComponent implements OnInit, OnDestroy {
   id: string | null;
   author = '';
   subscription: Subscription;
-  getState$: Observable<Course | null>;
+  editingCourse$: Observable<Course | null>;
 
   course: Course = {
     id: 0,
@@ -33,12 +33,12 @@ export class AddCourseComponent implements OnInit, OnDestroy {
   };
 
   constructor(private route: ActivatedRoute, private router: Router, private store: Store<AppState>) {
-    this.getState$ = this.store.select(selectEditCourse);
+    this.editingCourse$ = this.store.select(selectEditCourse);
   }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
-    this.subscription = this.getState$.subscribe(course => {
+    this.subscription = this.editingCourse$.subscribe(course => {
       course ? (this.course = course) : this.course;
     });
     this.getCourse();
