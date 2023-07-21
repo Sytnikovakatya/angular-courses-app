@@ -18,15 +18,15 @@ export class LoginComponent implements OnInit {
   email = '';
   password = '';
 
-  getState$: Observable<string | null>;
+  getError$: Observable<string | null>;
   errorMessage: string | null;
 
   constructor(private store: Store<AppState>) {
-    this.getState$ = this.store.select(selectErrorMsg);
+    this.getError$ = this.store.select(selectErrorMsg);
   }
 
   ngOnInit(): void {
-    this.getState$.subscribe(err => {
+    this.getError$.subscribe(err => {
       this.errorMessage = err;
     });
   }
