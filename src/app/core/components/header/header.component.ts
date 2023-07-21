@@ -21,14 +21,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
   authenticated = false;
   user?: User | null;
   subscriptions: Subscription[] = [];
-  getState$: Observable<User | null>;
+  userDetails$: Observable<User | null>;
 
   constructor(public authService: AuthService, private store: Store<AppState>) {
-    this.getState$ = this.store.select(selectUserInfo);
+    this.userDetails$ = this.store.select(selectUserInfo);
   }
 
   ngOnInit(): void {
-    const sub1 = this.getState$.subscribe(user => {
+    const sub1 = this.userDetails$.subscribe(user => {
       this.user = user;
     });
     this.subscriptions.push(sub1);
