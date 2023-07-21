@@ -19,9 +19,7 @@ export class CourseListComponent implements OnInit, OnDestroy {
   amountOfCourses = 5;
   courses: Course[] = [];
   loading = false;
-
-  subscription1: Subscription;
-  subscription2: Subscription;
+  subscriptions: Subscription[] = [];
 
   getStateCourses$: Observable<Course[]>;
   getStateLoading$: Observable<boolean>;
@@ -33,15 +31,18 @@ export class CourseListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.store.dispatch(CoursesActions.setCourses());
-    this.subscription1 = this.getStateCourses$.subscribe(courses => {
+
+    const sub1 = this.getStateCourses$.subscribe(courses => {
       this.courses = courses;
     });
-    this.subscription2 = this.getStateLoading$.subscribe(loading => (this.loading = loading));
+    this.subscriptions.push(sub1);
+
+    const sub2 = this.getStateLoading$.subscribe(loading => (this.loading = loading));
+    this.subscriptions.push(sub2);
   }
 
   ngOnDestroy(): void {
-    this.subscription1.unsubscribe();
-    this.subscription2.unsubscribe();
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
   courseTrackBy(index: number, course: Course): number {

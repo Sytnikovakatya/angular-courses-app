@@ -20,8 +20,7 @@ import { AuthService } from '@services/authentication/auth.service';
 export class HeaderComponent implements OnInit, OnDestroy {
   authenticated = false;
   user?: User | null;
-  subscription1$: Subscription;
-  subscription2$: Subscription;
+  subscriptions: Subscription[] = [];
   getState$: Observable<User | null>;
 
   constructor(public authService: AuthService, private store: Store<AppState>) {
@@ -29,17 +28,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.subscription1$ = this.getState$.subscribe(user => {
+    const sub1 = this.getState$.subscribe(user => {
       this.user = user;
     });
-    this.subscription2$ = this.authService.isAuthenticated.subscribe(
-      authenticated => (this.authenticated = authenticated)
-    );
+    this.subscriptions.push(sub1);
+    const sub2 = this.authService.isAuthenticated.subscribe(authenticated => (this.authenticated = authenticated));
+    this.subscriptions.push(sub2);
   }
 
   ngOnDestroy(): void {
-    this.subscription1$.unsubscribe();
-    this.subscription2$.unsubscribe();
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
   logout(): void {
