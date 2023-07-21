@@ -15,15 +15,15 @@ import { selectLoading } from '@store/courses/courses.selectors';
 export class LoadingBlockComponent implements OnInit, OnDestroy {
   loading = false;
   subscription: Subscription;
-  getState$: Observable<boolean>;
+  loadInfo$: Observable<boolean>;
 
   constructor(private store: Store<AppState>) {
-    this.getState$ = this.store.select(selectLoading);
+    this.loadInfo$ = this.store.select(selectLoading);
   }
 
   ngOnInit(): void {
     this.store.dispatch(CoursesActions.setCourses());
-    this.subscription = this.getState$.subscribe(loading => {
+    this.subscription = this.loadInfo$.subscribe(loading => {
       this.loading = loading;
     });
   }
