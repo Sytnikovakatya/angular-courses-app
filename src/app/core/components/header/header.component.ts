@@ -8,9 +8,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from '@store/app.state';
 import * as AuthActions from '@store/authentication/auth.actions';
 import * as CoursesActions from '@store/courses/courses.actions';
-import { selectUserInfo } from '@store/authentication/auth.selectors';
-
-import { AuthService } from '@services/authentication/auth.service';
+import { selectUserInfo, selectIsAuthenticated } from '@store/authentication/auth.selectors';
 
 @Component({
   selector: 'app-header',
@@ -22,9 +20,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   user?: User | null;
   subscriptions: Subscription[] = [];
   userDetails$: Observable<User | null>;
+  isAuthenticated$: Observable<boolean>;
 
-  constructor(public authService: AuthService, private store: Store<AppState>) {
+  constructor(private store: Store<AppState>) {
     this.userDetails$ = this.store.select(selectUserInfo);
+    this.isAuthenticated$ = this.store.select(selectIsAuthenticated);
   }
 
   ngOnInit(): void {
@@ -32,7 +32,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.user = user;
     });
     this.subscriptions.push(sub1);
-    const sub2 = this.authService.isAuthenticated.subscribe(authenticated => (this.authenticated = authenticated));
+    const sub2 = this.isAuthenticated$.subscribe(authenticated => (this.authenticated = authenticated));
     this.subscriptions.push(sub2);
   }
 
