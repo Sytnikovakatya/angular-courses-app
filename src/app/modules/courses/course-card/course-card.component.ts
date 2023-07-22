@@ -29,8 +29,10 @@ export class CourseCardComponent {
     const modalRef = this.modalService.open(DeleteModalComponent, { centered: true });
     modalRef.componentInstance.id = id;
 
-    modalRef.result.then(() => {
-      this.newDeleteEvent.emit(id.toString());
-    });
+    modalRef.result
+      .then(() => {
+        this.newDeleteEvent.emit(id.toString());
+      })
+      .catch(() => {});
   }
 }
