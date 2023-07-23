@@ -42,14 +42,14 @@ describe('DeleteModalComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should call coursesService.removeCourse and close the modal when delete method is called', () => {
-    const courseId = 1;
-    spyOn(coursesService, 'removeCourse');
-    spyOn(component.activeModal, 'close');
+  it('should emit the ID when delete method is called', () => {
+    const mockId = 123;
+    const activeModal = TestBed.inject(NgbActiveModal);
+    spyOn(activeModal, 'close');
 
+    component.id = mockId;
     component.delete();
 
-    expect(coursesService.removeCourse).toHaveBeenCalledWith(courseId);
-    expect(component.activeModal.close).toHaveBeenCalledWith('Confirm click');
+    expect(activeModal.close).toHaveBeenCalledWith(mockId);
   });
 });

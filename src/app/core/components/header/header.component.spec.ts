@@ -1,9 +1,14 @@
 import { Component, Input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { IfAuthenticatedDirective } from '@directives/ifAuthenticated/if-authenticated.directive';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
-import { AuthService } from '@services/authentication/auth.service';
+import { Store, StoreModule } from '@ngrx/store';
+import { provideMockStore } from '@ngrx/store/testing';
+
+import { AppState } from '@store/app.state';
+import * as AuthActions from '@store/authentication/auth.actions';
+import * as CoursesActions from '@store/courses/courses.actions';
 
 import { HeaderComponent } from './header.component';
 
@@ -25,30 +30,34 @@ class MockButtonComponent {
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
   let fixture: ComponentFixture<HeaderComponent>;
-  let authServiceSpy: jasmine.SpyObj<AuthService>;
+  let store: Store<AppState>;
 
   beforeEach(async () => {
-    const authServiceMock = jasmine.createSpyObj('AuthService', ['isAuthenticated', 'getUserInfo', 'logout']);
-
     await TestBed.configureTestingModule({
-      declarations: [HeaderComponent, MockLogoComponent, MockButtonComponent, IfAuthenticatedDirective],
-      providers: [{ provide: AuthService, useValue: authServiceMock }],
+      imports: [HttpClientTestingModule, StoreModule.forRoot(provideMockStore)],
+      declarations: [HeaderComponent, MockLogoComponent, MockButtonComponent],
     }).compileComponents();
 
-    authServiceSpy = TestBed.inject(AuthService) as jasmine.SpyObj<AuthService>;
     fixture = TestBed.createComponent(HeaderComponent);
     component = fixture.componentInstance;
+    store = TestBed.inject(Store);
     fixture.detectChanges();
+  });
+
+  afterEach(() => {
+    fixture.destroy();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should initialize authenticated and user properties on ngOnInit', () => {
-    authServiceSpy.isAuthenticated.and.returnValue(true);
-    component.ngOnInit();
-    expect(authServiceSpy.isAuthenticated).toHaveBeenCalled();
-    expect(component.authenticated).toBeTrue();
+  it('should dispatch logout action when logout is called', () => {
+    spyOn(store, 'dispatch');
+
+    component.logout();
+
+    expect(store.dispatch).toHaveBeenCalledWith(AuthActions.logout());
+    expect(store.dispatch).toHaveBeenCalledWith(CoursesActions.resetCourses());
   });
 });

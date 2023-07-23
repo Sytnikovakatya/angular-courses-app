@@ -1,29 +1,21 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 
 import { By } from '@angular/platform-browser';
 
 import { ButtonComponent } from './button.component';
-import { ChangeDetectionStrategy } from '@angular/core';
 
 describe('ButtonComponent', () => {
   let component: ButtonComponent;
   let fixture: ComponentFixture<ButtonComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
+  beforeEach(fakeAsync(() => {
+    TestBed.configureTestingModule({
       declarations: [ButtonComponent],
-    })
-      .overrideComponent(ButtonComponent, {
-        set: {
-          changeDetection: ChangeDetectionStrategy.Default,
-        },
-      })
-      .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ButtonComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+  }));
 
   it('should create', () => {
     expect(component).toBeTruthy();
@@ -35,18 +27,23 @@ describe('ButtonComponent', () => {
     expect(component.name).toBe(buttonText);
   });
 
-  it('should set default class and type if not provided', () => {
+  it('should set default class and type if not provided', fakeAsync(() => {
     const buttonElement = fixture.debugElement.query(By.css('button')).nativeElement;
+    fixture.detectChanges();
+    tick();
+
     expect(buttonElement.getAttribute('class')).toBe('btn btn-primary');
     expect(buttonElement.getAttribute('type')).toBe('button');
-  });
+  }));
 
-  it('should set custom class if provided', () => {
+  it('should set custom class if provided', fakeAsync(() => {
     component.class = 'custom-class';
     fixture.detectChanges();
+    tick();
+
     const buttonElement = fixture.debugElement.query(By.css('button')).nativeElement;
     expect(buttonElement.getAttribute('class')).toBe('custom-class');
-  });
+  }));
 
   it('should call the onClick method when the button is clicked', () => {
     spyOn(component, 'onClick');

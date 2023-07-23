@@ -1,14 +1,8 @@
 <div class="search-bar mx-5 mt-5">
   <div class="row">
-    <form class="d-flex" role="search">
-      <app-input [placeholder]="'Type to search'" [type]="'search'" [(bindModelData)]="search"></app-input>
-      <app-button
-        [text]="'Search'"
-        [class]="'btn btn-outline-success search-btn'"
-        [type]="'submit'"
-        (click)="searchClick(search)"
-      ></app-button>
-    </form>
+   <div class="col-4">
+      <app-input [class]="'form-control fs-5'" [placeholder]="'Type to search'" [type]="'search'" [(bindModelData)]="search"  (keyup)="handleSearchInput(search)"></app-input>
+   </div>
   </div>
   <div class="row mt-4 justify-content-md-end">
     <div class="col-6">

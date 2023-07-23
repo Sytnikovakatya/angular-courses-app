@@ -6,10 +6,7 @@
 .card {
   background: hsla(0, 0%, 100%, 0.8);
   backdrop-filter: blur(30px);
-}
-
-.card-body {
-  width: 800px;
+  width: 60rem;
 }
 
 .one-row {

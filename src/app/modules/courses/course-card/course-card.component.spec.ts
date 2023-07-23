@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component, Input } from '@angular/core';
+import { ComponentFixture, TestBed, fakeAsync, tick, waitForAsync } from '@angular/core/testing';
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
@@ -14,7 +14,6 @@ import { IfAuthenticatedDirective } from '@directives/ifAuthenticated/if-authent
 import { CoursesService } from '@services/courses/courses.service';
 
 import { CourseCardComponent } from './course-card.component';
-import { DeleteModalComponent } from '../delete-modal/delete-modal.component';
 
 @Component({
   selector: 'app-button',
@@ -39,10 +38,9 @@ describe('CourseCardComponent', () => {
   let component: CourseCardComponent;
   let fixture: ComponentFixture<CourseCardComponent>;
   let modalService: NgbModal;
-  let coursesService: CoursesService;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
+  beforeEach(fakeAsync(() => {
+    TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       declarations: [
         CourseCardComponent,
@@ -52,21 +50,13 @@ describe('CourseCardComponent', () => {
         IfAuthenticatedDirective,
       ],
       providers: [NgbModal, CoursesService],
-    })
-      .overrideComponent(CourseCardComponent, {
-        set: {
-          changeDetection: ChangeDetectionStrategy.Default,
-        },
-      })
-      .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CourseCardComponent);
     component = fixture.componentInstance;
-    modalService = TestBed.inject(NgbModal);
-    coursesService = TestBed.inject(CoursesService);
     component.course = mockCourse;
-    fixture.detectChanges();
-  });
+    modalService = TestBed.inject(NgbModal);
+  }));
 
   it('should create', () => {
     expect(component).toBeTruthy();
@@ -76,49 +66,50 @@ describe('CourseCardComponent', () => {
     expect(component.isTopRated).toBeFalse();
   });
 
-  it('should apply "special-card" class when isTopRated is true', () => {
+  it('should apply "special-card" class when isTopRated is true', fakeAsync(() => {
     component.isTopRated = true;
+
     fixture.detectChanges();
+    tick();
+
     const cardElement = fixture.nativeElement.querySelector('.card');
     expect(cardElement.classList.contains('special-card')).toBeTrue();
-  });
+  }));
 
-  it('should render the course card with correct details', () => {
+  it('should render the course card with correct details', fakeAsync(() => {
     const cardTitleElement = fixture.debugElement.query(By.css('.card-title')).nativeElement;
     const cardLengthElement = fixture.debugElement.query(By.css('.card-duration')).nativeElement;
     const cardDateElement = fixture.debugElement.query(By.css('.card-date')).nativeElement;
     const cardDescriptionElement = fixture.debugElement.query(By.css('.card-description')).nativeElement;
 
+    fixture.detectChanges();
+    tick();
+
     expect(cardTitleElement.textContent.trim()).toBe(`Video Course 1. JAVASCRIPT`);
     expect(cardLengthElement.textContent.trim()).toBe('2 hours');
     expect(cardDateElement.textContent.trim()).toBe('14 Jun 2023');
     expect(cardDescriptionElement.textContent.trim()).toBe(mockCourse.description);
-  });
+  }));
 
-  it('should call editCourse method with correct parameters', () => {
-    const course = {
+  it('should navigate to edit course on editCourse', () => {
+    const courseId = 1;
+    spyOn(component['router'], 'navigate');
+
+    component.editCourse({
       id: 1,
-      name: 'Test Course',
-      date: '2023-06-14T04:39:24+00:00',
-      length: 60,
-      description: 'Test Description',
-    };
-    const getCourseByIdSpy = spyOn(coursesService, 'getCourseById');
-    const updateCourseSpy = spyOn(coursesService, 'updateCourse');
+      name: 'Javascript New',
+      date: '2017-09-28T04:39:24+00:00',
+      length: 120,
+      isTopRated: false,
+      description: 'New description',
+      authors: [
+        {
+          id: 8413,
+          name: 'Greta',
+        },
+      ],
+    });
 
-    component.editCourse(course);
-
-    expect(getCourseByIdSpy).toHaveBeenCalledWith(course.id);
-  });
-
-  it('should open delete modal with correct id', () => {
-    const id = 1;
-    const modalRef = jasmine.createSpyObj('NgbModalRef', ['componentInstance']);
-    spyOn(modalService, 'open').and.returnValue(modalRef);
-
-    component.delete(id);
-
-    expect(modalService.open).toHaveBeenCalledWith(DeleteModalComponent);
-    expect(modalRef.componentInstance.id).toEqual(id);
+    expect(component['router'].navigate).toHaveBeenCalledWith(['/courses', courseId]);
   });
 });

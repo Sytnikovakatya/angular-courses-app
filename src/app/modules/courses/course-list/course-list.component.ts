@@ -1,10 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
+
+import { AppState } from '@store/app.state';
+import * as CoursesActions from '@store/courses/courses.actions';
+import { selectCourses } from '@store/courses/courses.selectors';
+import { selectLoading } from '@store/courses/courses.selectors';
 
 import { Course } from '@interfaces/course.interface';
-
-import { CoursesService } from '@services/courses/courses.service';
 
 @Component({
   selector: 'app-course-list',
@@ -14,16 +18,31 @@ import { CoursesService } from '@services/courses/courses.service';
 export class CourseListComponent implements OnInit, OnDestroy {
   amountOfCourses = 5;
   courses: Course[] = [];
-  subscription: Subscription;
+  loading = false;
+  subscriptions: Subscription[] = [];
 
-  constructor(private coursesService: CoursesService) {}
+  getStateCourses$: Observable<Course[]>;
+  getStateLoading$: Observable<boolean>;
+
+  constructor(private store: Store<AppState>) {
+    this.getStateCourses$ = this.store.select(selectCourses);
+    this.getStateLoading$ = this.store.select(selectLoading);
+  }
 
   ngOnInit(): void {
-    this.subscription = this.coursesService.getCourses().subscribe(courses => (this.courses = courses));
+    this.store.dispatch(CoursesActions.setCourses());
+
+    const sub1 = this.getStateCourses$.subscribe(courses => {
+      this.courses = courses;
+    });
+    this.subscriptions.push(sub1);
+
+    const sub2 = this.getStateLoading$.subscribe(loading => (this.loading = loading));
+    this.subscriptions.push(sub2);
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
   courseTrackBy(index: number, course: Course): number {
@@ -31,20 +50,20 @@ export class CourseListComponent implements OnInit, OnDestroy {
   }
 
   getSearchValue(newValue: string): void {
-    this.coursesService.searchCourse(newValue).subscribe(courses => (this.courses = courses));
+    this.store.dispatch(CoursesActions.searchCourses({ newValue }));
   }
 
   getSortValue(value: string): void {
-    this.coursesService.orderCourses(value).subscribe(courses => (this.courses = courses));
+    this.store.dispatch(CoursesActions.sortCourses({ value: value }));
   }
 
   load(): void {
     this.amountOfCourses += 5;
-    this.coursesService.loadMoreCourses(this.amountOfCourses).subscribe(courses => (this.courses = courses));
+    this.store.dispatch(CoursesActions.loadMoreCourses({ amount: this.amountOfCourses }));
   }
 
   deleteCourse(id: string): void {
     this.courses = this.courses.filter(course => course.id !== +id);
-    this.coursesService.removeCourse(+id).subscribe();
+    this.store.dispatch(CoursesActions.removeCourse({ id: +id }));
   }
 }

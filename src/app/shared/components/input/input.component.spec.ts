@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
 import { InputComponent } from './input.component';
-import { ChangeDetectionStrategy } from '@angular/core';
 
 describe('InputComponent', () => {
   let component: InputComponent;
@@ -14,13 +13,7 @@ describe('InputComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [InputComponent],
       imports: [FormsModule],
-    })
-      .overrideComponent(InputComponent, {
-        set: {
-          changeDetection: ChangeDetectionStrategy.Default,
-        },
-      })
-      .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(InputComponent);
     component = fixture.componentInstance;

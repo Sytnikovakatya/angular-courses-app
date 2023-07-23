@@ -1,12 +1,12 @@
 <div class="modal-header">
 	<h4 class="modal-title">Delete course?</h4>
-	<app-button [class]="'btn-close'" (click)="activeModal.close('Cross click')"></app-button>
+	<app-button [class]="'btn-close'" (click)="activeModal.dismiss('Cross click')"></app-button>
 </div>
 <div class="modal-body">
 	<p class="card-text">Are you sure you want to delete <br/> Video Course {{id}}?</p>
 </div>
 <div class="modal-footer">
-	<app-button [text]="'Close'" [class]="'btn btn-outline-dark'" (click)="activeModal.close('Close click')"></app-button>
+	<app-button [text]="'Close'" [class]="'btn btn-outline-dark'" (click)="activeModal.dismiss('Close click')"></app-button>
 	<app-button [text]="'Yes, delete'" [class]="'btn btn-success'" (click)="delete()"></app-button>
 </div>
 

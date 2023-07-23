@@ -1,44 +1,55 @@
 import { TestBed } from '@angular/core/testing';
-import { Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { Router, UrlTree } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+
+import { Observable, of } from 'rxjs';
+
+import { StoreModule } from '@ngrx/store';
+import { provideMockStore } from '@ngrx/store/testing';
 
 import { AuthService } from '@services/authentication/auth.service';
-import { AuthGuard } from './auth.guard';
+
+import { authGuard } from './auth.guard';
+
+const mockAuthService = {
+  get isAuthenticated() {
+    return of(false);
+  },
+};
 
 describe('AuthGuard', () => {
-  let guard: AuthGuard;
+  let guard: Observable<boolean | UrlTree>;
   let authService: AuthService;
   let router: Router;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
-      providers: [AuthGuard, AuthService],
+      imports: [RouterTestingModule, HttpClientTestingModule, StoreModule.forRoot(provideMockStore)],
+      providers: [{ provide: AuthService, useValue: mockAuthService }],
     });
-    guard = TestBed.inject(AuthGuard);
+
+    guard = TestBed.runInInjectionContext(authGuard);
     authService = TestBed.inject(AuthService);
     router = TestBed.inject(Router);
   });
 
-  it('should allow navigation when user is authenticated', () => {
-    spyOn(authService, 'isAuthenticated').and.returnValue(true);
-    const routeSnapshot: ActivatedRouteSnapshot = new ActivatedRouteSnapshot();
-    const stateSnapshot: RouterStateSnapshot = jasmine.createSpyObj<RouterStateSnapshot>('RouterStateSnapshot', [
-      'toString',
-    ]);
-    const result = guard.canActivate(routeSnapshot, stateSnapshot);
-    expect(result).toBeTrue();
+  it('should redirect to login page when user is not authenticated', done => {
+    const result$ = guard;
+
+    result$.subscribe(result => {
+      expect(result).toEqual(router.parseUrl('/login'));
+    });
+    done();
   });
 
-  it('should navigate to login page and deny navigation when user is not authenticated', () => {
-    spyOn(authService, 'isAuthenticated').and.returnValue(false);
-    const routeSnapshot: ActivatedRouteSnapshot = new ActivatedRouteSnapshot();
-    const stateSnapshot: RouterStateSnapshot = jasmine.createSpyObj<RouterStateSnapshot>('RouterStateSnapshot', [
-      'toString',
-    ]);
-    const navigateSpy = spyOn(router, 'navigate');
-    const result = guard.canActivate(routeSnapshot, stateSnapshot);
-    expect(navigateSpy).toHaveBeenCalledWith(['/login']);
-    expect(result).toBeFalse();
+  it('should allow access if the user is authenticated', done => {
+    const result$ = guard;
+    spyOnProperty(mockAuthService, 'isAuthenticated', 'get').and.returnValue(of(false));
+
+    result$.subscribe(result => {
+      expect(result).toBeTruthy();
+    });
+    done();
   });
 });

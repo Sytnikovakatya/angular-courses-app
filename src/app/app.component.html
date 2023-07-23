@@ -1,9 +1,9 @@
 <app-header></app-header>
-<div [ngClass]="{ 'bg-light': user }">
-  <div *ngIf="user">
+<app-loading-block></app-loading-block>
+<div [ngClass]="{ 'bg-light': authenticated }">
+  <div *ngIf="authenticated">
     <app-breadcrumbs></app-breadcrumbs>
-  </div>
-  <router-outlet></router-outlet>
 </div>
+<router-outlet></router-outlet>
 <app-footer></app-footer>
 

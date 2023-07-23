@@ -26,6 +26,8 @@
       "@pipes/*":["app/shared/pipes/*"],
       "@directives/*":["app/shared/directives/*"],
       "@services/*":["app/core/services/*"],
+      "@store/*":["app/core/store/*"],
+      "@interceptors/*":["app/core/interceptors/*"],
       "@core/*":["app/core/*"]
     },
     "useDefineForClassFields": false,

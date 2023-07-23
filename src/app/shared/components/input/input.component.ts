@@ -14,9 +14,14 @@ export class InputComponent {
 
   @Input() bindModelData: string;
   @Output() bindModelDataChange = new EventEmitter<string>();
+  @Output() inputKeyUp = new EventEmitter<void>();
 
   updateData(event: string): void {
     this.bindModelData = event;
     this.bindModelDataChange.emit(event);
+  }
+
+  onKeyUp() {
+    this.inputKeyUp.emit();
   }
 }

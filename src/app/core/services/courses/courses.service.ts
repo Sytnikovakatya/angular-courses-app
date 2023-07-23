@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Router } from '@angular/router';
 
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
 import { Course } from '@shared/interfaces/course.interface';
 
@@ -15,7 +16,7 @@ export class CoursesService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   getCourses(): Observable<Course[]> {
     return this.http.get<Course[]>(this.apiUrl + '?start=0&count=5');
@@ -34,7 +35,7 @@ export class CoursesService {
   }
 
   createCourse(newItem: Course): Observable<Course> {
-    return this.http.post<Course>(this.apiUrl, newItem);
+    return this.http.post<Course>(this.apiUrl, newItem).pipe(tap(() => this.router.navigate(['/courses'])));
   }
 
   getCourseById(id: number): Observable<Course> {
@@ -42,7 +43,9 @@ export class CoursesService {
   }
 
   updateCourse(id: number, course: Course): Observable<Course> {
-    return this.http.patch<Course>(this.apiUrl + `/${id}`, course, this.httpOptions);
+    return this.http
+      .patch<Course>(this.apiUrl + `/${id}`, course, this.httpOptions)
+      .pipe(tap(() => this.router.navigate(['/courses'])));
   }
 
   removeCourse(id: number): Observable<Course> {

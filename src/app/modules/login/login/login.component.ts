@@ -1,31 +1,41 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 
-import { AuthService } from '@services/authentication/auth.service';
+import { Observable } from 'rxjs';
+
+import { Store } from '@ngrx/store';
+
+import { AppState } from '@store/app.state';
+import * as AuthActions from '@store/authentication/auth.actions';
+import { selectErrorMsg } from '@store/authentication/auth.selectors';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   validation = true;
   email = '';
   password = '';
 
-  constructor(private authService: AuthService, private router: Router) {}
+  getError$: Observable<string | null>;
+  errorMessage: string | null;
+
+  constructor(private store: Store<AppState>) {
+    this.getError$ = this.store.select(selectErrorMsg);
+  }
+
+  ngOnInit(): void {
+    this.getError$.subscribe(err => {
+      this.errorMessage = err;
+    });
+  }
 
   login(): void {
     const credentials = {
       login: this.email,
       password: this.password,
     };
-    this.authService.login(credentials).subscribe(response => {
-      localStorage.setItem('token', response.token);
-      localStorage.setItem('authenticated', 'true');
-
-      this.authService.getUserInfo().subscribe();
-      this.router.navigate(['/courses']);
-    });
+    this.store.dispatch(AuthActions.login({ credentials }));
   }
 }

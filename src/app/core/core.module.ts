@@ -3,12 +3,13 @@ import { CommonModule } from '@angular/common';
 
 import { SharedModule } from '@shared/shared.module';
 
-import { FooterComponent } from './footer/footer.component';
-import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { HeaderComponent } from './components/header/header.component';
+import { LoadingBlockComponent } from './components/loading-block/loading-block.component';
 
 @NgModule({
-  declarations: [FooterComponent, HeaderComponent],
+  declarations: [FooterComponent, HeaderComponent, LoadingBlockComponent],
   imports: [CommonModule, SharedModule],
-  exports: [FooterComponent, HeaderComponent],
+  exports: [FooterComponent, HeaderComponent, LoadingBlockComponent],
 })
 export class CoreModule {}

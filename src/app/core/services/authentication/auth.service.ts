@@ -2,10 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
-import { Observable, BehaviorSubject, map } from 'rxjs';
+import { Observable, BehaviorSubject, tap } from 'rxjs';
 
-import { User } from '@shared/interfaces/user.interface';
-import { Token } from '@shared/interfaces/token.interface';
+import { Store } from '@ngrx/store';
+
+import * as AuthActions from '@store/authentication/auth.actions';
+import { AppState } from '@store/app.state';
+
+import { User } from '@interfaces/user.interface';
+import { Token } from '@interfaces/token.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -13,49 +18,40 @@ import { Token } from '@shared/interfaces/token.interface';
 export class AuthService {
   private apiUrl = 'http://localhost:3004/auth';
 
-  userInfo: User | null;
+  private authentication: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  public isAuthenticated$: Observable<boolean> = this.authentication.asObservable();
 
-  private userSubject: BehaviorSubject<User | null>;
-  public user$: Observable<User | null>;
+  constructor(private http: HttpClient, private router: Router, private store: Store<AppState>) {}
 
-  constructor(private http: HttpClient, private router: Router) {
-    this.userSubject = new BehaviorSubject(this.userInfo);
-    this.user$ = this.userSubject.asObservable();
+  get token(): string | null {
+    return localStorage.getItem('token');
   }
 
-  get user() {
-    return this.user$;
-  }
-
-  public get userValue() {
-    return this.userSubject.value;
+  get isAuthenticated(): Observable<boolean> {
+    if (Boolean(this.token)) {
+      this.authentication.next(true);
+    } else {
+      this.authentication.next(false);
+    }
+    return this.isAuthenticated$;
   }
 
   login(credentials: { login: string; password: string }): Observable<Token> {
-    return this.http.post<Token>(this.apiUrl + '/login', credentials);
+    return this.http.post<Token>(this.apiUrl + '/login', credentials).pipe(
+      tap(token => {
+        localStorage.setItem('token', token.token);
+        this.store.dispatch(AuthActions.getUserInfo());
+        this.router.navigate(['/courses']);
+      })
+    );
   }
 
   logout(): void {
-    localStorage.setItem('authenticated', 'false');
     localStorage.removeItem('token');
-
-    this.userSubject.next(null);
-
     this.router.navigate(['/login']);
   }
 
-  isAuthenticated(): boolean {
-    const authenticated = localStorage.getItem('authenticated') === 'true';
-    return authenticated;
-  }
-
   getUserInfo(): Observable<User> {
-    return this.http.post<User>(this.apiUrl + '/userinfo', { token: localStorage.getItem('token') }).pipe(
-      map(user => {
-        this.userInfo = user;
-        this.userSubject.next(user);
-        return user;
-      })
-    );
+    return this.http.post<User>(this.apiUrl + '/userinfo', { token: localStorage.getItem('token') });
   }
 }

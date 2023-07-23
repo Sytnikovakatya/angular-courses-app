@@ -31,10 +31,9 @@
                 <div class="form-group">
                   <app-button [text]="'Login'" [class]="'btn btn-success px-5'" [type]="'submit'"></app-button>
                 </div>
-              </div>        
+              </div>  
           </form>
-        </div>
-      </div>
+      <div *ngIf="errorMessage" class="alert alert-danger" role="alert">{{errorMessage}}</div>
+    </div>
+  </div>
 </div>
-
-

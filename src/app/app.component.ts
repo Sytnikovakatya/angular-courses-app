@@ -1,11 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
-import { User } from '@shared/interfaces/user.interface';
+import { Store } from '@ngrx/store';
 
-import { AuthService } from '@services/authentication/auth.service';
+import { AppState } from '@store/app.state';
+import { selectIsAuthenticated } from '@store/authentication/auth.selectors';
 
 @Component({
   selector: 'app-root',
@@ -13,13 +13,16 @@ import { AuthService } from '@services/authentication/auth.service';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit, OnDestroy {
-  user?: User | null;
+  authenticated = false;
   subscription: Subscription;
+  isAuthenticated$: Observable<boolean>;
 
-  constructor(private authService: AuthService, private http: HttpClient) {}
+  constructor(private store: Store<AppState>) {
+    this.isAuthenticated$ = this.store.select(selectIsAuthenticated);
+  }
 
   ngOnInit(): void {
-    this.subscription = this.authService.user.subscribe(user => (this.user = user));
+    this.subscription = this.isAuthenticated$.subscribe(authenticated => (this.authenticated = authenticated));
   }
 
   ngOnDestroy(): void {

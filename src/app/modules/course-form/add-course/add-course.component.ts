@@ -1,7 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
+import { Observable } from 'rxjs';
+
+import { Store } from '@ngrx/store';
+
 import { Course } from '@shared/interfaces/course.interface';
+
+import { AppState } from '@store/app.state';
+import * as CoursesActions from '@store/courses/courses.actions';
 
 import { CoursesService } from '@services/courses/courses.service';
 
@@ -13,6 +20,7 @@ import { CoursesService } from '@services/courses/courses.service';
 export class AddCourseComponent implements OnInit {
   id: string | null;
   author = '';
+  editingCourse$: Observable<Course | null>;
 
   course: Course = {
     id: 0,
@@ -24,7 +32,12 @@ export class AddCourseComponent implements OnInit {
     isTopRated: false,
   };
 
-  constructor(private route: ActivatedRoute, private router: Router, private coursesService: CoursesService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private coursesService: CoursesService,
+    private store: Store<AppState>
+  ) {}
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
@@ -39,11 +52,10 @@ export class AddCourseComponent implements OnInit {
 
   saveCourse(): void {
     this.course.authors = this.author ? [{ id: 1, name: this.author }] : [];
-
     if (this.id && this.id !== 'new') {
-      this.coursesService.updateCourse(+this.id, this.course).subscribe(() => this.router.navigate(['/courses']));
+      this.store.dispatch(CoursesActions.updateCourse({ id: +this.id, course: this.course }));
     } else {
-      this.coursesService.createCourse(this.course).subscribe(() => this.router.navigate(['/courses']));
+      this.store.dispatch(CoursesActions.createCourse({ course: this.course }));
     }
   }
 
