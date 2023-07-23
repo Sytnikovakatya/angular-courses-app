@@ -1,7 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { Store } from '@ngrx/store';
 
@@ -9,17 +9,17 @@ import { Course } from '@shared/interfaces/course.interface';
 
 import { AppState } from '@store/app.state';
 import * as CoursesActions from '@store/courses/courses.actions';
-import { selectEditCourse } from '@store/courses/courses.selectors';
+
+import { CoursesService } from '@services/courses/courses.service';
 
 @Component({
   selector: 'app-add-course',
   templateUrl: './add-course.component.html',
   styleUrls: ['./add-course.component.css'],
 })
-export class AddCourseComponent implements OnInit, OnDestroy {
+export class AddCourseComponent implements OnInit {
   id: string | null;
   author = '';
-  subscription: Subscription;
   editingCourse$: Observable<Course | null>;
 
   course: Course = {
@@ -32,31 +32,26 @@ export class AddCourseComponent implements OnInit, OnDestroy {
     isTopRated: false,
   };
 
-  constructor(private route: ActivatedRoute, private router: Router, private store: Store<AppState>) {
-    this.editingCourse$ = this.store.select(selectEditCourse);
-  }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private coursesService: CoursesService,
+    private store: Store<AppState>
+  ) {}
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
-    this.subscription = this.editingCourse$.subscribe(course => {
-      course ? (this.course = course) : this.course;
-    });
     this.getCourse();
-  }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
   }
 
   getCourse(): void {
     if (this.id && this.id !== 'new') {
-      this.store.dispatch(CoursesActions.getCourse({ id: +this.id }));
+      this.coursesService.getCourseById(+this.id).subscribe(course => (this.course = course));
     }
   }
 
   saveCourse(): void {
     this.course.authors = this.author ? [{ id: 1, name: this.author }] : [];
-
     if (this.id && this.id !== 'new') {
       this.store.dispatch(CoursesActions.updateCourse({ id: +this.id, course: this.course }));
     } else {
