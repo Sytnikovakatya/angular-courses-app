@@ -2,6 +2,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
+import { StoreModule } from '@ngrx/store';
+import { provideMockStore } from '@ngrx/store/testing';
+
 import { courses } from '@data/courses';
 
 import { CourseListComponent } from './course-list.component';
@@ -19,7 +22,7 @@ describe('CourseListComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
+      imports: [HttpClientTestingModule, StoreModule.forRoot(provideMockStore)],
       declarations: [CourseListComponent, MockSearchBarComponent],
     });
     fixture = TestBed.createComponent(CourseListComponent);

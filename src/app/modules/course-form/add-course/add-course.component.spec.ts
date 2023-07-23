@@ -6,6 +6,9 @@ import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
+import { StoreModule } from '@ngrx/store';
+import { provideMockStore } from '@ngrx/store/testing';
+
 import { AddCourseComponent } from './add-course.component';
 
 @Component({
@@ -59,7 +62,7 @@ describe('AddCourseComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [FormsModule, RouterTestingModule, HttpClientTestingModule],
+      imports: [FormsModule, RouterTestingModule, HttpClientTestingModule, StoreModule.forRoot(provideMockStore)],
       declarations: [
         AddCourseComponent,
         MockInputComponent,

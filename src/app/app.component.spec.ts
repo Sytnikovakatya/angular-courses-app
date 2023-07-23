@@ -3,6 +3,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
+import { StoreModule } from '@ngrx/store';
+import { provideMockStore } from '@ngrx/store/testing';
+
 import { SharedModule } from '@shared/shared.module';
 import { Course } from '@interfaces/course.interface';
 
@@ -72,7 +75,7 @@ describe('AppComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule, SharedModule, HttpClientTestingModule],
+      imports: [RouterTestingModule, SharedModule, HttpClientTestingModule, StoreModule.forRoot(provideMockStore)],
       declarations: [
         AppComponent,
         MockHeaderComponent,
