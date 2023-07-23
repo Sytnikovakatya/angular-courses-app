@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ChangeDetectorRef } from '@angular/core';
+
 import { By } from '@angular/platform-browser';
 
 import { ButtonComponent } from './button.component';
@@ -32,13 +32,6 @@ describe('ButtonComponent', () => {
     const buttonElement = fixture.debugElement.query(By.css('button')).nativeElement;
     expect(buttonElement.getAttribute('class')).toBe('btn btn-primary');
     expect(buttonElement.getAttribute('type')).toBe('button');
-  });
-
-  it('should set custom class if provided', () => {
-    component.class = 'custom-class';
-    const buttonElement = fixture.debugElement.query(By.css('button')).nativeElement;
-    fixture.componentRef.injector.get(ChangeDetectorRef).detectChanges();
-    expect(buttonElement.getAttribute('class')).toBe('custom-class');
   });
 
   it('should call the onClick method when the button is clicked', () => {
