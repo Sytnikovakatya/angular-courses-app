@@ -1,10 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { courses } from '@data/courses';
 import { Course } from '@shared/interfaces/course.interface';
 
 import { CoursesService } from './courses.service';
+import { CourseListComponent } from '@components/courses/course-list/course-list.component';
 
 describe('CoursesService', () => {
   let service: CoursesService;
@@ -12,7 +14,10 @@ describe('CoursesService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
+      imports: [
+        HttpClientTestingModule,
+        RouterTestingModule.withRoutes([{ path: 'courses', component: CourseListComponent }]),
+      ],
       providers: [CoursesService],
     });
     service = TestBed.inject(CoursesService);
@@ -90,13 +95,11 @@ describe('CoursesService', () => {
       ],
     };
 
-    service.createCourse(mockCourse).subscribe(() => {
-      expect(courses).toEqual(courses);
-    });
+    service.createCourse(mockCourse).subscribe();
 
     const req = httpMock.expectOne(`http://localhost:3004/courses`);
     expect(req.request.method).toBe('POST');
-    req.flush(courses);
+    req.flush(mockCourse);
   });
 
   it('should get course by id', () => {
@@ -111,7 +114,7 @@ describe('CoursesService', () => {
     req.flush(courses);
   });
 
-  it('should create new course', () => {
+  it('should update course', () => {
     const mockId = 1;
     const mockCourse = {
       id: 1,
