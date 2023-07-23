@@ -3,9 +3,12 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
-import { IfAuthenticatedDirective } from '@directives/ifAuthenticated/if-authenticated.directive';
+import { Store, StoreModule } from '@ngrx/store';
+import { provideMockStore } from '@ngrx/store/testing';
 
-import { AuthService } from '@services/authentication/auth.service';
+import { AppState } from '@store/app.state';
+import * as AuthActions from '@store/authentication/auth.actions';
+import * as CoursesActions from '@store/courses/courses.actions';
 
 import { HeaderComponent } from './header.component';
 
@@ -27,17 +30,17 @@ class MockButtonComponent {
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
   let fixture: ComponentFixture<HeaderComponent>;
-  let authService: AuthService;
+  let store: Store<AppState>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      declarations: [HeaderComponent, MockLogoComponent, MockButtonComponent, IfAuthenticatedDirective],
-      providers: [AuthService],
+      imports: [HttpClientTestingModule, StoreModule.forRoot(provideMockStore)],
+      declarations: [HeaderComponent, MockLogoComponent, MockButtonComponent],
     }).compileComponents();
+
     fixture = TestBed.createComponent(HeaderComponent);
     component = fixture.componentInstance;
-    authService = TestBed.inject(AuthService);
+    store = TestBed.inject(Store);
     fixture.detectChanges();
   });
 
@@ -49,29 +52,12 @@ describe('HeaderComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should subscribe to authentication changes', () => {
-    authService.authentication.next(true);
-
-    component.ngOnInit();
-
-    expect(component.authenticated).toBe(true);
-  });
-
-  it('should unsubscribe from subscriptions on component destroy', () => {
-    spyOn(component.subscription1$, 'unsubscribe');
-    spyOn(component.subscription2$, 'unsubscribe');
-
-    component.ngOnDestroy();
-
-    expect(component.subscription1$.unsubscribe).toHaveBeenCalled();
-    expect(component.subscription2$.unsubscribe).toHaveBeenCalled();
-  });
-
-  it('should call authService.logout() when logout() is called', () => {
-    spyOn(authService, 'logout');
+  it('should dispatch logout action when logout is called', () => {
+    spyOn(store, 'dispatch');
 
     component.logout();
 
-    expect(authService.logout).toHaveBeenCalled();
+    expect(store.dispatch).toHaveBeenCalledWith(AuthActions.logout());
+    expect(store.dispatch).toHaveBeenCalledWith(CoursesActions.resetCourses());
   });
 });
