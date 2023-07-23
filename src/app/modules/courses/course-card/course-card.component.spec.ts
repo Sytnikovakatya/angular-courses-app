@@ -1,5 +1,5 @@
-import { ChangeDetectorRef, Component, Input } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { Component, Input } from '@angular/core';
+import { ComponentFixture, TestBed, fakeAsync, tick, waitForAsync } from '@angular/core/testing';
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
@@ -39,7 +39,7 @@ describe('CourseCardComponent', () => {
   let fixture: ComponentFixture<CourseCardComponent>;
   let modalService: NgbModal;
 
-  beforeEach(waitForAsync(() => {
+  beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       declarations: [
@@ -56,7 +56,6 @@ describe('CourseCardComponent', () => {
     component = fixture.componentInstance;
     component.course = mockCourse;
     modalService = TestBed.inject(NgbModal);
-    fixture.detectChanges();
   }));
 
   it('should create', () => {
@@ -67,25 +66,30 @@ describe('CourseCardComponent', () => {
     expect(component.isTopRated).toBeFalse();
   });
 
-  it('should apply "special-card" class when isTopRated is true', () => {
+  it('should apply "special-card" class when isTopRated is true', fakeAsync(() => {
     component.isTopRated = true;
-    fixture.componentRef.injector.get(ChangeDetectorRef).detectChanges();
+
+    fixture.detectChanges();
+    tick();
+
     const cardElement = fixture.nativeElement.querySelector('.card');
     expect(cardElement.classList.contains('special-card')).toBeTrue();
-  });
+  }));
 
-  it('should render the course card with correct details', () => {
+  it('should render the course card with correct details', fakeAsync(() => {
     const cardTitleElement = fixture.debugElement.query(By.css('.card-title')).nativeElement;
     const cardLengthElement = fixture.debugElement.query(By.css('.card-duration')).nativeElement;
     const cardDateElement = fixture.debugElement.query(By.css('.card-date')).nativeElement;
     const cardDescriptionElement = fixture.debugElement.query(By.css('.card-description')).nativeElement;
 
-    fixture.componentRef.injector.get(ChangeDetectorRef).detectChanges();
+    fixture.detectChanges();
+    tick();
+
     expect(cardTitleElement.textContent.trim()).toBe(`Video Course 1. JAVASCRIPT`);
     expect(cardLengthElement.textContent.trim()).toBe('2 hours');
     expect(cardDateElement.textContent.trim()).toBe('14 Jun 2023');
     expect(cardDescriptionElement.textContent.trim()).toBe(mockCourse.description);
-  });
+  }));
 
   it('should navigate to edit course on editCourse', () => {
     const courseId = 1;
