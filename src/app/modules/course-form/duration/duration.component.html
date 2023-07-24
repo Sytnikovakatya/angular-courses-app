@@ -3,12 +3,9 @@
         <div class="col">
           <div class="d-flex justify-content-between">
             <label class="mb-2 fw-bolder">Duration:</label>
-            <span>*required</span>
+            <span *ngIf="hasError" class="error text-danger">*required</span>
           </div>
-          <input class="form-control" type="number" placeholder="minutes" [ngModel]="bindModelData" (ngModelChange)="updateData($event)"/>
-        </div>
-        <div class="col ali d-flex align-items-center">
-            {{bindModelData|duration}}
+          <input class="form-control" type="number" placeholder="minutes" [value]="value" (input)="onInput($event)" [class.is-invalid]="valid"/>
         </div>
     </div>      
 </div>
