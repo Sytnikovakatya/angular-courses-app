@@ -19,6 +19,7 @@ export class ButtonComponent {
   @Input() class: string = 'btn btn-primary';
   @Input() type: string = 'button';
   @Input() fontawesome: string;
+  @Input() disabled: boolean;
 
   @Output() btnClick = new EventEmitter<void>();
 
