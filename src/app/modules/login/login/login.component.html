@@ -3,7 +3,7 @@
         <div class="card-body p-5">
             <div class="one-row">
               <h2 class="fw-bold">Login</h2>
-              <span class="text-danger" *ngIf="!validation">*Wrong e-mail or password</span>
+              <span class="text-danger" *ngIf="errorMessage">*Wrong e-mail or password</span>
             </div>
             <form (ngSubmit)="login()">
               <div class="row my-5">
@@ -33,7 +33,6 @@
                 </div>
               </div>  
           </form>
-      <div *ngIf="errorMessage" class="alert alert-danger" role="alert">{{errorMessage}}</div>
     </div>
   </div>
 </div>
