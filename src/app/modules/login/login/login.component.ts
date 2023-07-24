@@ -14,7 +14,6 @@ import { selectErrorMsg } from '@store/authentication/auth.selectors';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  validation = true;
   email = '';
   password = '';
 
