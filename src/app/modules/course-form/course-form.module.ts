@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { SharedModule } from '@shared/shared.module';
 
@@ -13,7 +13,14 @@ import { DateInputComponent } from './date-input/date-input.component';
 
 @NgModule({
   declarations: [AddCourseComponent, AuthorsComponent, DurationComponent, DateInputComponent],
-  imports: [CommonModule, SharedModule, FormsModule, CourseFormRoutingModule],
+  imports: [
+    CommonModule,
+    SharedModule,
+    FormsModule,
+    CourseFormRoutingModule,
+    ReactiveFormsModule,
+    ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: 'never' }),
+  ],
   exports: [AddCourseComponent],
 })
 export class CourseFormModule {}
