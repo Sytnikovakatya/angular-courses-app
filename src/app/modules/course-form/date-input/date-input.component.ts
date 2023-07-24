@@ -1,19 +1,55 @@
-import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, forwardRef } from '@angular/core';
+import { ControlValueAccessor, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
   selector: 'app-date-input',
   templateUrl: './date-input.component.html',
   styleUrls: ['./date-input.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => DateInputComponent),
+      multi: true,
+    },
+    {
+      provide: NG_VALIDATORS,
+      useExisting: forwardRef(() => DateInputComponent),
+      multi: true,
+    },
+  ],
 })
-export class DateInputComponent {
-  @Input() class: string = 'form-control';
-  @Input() value = '';
-  @Input() bindModelData: string;
-  @Output() bindModelDataChange = new EventEmitter<string>();
+export class DateInputComponent implements ControlValueAccessor {
+  @Input() valid: boolean | undefined;
+  @Input() hasError: boolean | undefined;
 
-  updateData(event: string): void {
-    this.bindModelData = event;
-    this.bindModelDataChange.emit(event);
+  value = '';
+
+  private onChange = (value: string) => {};
+  private onTouched = () => {};
+
+  writeValue(value: string): void {
+    this.value = value;
+  }
+
+  registerOnChange(onChange: (value: string) => void): void {
+    this.onChange = onChange;
+  }
+
+  registerOnTouched(onTouched: () => void): void {
+    this.onTouched = onTouched;
+  }
+
+  onInput(event: Event): void {
+    const target = event.target as HTMLButtonElement;
+    if (target) {
+      this.value = target.value;
+      this.onChange(target.value);
+      this.onTouched();
+    }
+  }
+
+  validate(): { [key: string]: unknown } | null {
+    return null;
   }
 }
