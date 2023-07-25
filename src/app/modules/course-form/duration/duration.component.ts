@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, Input, ChangeDetectionStrategy, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -32,11 +33,11 @@ export class DurationComponent implements ControlValueAccessor {
     this.value = value;
   }
 
-  registerOnChange(onChange: (value: string) => void): void {
+  registerOnChange(onChange: any): void {
     this.onChange = onChange;
   }
 
-  registerOnTouched(onTouched: () => void): void {
+  registerOnTouched(onTouched: any): void {
     this.onTouched = onTouched;
   }
 
