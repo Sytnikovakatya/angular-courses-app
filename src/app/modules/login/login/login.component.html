@@ -5,31 +5,31 @@
               <h2 class="fw-bold">Login</h2>
               <span class="text-danger" *ngIf="errorMessage">*Wrong e-mail or password</span>
             </div>
-            <form (ngSubmit)="login()">
+            <form [formGroup]="loginForm" (ngSubmit)="login()">
               <div class="row my-5">
                 <div class="col-md-12">
                   <div class="form-group">
                     <div class="one-row">
                       <label class="mb-2 fw-bolder">Email:</label>
-                      <span>*required</span>
+                      <span *ngIf="hasError('email')" class="error text-danger">*required</span>
                     </div>
-                    <app-input [type]="'email'" [id]="'email'" [placeholder]="'Enter e-mail'" [(bindModelData)]="email"></app-input>
+                    <app-input [type]="'email'" [id]="'email'" [placeholder]="'Enter e-mail'"[(ngModel)]="email" formControlName="email" [valid]="invalid('email')"></app-input>
                   </div>
                 </div>
                 <div class="col-md-12">
                   <div class="form-group mt-4">
                       <div class="one-row">
                         <label class="mb-2 fw-bolder">Password:</label>
-                        <span>*required</span>
+                        <span *ngIf="hasError('password')" class="error text-danger">*required</span>
                       </div>
-                    <app-input [type]="'password'" [id]="'password'" [placeholder]="'Enter password'" [(bindModelData)]="password"></app-input>
+                    <app-input [type]="'password'" [id]="'password'" [placeholder]="'Enter password'" [(ngModel)]="password" formControlName="password" [valid]="invalid('password')"></app-input>
                   </div>
                 </div>
               </div>
               <div class="one-row mb-4 mt-4">
                 <a href="#">Forgot password?</a>
                 <div class="form-group">
-                  <app-button [text]="'Login'" [class]="'btn btn-success px-5'" [type]="'submit'"></app-button>
+                  <app-button [text]="'Login'" [class]="'btn btn-success px-5'" [type]="'submit'" [disabled]="loginForm.invalid"></app-button>
                 </div>
               </div>  
           </form>
