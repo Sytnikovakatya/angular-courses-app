@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, Validators } from '@angular/forms';
 
 import { Observable } from 'rxjs';
 
@@ -32,11 +33,20 @@ export class AddCourseComponent implements OnInit {
     isTopRated: false,
   };
 
+  courseForm = this.fb.group({
+    title: ['', [Validators.required, Validators.maxLength(50)]],
+    description: ['', [Validators.required, Validators.maxLength(500)]],
+    duration: ['', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.min(1)]],
+    date: ['', [Validators.required]],
+    authors: ['', [Validators.required]],
+  });
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private coursesService: CoursesService,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
@@ -50,6 +60,10 @@ export class AddCourseComponent implements OnInit {
     }
   }
 
+  onChangeCode(code: string) {
+    this.course.name = code;
+  }
+
   saveCourse(): void {
     this.course.authors = this.author ? [{ id: 1, name: this.author }] : [];
     if (this.id && this.id !== 'new') {
@@ -61,5 +75,19 @@ export class AddCourseComponent implements OnInit {
 
   close(): void {
     this.router.navigate(['/courses']);
+  }
+
+  invalid(property: string): boolean | undefined {
+    const element = this.courseForm.get(property);
+    return element?.invalid && (element?.dirty || element?.touched);
+  }
+
+  hasError(property: string) {
+    const element = this.courseForm.get(property);
+    return element?.hasError('required') && (element?.dirty || element?.touched);
+  }
+
+  hasMaxLength(property: string) {
+    return this.courseForm.get(property)?.hasError('maxlength');
   }
 }
