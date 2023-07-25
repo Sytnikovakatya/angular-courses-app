@@ -1,9 +1,11 @@
 <div class="search-bar mx-5 mt-5">
+  <form [formGroup]="searhForm">
   <div class="row">
    <div class="col-4">
-      <app-input [class]="'form-control fs-5'" [placeholder]="'Type to search'" [type]="'search'" [(bindModelData)]="search"  (keyup)="handleSearchInput(search)"></app-input>
+      <app-input [class]="'form-control fs-5'" [placeholder]="'Type to search'" [type]="'search'" [(ngModel)]="search" formControlName="term"  (keyup)="handleSearchInput(search)"></app-input>
    </div>
   </div>
+  </form>
   <div class="row mt-4 justify-content-md-end">
     <div class="col-6">
       <div class="row">

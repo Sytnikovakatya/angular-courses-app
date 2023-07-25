@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Output, EventEmitter } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormBuilder, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { Observable, Subject, Subscription, debounceTime, distinctUntilChanged, filter } from 'rxjs';
@@ -15,6 +15,7 @@ export class SearchBarComponent implements OnInit, OnDestroy {
   @Output() newSortEvent = new EventEmitter<string>();
 
   search = '';
+  subscription: Subscription;
 
   inputValue: Subject<string> = new Subject<string>();
   trigger$: Observable<string> = this.inputValue.pipe(
@@ -25,9 +26,11 @@ export class SearchBarComponent implements OnInit, OnDestroy {
     })
   );
 
-  subscription: Subscription;
+  searhForm = this.fb.group({
+    term: ['', [Validators.minLength(3)]],
+  });
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.subscription = this.trigger$.subscribe(currentValue => {
