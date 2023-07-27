@@ -46,6 +46,7 @@ export const coursesReducer = createReducer(
     ...state,
     courses: [...state.courses, course],
     loading: false,
+    course: null,
   })),
   on(CoursesActions.createCourseFailure, (state, { errorMsg }) => ({ ...state, error: errorMsg, loading: false })),
 
@@ -54,6 +55,7 @@ export const coursesReducer = createReducer(
     ...state,
     courses: state.courses.map(el => (el.id === id ? course : el)),
     loading: false,
+    course: null,
   })),
   on(CoursesActions.updateCourseFailure, (state, { errorMsg }) => ({ ...state, error: errorMsg, loading: false })),
 
@@ -65,7 +67,7 @@ export const coursesReducer = createReducer(
   })),
   on(CoursesActions.removeCourseFailure, (state, { errorMsg }) => ({ ...state, error: errorMsg, loading: false })),
 
-  on(CoursesActions.resetCourses, state => ({ ...state, courses: [], authors: [], loading: false })),
+  on(CoursesActions.resetCourses, state => ({ ...state, courses: [], course: null, authors: [], loading: false })),
   on(CoursesActions.resetEditCourse, state => ({ ...state, course: null })),
 
   on(CoursesActions.setAuthorList, state => ({ ...state, error: null, loading: true })),
