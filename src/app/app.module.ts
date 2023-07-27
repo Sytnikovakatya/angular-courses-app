@@ -30,6 +30,7 @@ import { LoginModule } from '@components/login/login.module';
 import { BreadcrumbsModule } from '@components/breadcrumbs/breadcrumbs.module';
 
 import { AppComponent } from './app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [AppComponent],
@@ -53,6 +54,7 @@ import { AppComponent } from './app.component';
       autoPause: true,
       trace: false,
     }),
+    BrowserAnimationsModule,
   ],
   providers: [
     BreadcrumbService,
