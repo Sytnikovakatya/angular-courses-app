@@ -116,6 +116,18 @@ export class CoursesEffects {
     )
   );
 
+  setAuthors$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(CoursesActions.setAuthorList),
+      exhaustMap(() =>
+        this.coursesService.getAuthorList().pipe(
+          map(authors => CoursesActions.setAuthorListSuccess({ authors })),
+          catchError((error: { message: string }) => of(CoursesActions.setCoursesFailure({ errorMsg: error.message })))
+        )
+      )
+    )
+  );
+
   constructor(private actions$: Actions, private coursesService: CoursesService) {}
 }
 
