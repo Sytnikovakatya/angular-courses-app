@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Observable, tap } from 'rxjs';
 
 import { Course } from '@shared/interfaces/course.interface';
+import { Author } from '@shared/interfaces/author';
 
 @Injectable({
   providedIn: 'root',
@@ -50,5 +51,9 @@ export class CoursesService {
 
   removeCourse(id: number): Observable<Course> {
     return this.http.delete<Course>(this.apiUrl + `/${id}`);
+  }
+
+  getAuthorList(): Observable<Author[]> {
+    return this.http.get<Author[]>('http://localhost:3004/authors');
   }
 }
