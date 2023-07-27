@@ -41,7 +41,11 @@
               </div>
                    <div class="row mb-3">
                    <div class="col-md-8">
-                        <app-authors [(ngModel)]="author" formControlName="authors" [valid]="invalid('authors')" [hasError]="hasError('authors')"></app-authors>
+                     <div class="one-row">
+                        <label class="mb-2 fw-bolder">Authors:</label>
+                        <span *ngIf="hasError('authors')" class="error text-danger">*required</span>
+                    </div>
+                        <app-authors  formControlName="authors" [authorList]="authorList" (checkedAuthorsEvent)="receiveAuthorList($event)"></app-authors>
                     </div> 
               </div>
                 <div class="form-group text-end">
