@@ -1,9 +1,11 @@
 import { createReducer, on } from '@ngrx/store';
 import { Course } from '@shared/interfaces/course.interface';
 import * as CoursesActions from './courses.actions';
+import { Author } from '@shared/interfaces/author';
 
 export interface CoursesState {
   courses: Course[];
+  authors: Author[];
   course: Course | null;
   error: string | null;
   loading: boolean;
@@ -11,6 +13,7 @@ export interface CoursesState {
 
 const initialState: CoursesState = {
   courses: [],
+  authors: [],
   course: null,
   error: null,
   loading: false,
@@ -62,5 +65,10 @@ export const coursesReducer = createReducer(
   })),
   on(CoursesActions.removeCourseFailure, (state, { errorMsg }) => ({ ...state, error: errorMsg, loading: false })),
 
-  on(CoursesActions.resetCourses, state => ({ ...state, courses: [], loading: false }))
+  on(CoursesActions.resetCourses, state => ({ ...state, courses: [], authors: [], loading: false })),
+  on(CoursesActions.resetEditCourse, state => ({ ...state, course: null })),
+
+  on(CoursesActions.setAuthorList, state => ({ ...state, error: null, loading: true })),
+  on(CoursesActions.setAuthorListSuccess, (state, { authors }) => ({ ...state, authors, loading: false })),
+  on(CoursesActions.setAuthorListFailure, (state, { errorMsg }) => ({ ...state, error: errorMsg, loading: false }))
 );
