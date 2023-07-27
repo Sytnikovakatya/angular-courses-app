@@ -26,13 +26,13 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
 
-import { Observable, Subscription, map, startWith } from 'rxjs';
+import { Observable, Subscription, catchError, map, startWith, throwError } from 'rxjs';
 import { Store } from '@ngrx/store';
 
 import { Author } from '@shared/interfaces/author';
 import { Course } from '@shared/interfaces/course.interface';
 
-import { selectEditCourse } from '@store/courses/courses.selectors';
+import { selectAuthors, selectEditCourse } from '@store/courses/courses.selectors';
 import { AppState } from '@store/app.state';
 
 @Component({
@@ -53,18 +53,19 @@ import { AppState } from '@store/app.state';
   ],
 })
 export class AuthorsComponent implements OnInit, OnDestroy, ControlValueAccessor {
-  @Input() authorList: Author[] = [];
-
   @Output() checkedAuthorsEvent = new EventEmitter<Author[]>();
 
   @ViewChild('authorInput') authorInput: ElementRef<HTMLInputElement>;
   announcer = inject(LiveAnnouncer);
 
-  subscription: Subscription;
-  getCourseAuthors$: Observable<Course | null>;
-
+  authorList: Author[] = [];
   chipSelectedAuthors: Author[] = [];
-  filteredAuthors: Observable<string[]>;
+
+  subscriptions: Subscription[] = [];
+
+  getAllAuthors$: Observable<Author[]>;
+  getCourseAuthors$: Observable<Course | null>;
+  filteredAuthors$: Observable<string[]>;
 
   separatorKeysCodes: number[] = [ENTER, COMMA];
   authorCtrl = new FormControl('');
@@ -74,22 +75,30 @@ export class AuthorsComponent implements OnInit, OnDestroy, ControlValueAccessor
   touched = false;
 
   constructor(private store: Store<AppState>) {
-    this.filteredAuthors = this.authorCtrl.valueChanges.pipe(
+    this.filteredAuthors$ = this.authorCtrl.valueChanges.pipe(
       startWith(null),
-      map((authorName: string | null) => this._filter(authorName))
+      map((authorName: string | null) => this._filter(authorName)),
+      catchError(error => throwError(() => error))
     );
     this.getCourseAuthors$ = this.store.select(selectEditCourse);
+    this.getAllAuthors$ = this.store.select(selectAuthors);
   }
 
   ngOnInit(): void {
-    this.subscription = this.getCourseAuthors$.subscribe(course => {
+    const subscription1 = this.getCourseAuthors$.subscribe(course => {
       const authors = course?.authors;
       if (authors) authors.forEach(author => this.chipSelectedAuthors.push(author));
     });
+    this.subscriptions.push(subscription1);
+
+    const subscription2 = this.getAllAuthors$.subscribe(authors => {
+      this.authorList = authors;
+    });
+    this.subscriptions.push(subscription2);
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
   writeValue(value: Author[]): void {
