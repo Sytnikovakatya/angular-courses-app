@@ -4,6 +4,8 @@ import { Observable, Subscription } from 'rxjs';
 
 import { Store } from '@ngrx/store';
 
+import { TranslateService } from '@ngx-translate/core';
+
 import { AppState } from '@store/app.state';
 import { selectIsAuthenticated } from '@store/authentication/auth.selectors';
 
@@ -17,8 +19,11 @@ export class AppComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   isAuthenticated$: Observable<boolean>;
 
-  constructor(private store: Store<AppState>) {
+  constructor(private store: Store<AppState>, private translate: TranslateService) {
     this.isAuthenticated$ = this.store.select(selectIsAuthenticated);
+
+    this.translate.setDefaultLang('en');
+    this.translate.addLangs(['en', 'ua']);
   }
 
   ngOnInit(): void {

@@ -1,7 +1,7 @@
 import { NgModule, isDevMode } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { StoreModule } from '@ngrx/store';
@@ -12,10 +12,12 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
 import { BreadcrumbModule } from 'xng-breadcrumb';
 import { BreadcrumbService } from 'xng-breadcrumb';
 
-import { SharedModule } from '@shared/shared.module';
 import { CoreModule } from '@core/core.module';
 
 import { TokenInterceptor } from '@interceptors/token/token.interceptor';
@@ -32,6 +34,10 @@ import { BreadcrumbsModule } from '@components/breadcrumbs/breadcrumbs.module';
 
 import { AppComponent } from './app.component';
 
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -43,9 +49,15 @@ import { AppComponent } from './app.component';
     ReactiveFormsModule,
     BreadcrumbModule,
     CoreModule,
-    SharedModule,
     LoginModule,
     BreadcrumbsModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient],
+      },
+    }),
     StoreModule.forRoot({ courses: coursesReducer, auth: authReducer }),
     EffectsModule.forRoot([AuthEffects, CoursesEffects]),
     StoreDevtoolsModule.instrument({
