@@ -1,32 +1,32 @@
 <div class="container p-5 mb-5">
     <div class="card p-2 shadow-lg">
         <div class="card-body p-4">
-            <h2 class="fw-bold">New course</h2>
+            <h2 class="fw-bold">{{'course.new'|translate}}</h2>
             <form  [formGroup]="courseForm" (ngSubmit)="saveCourse()">
               <div class="row my-4">
                     <div class="col-md-12">
                         <div class="form-group">
                             <div class="one-row">
-                            <label class="mb-2 fw-bolder">Title:</label>
-                            <span *ngIf="hasError('title')" class="error text-danger">*required</span>
-                            <span *ngIf="hasMaxLength('title')" class="error text-danger">*Max length 50 symbols</span>
+                            <label class="mb-2 fw-bolder">{{'course.title'|translate}}</label>
+                            <span *ngIf="hasError('title')" class="error text-danger">{{'course.required'|translate}}</span>
+                            <span *ngIf="hasMaxLength('title')" class="error text-danger">{{'course.titleError'|translate}}</span>
                             </div>
-                            <input class="form-control" placeholder='Enter title' [(ngModel)]="course.name" 
+                            <input class="form-control" placeholder="{{'course.titleInput'|translate}}" [(ngModel)]="course.name" 
                             formControlName="title" [class.is-invalid]="invalid('title')">
                         </div>
                     </div>
                     <div class="col-md-12">
                         <div class="form-group mt-4">
                             <div class="one-row">
-                                <label class="mb-2 fw-bolder">Description:</label>
-                                <span *ngIf="hasError('description')" class="error text-danger">*required</span>
-                                <span *ngIf="hasMaxLength('description')" class="error text-danger">*Max length 500 symbols</span>
+                                <label class="mb-2 fw-bolder">{{'course.description'|translate}}</label>
+                                <span *ngIf="hasError('description')" class="error text-danger">{{'course.required'|translate}}</span>
+                                <span *ngIf="hasMaxLength('description')" class="error text-danger">{{'course.descriptionError'|translate}}</span>
                             </div>
                             <div class="form-floating">
-                                <textarea class="form-control" placeholder="Add description" id="floatingTextarea2" 
+                                <textarea class="form-control" placeholder="{{'course.descriptionInput'|translate}}" id="floatingTextarea2" 
                                 [(ngModel)]="course.description" name="description" 
                                 formControlName="description" [class.is-invalid]="invalid('description')"></textarea>
-                                <label for="floatingTextarea2">Add description</label>
+                                <label for="floatingTextarea2">{{'course.descriptionInput'|translate}}</label>
                             </div>
                         </div>
                     </div>
@@ -47,16 +47,16 @@
                    <div class="row mb-3">
                    <div class="col-md-8">
                      <div class="one-row">
-                        <label class="mb-2 fw-bolder">Authors:</label>
-                        <span *ngIf="hasError('authors')" class="error text-danger">*required</span>
+                        <label class="mb-2 fw-bolder" translate="course.authors"></label>
+                        <span *ngIf="hasError('authors')" class="error text-danger">{{'course.required'|translate}}</span>
                     </div>
                         <app-authors  formControlName="authors" (checkedAuthorsEvent)="receiveAuthorList($event)">
                         </app-authors>
                     </div> 
               </div>
                 <div class="form-group text-end">
-                  <app-button [text]="'Close'" [class]="'btn btn-outline-secondary me-2'" (click)="close()"></app-button>
-                  <app-button [text]="'Save'" [class]="'btn btn-success px-5'" [type]="'submit'" [disabled]="courseForm.invalid"></app-button>
+                  <app-button [text]="'close'|translate" [class]="'btn btn-outline-secondary me-2'" (click)="close()"></app-button>
+                  <app-button [text]="'save'|translate" [class]="'btn btn-success px-5'" [type]="'submit'" [disabled]="courseForm.invalid"></app-button>
                 </div>        
           </form>
         </div>

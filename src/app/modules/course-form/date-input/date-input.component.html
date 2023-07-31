@@ -1,7 +1,7 @@
 <div class="form-group">
     <div class="d-flex justify-content-between">
-        <label class="mb-2 fw-bolder">Date:</label>
-        <span *ngIf="hasError" class="error text-danger">*required</span>
+        <label class="mb-2 fw-bolder">{{'course.date'|translate}}</label>
+        <span *ngIf="hasError" class="error text-danger">{{'course.required'|translate}}</span>
     </div>
     <input class="form-control" [value]="value.substring(0, 10)" type="date" (input)="onInput($event)" [class.is-invalid]="valid"/>
 </div>

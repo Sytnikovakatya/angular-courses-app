@@ -1,6 +1,6 @@
 <form>
   <mat-form-field class="chip-list">
-    <mat-label>Add authors</mat-label>
+    <mat-label translate="course.authorsLabel"></mat-label>
     <mat-chip-grid #chipGrid aria-label="authors">
       <mat-chip-row *ngFor="let author of chipSelectedAuthors" (removed)="removeAuthor(author)">
         {{author.name}}
@@ -9,7 +9,7 @@
         </button>
       </mat-chip-row>
     </mat-chip-grid>
-    <input placeholder="Enter author name..." #authorInput [formControl]="authorCtrl"
+    <input placeholder="{{'course.authorsInput'|translate}}" #authorInput [formControl]="authorCtrl"
       [matChipInputFor]="chipGrid" [matAutocomplete]="auto"
       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
       (matChipInputTokenEnd)="addAuthor($event)"/>

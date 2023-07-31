@@ -2,37 +2,38 @@
       <div class="card shadow-lg">
         <div class="card-body p-5">
             <div class="one-row">
-              <h2 class="fw-bold">Login</h2>
-              <span class="text-danger" *ngIf="errorMessage">*Wrong e-mail or password</span>
+              <h2 class="fw-bold">{{ 'login.login' | translate }}</h2>
+              <span class="text-danger" *ngIf="errorMessage">{{ 'login.message.error' | translate }}</span>
             </div>
             <form [formGroup]="loginForm" (ngSubmit)="login()">
               <div class="row my-5">
                 <div class="col-md-12">
                   <div class="form-group">
                     <div class="one-row">
-                      <label class="mb-2 fw-bolder">Email:</label>
-                      <span *ngIf="hasError('email')" class="error text-danger">*required</span>
+                      <label class="mb-2 fw-bolder" translate='login.email'></label>
+                      <span *ngIf="hasError('email')" class="error text-danger">{{ 'login.message.required' | translate }}</span>
                     </div>
-                    <app-input [type]="'email'" [id]="'email'" [placeholder]="'Enter e-mail'"[(ngModel)]="email" formControlName="email" [valid]="invalid('email')"></app-input>
+                    <app-input [type]="'email'" [id]="'email'" [placeholder]="'login.emailInput'|translate"[(ngModel)]="email" formControlName="email" [valid]="invalid('email')"></app-input>
                   </div>
                 </div>
                 <div class="col-md-12">
                   <div class="form-group mt-4">
                       <div class="one-row">
-                        <label class="mb-2 fw-bolder">Password:</label>
-                        <span *ngIf="hasError('password')" class="error text-danger">*required</span>
+                        <label class="mb-2 fw-bolder" translate='login.password'></label>
+                        <span *ngIf="hasError('password')" class="error text-danger">{{ 'login.message.required' | translate }}</span>
                       </div>
-                    <app-input [type]="'password'" [id]="'password'" [placeholder]="'Enter password'" [(ngModel)]="password" formControlName="password" [valid]="invalid('password')"></app-input>
+                    <app-input [type]="'password'" [id]="'password'" [placeholder]="'login.passwordInput'|translate" [(ngModel)]="password" formControlName="password" [valid]="invalid('password')"></app-input>
                   </div>
                 </div>
               </div>
               <div class="one-row mb-4 mt-4">
-                <a href="#">Forgot password?</a>
+                <a href="#">{{ 'login.message.passwordForgot' | translate }}</a>
                 <div class="form-group">
-                  <app-button [text]="'Login'" [class]="'btn btn-success px-5'" [type]="'submit'" [disabled]="loginForm.invalid"></app-button>
+                  <app-button [text]="'login.login'|translate" [class]="'btn btn-success px-5'" [type]="'submit'" [disabled]="loginForm.invalid"></app-button>
                 </div>
               </div>  
           </form>
     </div>
   </div>
 </div>
+ 
