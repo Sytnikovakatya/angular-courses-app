@@ -1,0 +1,47 @@
+{
+  "login": {
+    "login": "Login",
+    "email": "Email",
+    "emailInput": "Enter e-mail",
+    "password": "Password",
+    "passwordInput": "Enter password",
+    "message": {
+        "passwordForgot": "Forgot password?",
+        "required": "*required",
+        "error": "*Wrong e-mail or password"
+    }
+  },
+  "logout": "Log out",
+  "loader": "Load more",
+  "search": "Type to search", 
+  "sort": "Sort by:",
+  "date": "date",
+  "none":"none",
+  "add": "Add course",
+  "edit": "Edit",
+  "delete": "Delete",
+  "close": "Close",
+  "save": "Save",
+  "deleteModal": {
+    "title": "Delete course?",
+    "text": "Are you sure you want to delete Video Course {{id}}?",
+    "submit": "Yes, delete"
+  },
+  "course": {
+    "new": "New course",
+    "title": "Title:",
+    "titleInput": "Enter title",
+    "titleError": "*Max length 50 symbols",
+    "description": "Description:",
+    "descriptionInput": "Add description",
+    "descriptionError": "*Max length 500 symbols",
+    "duration": "Duration:",
+    "durationInput": "minutes",
+    "date": "Date:",
+    "authors": "Authors:",
+    "authorsInput": "Enter author name...",
+    "authorsLabel": "Add authors",
+    "required": "*required"
+  },
+   "noData": "No data! Feel free to add new course"
+}
