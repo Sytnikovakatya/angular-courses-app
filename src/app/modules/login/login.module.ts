@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { TranslateModule } from '@ngx-translate/core';
+
 import { SharedModule } from '@shared/shared.module';
 
 import { LoginComponent } from './login/login.component';
@@ -12,6 +14,7 @@ import { LoginComponent } from './login/login.component';
     CommonModule,
     SharedModule,
     FormsModule,
+    TranslateModule,
     ReactiveFormsModule,
     ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: 'never' }),
   ],

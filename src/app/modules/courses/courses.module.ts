@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { TranslateModule } from '@ngx-translate/core';
+
 import { SharedModule } from '@shared/shared.module';
 
 import { CoursesRoutingModule } from './courses-routing.module';
@@ -18,6 +20,7 @@ import { SearchBarComponent } from './search-bar/search-bar.component';
   imports: [
     CommonModule,
     CoursesRoutingModule,
+    TranslateModule,
     SharedModule,
     FormsModule,
     ReactiveFormsModule,

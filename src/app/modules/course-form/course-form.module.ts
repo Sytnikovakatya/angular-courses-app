@@ -8,6 +8,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
+import { TranslateModule } from '@ngx-translate/core';
+
 import { SharedModule } from '@shared/shared.module';
 
 import { CourseFormRoutingModule } from './course-form-routing.module';
@@ -21,6 +23,7 @@ import { DateInputComponent } from './date-input/date-input.component';
   declarations: [AddCourseComponent, AuthorsComponent, DurationComponent, DateInputComponent],
   imports: [
     CommonModule,
+    TranslateModule,
     SharedModule,
     FormsModule,
     CourseFormRoutingModule,
