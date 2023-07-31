@@ -4,7 +4,10 @@ import { User } from '@shared/interfaces/user.interface';
 
 import { Observable, Subscription } from 'rxjs';
 
+import { TranslateService } from '@ngx-translate/core';
+
 import { Store } from '@ngrx/store';
+
 import { AppState } from '@store/app.state';
 import * as AuthActions from '@store/authentication/auth.actions';
 import * as CoursesActions from '@store/courses/courses.actions';
@@ -16,13 +19,14 @@ import { selectUserInfo, selectIsAuthenticated } from '@store/authentication/aut
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit, OnDestroy {
+  value: string = 'en';
   authenticated = false;
   user?: User | null;
   subscriptions: Subscription[] = [];
   userDetails$: Observable<User | null>;
   isAuthenticated$: Observable<boolean>;
 
-  constructor(private store: Store<AppState>) {
+  constructor(private store: Store<AppState>, private translate: TranslateService) {
     this.userDetails$ = this.store.select(selectUserInfo);
     this.isAuthenticated$ = this.store.select(selectIsAuthenticated);
   }
@@ -43,5 +47,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
   logout(): void {
     this.store.dispatch(AuthActions.logout());
     this.store.dispatch(CoursesActions.resetCourses());
+  }
+
+  switchToEnglish() {
+    this.value = 'en';
+    this.translate.use('en-GB');
+  }
+
+  switchToUkranian() {
+    this.value = 'ua';
+    this.translate.use('ua');
   }
 }
