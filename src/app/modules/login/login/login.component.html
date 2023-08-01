@@ -11,25 +11,30 @@
                   <div class="form-group">
                     <div class="one-row">
                       <label class="mb-2 fw-bolder" translate='login.email'></label>
-                      <span *ngIf="hasError('email')" class="error text-danger">{{ 'login.message.required' | translate }}</span>
+                      <span *ngIf="hasError('email')" class="error text-danger">
+                        {{ 'login.message.required' | translate }}</span>
                     </div>
-                    <app-input [type]="'email'" [id]="'email'" [placeholder]="'login.emailInput'|translate"[(ngModel)]="email" formControlName="email" [valid]="invalid('email')"></app-input>
+                    <app-input [type]="'email'" [id]="'email'" [placeholder]="'login.emailInput'|translate"
+                    [(ngModel)]="email" formControlName="email" [valid]="invalid('email')"></app-input>
                   </div>
                 </div>
                 <div class="col-md-12">
                   <div class="form-group mt-4">
                       <div class="one-row">
                         <label class="mb-2 fw-bolder" translate='login.password'></label>
-                        <span *ngIf="hasError('password')" class="error text-danger">{{ 'login.message.required' | translate }}</span>
+                        <span *ngIf="hasError('password')" class="error text-danger">
+                          {{ 'login.message.required' | translate }}</span>
                       </div>
-                    <app-input [type]="'password'" [id]="'password'" [placeholder]="'login.passwordInput'|translate" [(ngModel)]="password" formControlName="password" [valid]="invalid('password')"></app-input>
+                    <app-input [type]="'password'" [id]="'password'" [placeholder]="'login.passwordInput'|translate" 
+                    [(ngModel)]="password" formControlName="password" [valid]="invalid('password')"></app-input>
                   </div>
                 </div>
               </div>
               <div class="one-row mb-4 mt-4">
                 <a href="#">{{ 'login.message.passwordForgot' | translate }}</a>
                 <div class="form-group">
-                  <app-button [text]="'login.login'|translate" [class]="'btn btn-success px-5'" [type]="'submit'" [disabled]="loginForm.invalid"></app-button>
+                  <app-button [text]="'login.login'|translate" [class]="'btn btn-success px-5'" [type]="'submit'" 
+                  [disabled]="loginForm.invalid"></app-button>
                 </div>
               </div>  
           </form>

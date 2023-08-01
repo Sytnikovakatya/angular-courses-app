@@ -5,7 +5,8 @@
             <label class="mb-2 fw-bolder">{{'course.duration'|translate}}</label>
             <span *ngIf="hasError" class="error text-danger">{{'course.required'|translate}}</span>
           </div>
-          <input class="form-control" type="number" placeholder="{{'course.durationInput'|translate}}" [value]="value" (input)="onInput($event)" [class.is-invalid]="valid"/>
+          <input class="form-control" type="number" placeholder="{{'course.durationInput'|translate}}" 
+          [value]="value" (input)="onInput($event)" [class.is-invalid]="valid"/>
         </div>
     </div>      
 </div>

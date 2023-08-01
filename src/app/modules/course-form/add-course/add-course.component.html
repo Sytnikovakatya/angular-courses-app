@@ -11,8 +11,8 @@
                             <span *ngIf="hasError('title')" class="error text-danger">{{'course.required'|translate}}</span>
                             <span *ngIf="hasMaxLength('title')" class="error text-danger">{{'course.titleError'|translate}}</span>
                             </div>
-                            <input class="form-control" placeholder="{{'course.titleInput'|translate}}" [(ngModel)]="course.name" 
-                            formControlName="title" [class.is-invalid]="invalid('title')">
+                            <input class="form-control" placeholder="{{'course.titleInput'|translate}}" 
+                            [(ngModel)]="course.name" formControlName="title" [class.is-invalid]="invalid('title')">
                         </div>
                     </div>
                     <div class="col-md-12">
@@ -20,7 +20,8 @@
                             <div class="one-row">
                                 <label class="mb-2 fw-bolder">{{'course.description'|translate}}</label>
                                 <span *ngIf="hasError('description')" class="error text-danger">{{'course.required'|translate}}</span>
-                                <span *ngIf="hasMaxLength('description')" class="error text-danger">{{'course.descriptionError'|translate}}</span>
+                                <span *ngIf="hasMaxLength('description')" class="error text-danger">
+                                    {{'course.descriptionError'|translate}}</span>
                             </div>
                             <div class="form-floating">
                                 <textarea class="form-control" placeholder="{{'course.descriptionInput'|translate}}" id="floatingTextarea2" 
@@ -56,7 +57,8 @@
               </div>
                 <div class="form-group text-end">
                   <app-button [text]="'close'|translate" [class]="'btn btn-outline-secondary me-2'" (click)="close()"></app-button>
-                  <app-button [text]="'save'|translate" [class]="'btn btn-success px-5'" [type]="'submit'" [disabled]="courseForm.invalid"></app-button>
+                  <app-button [text]="'save'|translate" [class]="'btn btn-success px-5'" [type]="'submit'" 
+                  [disabled]="courseForm.invalid"></app-button>
                 </div>        
           </form>
         </div>

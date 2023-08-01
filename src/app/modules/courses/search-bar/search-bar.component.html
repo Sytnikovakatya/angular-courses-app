@@ -2,7 +2,8 @@
   <form [formGroup]="searhForm">
   <div class="row">
    <div class="col-4">
-      <app-input [class]="'form-control fs-5'" [placeholder]="'search'|translate" [type]="'search'" [(ngModel)]="search" formControlName="term"  (keyup)="handleSearchInput(search)"></app-input>
+      <app-input [class]="'form-control fs-5'" [placeholder]="'search'|translate" [type]="'search'" 
+      [(ngModel)]="search" formControlName="term"  (keyup)="handleSearchInput(search)"></app-input>
    </div>
   </div>
   </form>
