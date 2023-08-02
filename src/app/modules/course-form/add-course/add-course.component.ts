@@ -41,6 +41,39 @@ export class AddCourseComponent implements OnInit, OnDestroy {
     authors: ['', [Validators.required]],
   });
 
+  get hasTitleError() {
+    const element = this.courseForm.get('title');
+    return element?.hasError('required') && (element?.dirty || element?.touched);
+  }
+
+  get hasTitleMaxLength() {
+    return this.courseForm.get('title')?.hasError('maxlength');
+  }
+
+  get hasDescrError() {
+    const element = this.courseForm.get('description');
+    return element?.hasError('required') && (element?.dirty || element?.touched);
+  }
+
+  get hasDescrMaxLength() {
+    return this.courseForm.get('description')?.hasError('maxlength');
+  }
+
+  get hasDurationError() {
+    const element = this.courseForm.get('duration');
+    return element?.hasError('required') && (element?.dirty || element?.touched);
+  }
+
+  get hasDateError() {
+    const element = this.courseForm.get('date');
+    return element?.hasError('required') && (element?.dirty || element?.touched);
+  }
+
+  get hasAuthorsError() {
+    const element = this.courseForm.get('authors');
+    return element?.hasError('required') && (element?.dirty || element?.touched);
+  }
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -91,14 +124,5 @@ export class AddCourseComponent implements OnInit, OnDestroy {
   invalid(property: string): boolean | undefined {
     const element = this.courseForm.get(property);
     return element?.invalid && (element?.dirty || element?.touched);
-  }
-
-  hasError(property: string) {
-    const element = this.courseForm.get(property);
-    return element?.hasError('required') && (element?.dirty || element?.touched);
-  }
-
-  hasMaxLength(property: string) {
-    return this.courseForm.get(property)?.hasError('maxlength');
   }
 }

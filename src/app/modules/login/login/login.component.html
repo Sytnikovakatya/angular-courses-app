@@ -11,7 +11,7 @@
                   <div class="form-group">
                     <div class="one-row">
                       <label class="mb-2 fw-bolder" translate='login.email'></label>
-                      <span *ngIf="hasError('email')" class="error text-danger">
+                      <span *ngIf="hasEmailError" class="error text-danger">
                         {{ 'login.message.required' | translate }}</span>
                     </div>
                     <app-input [type]="'email'" [id]="'email'" [placeholder]="'login.emailInput'|translate"
@@ -22,7 +22,7 @@
                   <div class="form-group mt-4">
                       <div class="one-row">
                         <label class="mb-2 fw-bolder" translate='login.password'></label>
-                        <span *ngIf="hasError('password')" class="error text-danger">
+                        <span *ngIf="hasPasswordError" class="error text-danger">
                           {{ 'login.message.required' | translate }}</span>
                       </div>
                     <app-input [type]="'password'" [id]="'password'" [placeholder]="'login.passwordInput'|translate" 

@@ -8,8 +8,8 @@
                         <div class="form-group">
                             <div class="one-row">
                             <label class="mb-2 fw-bolder">{{'course.title'|translate}}</label>
-                            <span *ngIf="hasError('title')" class="error text-danger">{{'course.required'|translate}}</span>
-                            <span *ngIf="hasMaxLength('title')" class="error text-danger">{{'course.titleError'|translate}}</span>
+                            <span *ngIf="hasTitleError" class="error text-danger">{{'course.required'|translate}}</span>
+                            <span *ngIf="hasTitleMaxLength" class="error text-danger">{{'course.titleError'|translate}}</span>
                             </div>
                             <input class="form-control" placeholder="{{'course.titleInput'|translate}}" 
                             [(ngModel)]="course.name" formControlName="title" [class.is-invalid]="invalid('title')">
@@ -19,8 +19,8 @@
                         <div class="form-group mt-4">
                             <div class="one-row">
                                 <label class="mb-2 fw-bolder">{{'course.description'|translate}}</label>
-                                <span *ngIf="hasError('description')" class="error text-danger">{{'course.required'|translate}}</span>
-                                <span *ngIf="hasMaxLength('description')" class="error text-danger">
+                                <span *ngIf="hasDescrError" class="error text-danger">{{'course.required'|translate}}</span>
+                                <span *ngIf="hasDescrMaxLength" class="error text-danger">
                                     {{'course.descriptionError'|translate}}</span>
                             </div>
                             <div class="form-floating">
@@ -35,21 +35,21 @@
               <div class="row my-2">
                    <div class="col-md-4">
                         <app-duration [(ngModel)]="course.length" formControlName="duration" [valid]="invalid('duration')" 
-                        [hasError]="hasError('duration')"></app-duration> 
+                        [hasError]="hasDurationError"></app-duration> 
                     </div>
                     <div class="col ali d-flex align-items-center">{{course.length|duration}}</div>
               </div>
                    <div class="row my-2">
                    <div class="col-md-4">
                         <app-date-input [(ngModel)]="course.date" formControlName="date" [valid]="invalid('date')" 
-                        [hasError]="hasError('date')"></app-date-input>
+                        [hasError]="hasDateError"></app-date-input>
                     </div>
               </div>
                    <div class="row mb-3">
                    <div class="col-md-8">
                      <div class="one-row">
                         <label class="mb-2 fw-bolder" translate="course.authors"></label>
-                        <span *ngIf="hasError('authors')" class="error text-danger">{{'course.required'|translate}}</span>
+                        <span *ngIf="hasAuthorsError" class="error text-danger">{{'course.required'|translate}}</span>
                     </div>
                         <app-authors  formControlName="authors" (checkedAuthorsEvent)="receiveAuthorList($event)">
                         </app-authors>

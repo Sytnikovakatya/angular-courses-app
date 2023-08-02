@@ -26,6 +26,16 @@ export class LoginComponent implements OnInit {
     password: ['', [Validators.required]],
   });
 
+  get hasEmailError() {
+    const element = this.loginForm.get('email');
+    return element?.hasError('required') && (element?.dirty || element?.touched);
+  }
+
+  get hasPasswordError() {
+    const element = this.loginForm.get('password');
+    return element?.hasError('required') && (element?.dirty || element?.touched);
+  }
+
   constructor(private store: Store<AppState>, private fb: FormBuilder) {
     this.getError$ = this.store.select(selectErrorMsg);
   }
@@ -47,10 +57,5 @@ export class LoginComponent implements OnInit {
   invalid(property: string): boolean | undefined {
     const element = this.loginForm.get(property);
     return element?.invalid && (element?.dirty || element?.touched);
-  }
-
-  hasError(property: string) {
-    const element = this.loginForm.get(property);
-    return element?.hasError('required') && (element?.dirty || element?.touched);
   }
 }
