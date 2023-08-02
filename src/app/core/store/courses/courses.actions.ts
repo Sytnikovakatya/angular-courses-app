@@ -1,4 +1,5 @@
 import { createAction, props } from '@ngrx/store';
+import { Author } from '@shared/interfaces/author';
 import { Course } from '@shared/interfaces/course.interface';
 
 export const setCourses = createAction('[Courses] Set Courses');
@@ -43,3 +44,8 @@ export const removeCourseSuccess = createAction('[Courses] Remove Course Success
 export const removeCourseFailure = createAction('[Courses] Remove Course Failure', props<{ errorMsg: string }>());
 
 export const resetCourses = createAction('[Courses] Reset Courses');
+export const resetEditCourse = createAction('[Courses] Reset Edit Course');
+
+export const setAuthorList = createAction('[Courses] Set Author List');
+export const setAuthorListSuccess = createAction('[Courses] Set Author List Success', props<{ authors: Author[] }>());
+export const setAuthorListFailure = createAction('[Courses] Set Author List Failure', props<{ errorMsg: string }>());

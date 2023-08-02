@@ -3,7 +3,6 @@
   [type]="type"
   [placeholder]="placeholder"
   [id]="id"
-  [ngModel]="bindModelData"
-  (ngModelChange)="updateData($event)"
-  (keyup)="onKeyUp()"
+  [value]="value" (input)="onInput($event)"
+  [class.is-invalid]="valid"
 />

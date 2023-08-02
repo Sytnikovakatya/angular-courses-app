@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import { TranslateModule } from '@ngx-translate/core';
 
 import { SharedModule } from '@shared/shared.module';
 
@@ -15,6 +17,14 @@ import { SearchBarComponent } from './search-bar/search-bar.component';
 
 @NgModule({
   declarations: [CourseListComponent, CourseCardComponent, DeleteModalComponent, LoaderComponent, SearchBarComponent],
-  imports: [CommonModule, CoursesRoutingModule, SharedModule, FormsModule],
+  imports: [
+    CommonModule,
+    CoursesRoutingModule,
+    TranslateModule,
+    SharedModule,
+    FormsModule,
+    ReactiveFormsModule,
+    ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: 'never' }),
+  ],
 })
 export class CoursesModule {}

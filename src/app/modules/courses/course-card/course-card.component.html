@@ -16,7 +16,8 @@
         </div>
         <div class="col-4 text-end">
           <span class="card-text me-5"
-            ><small class="text-muted card-duration"><i class="fa-regular fa-clock"></i> {{ course.length | duration }} </small></span
+            ><small class="text-muted card-duration"><i class="fa-regular fa-clock"></i> 
+              {{ course.length | duration }}</small></span
           >
           <span class="card-text"
             ><small class="text-muted card-date"
@@ -30,8 +31,10 @@
           <p class="card-text card-description">{{ course.description }}</p>
         </div>
         <div class="col-2 text-end">
-          <app-button [text]="'Edit'" [fontawesome]="'fa-sharp fa-solid fa-pen'" (click)="editCourse(course)"></app-button>
-          <app-button [text]="'Delete'" [fontawesome]="'fa-solid fa-trash'" (click)="delete(course.id)"></app-button>
+          <app-button [text]="'edit'|translate" [fontawesome]="'fa-sharp fa-solid fa-pen'" 
+          (click)="editCourse(course)"></app-button>
+          <app-button [text]="'delete'|translate" [fontawesome]="'fa-solid fa-trash'" 
+          (click)="delete(course.id)"></app-button>
         </div>
       </div>
     </div>

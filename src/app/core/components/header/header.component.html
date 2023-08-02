@@ -1,18 +1,34 @@
-<nav class="navbar navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
     <a class="navbar-brand">
       <app-logo></app-logo>
     </a>
-    <div class="d-flex" *ngIf="authenticated">
-      <span class="user-login"> <i class="fa-solid fa-user"></i> {{user?.name?.first}} </span>
-      <span>
-        <app-button
-          [text]="'Log out'"
-          [fontawesome]="'fa-sharp fa-solid fa-right-from-bracket fa-rotate-180'"
-          [class]="'btn btn-dark logout-btn'"
-          (click)="logout()"
-        ></app-button>
-      </span>
+    <div class="d-flex">
+      <div ngbDropdown>
+        <button class="btn btn-dark dropdown-toggle" id="language" title="Language"
+          ngbDropdownToggle>{{value|uppercase}} <i class="fas fa-globe"></i></button>
+        <div ngbDropdownMenu="language">
+          <button ngbDropdownItem  (click)="switchToEnglish()">English</button>
+          <button ngbDropdownItem (click)="switchToUkranian()">Українська</button>
+        </div>
+      </div>
+      <div *ngIf="authenticated">
+        <span class="user-login"> <i class="fa-solid fa-user"></i> {{user?.name?.first}} </span>
+        <span>
+          <app-button
+            [text]="'logout'|translate"
+            [fontawesome]="'fa-sharp fa-solid fa-right-from-bracket fa-rotate-180'"
+            [class]="'btn btn-dark logout-btn'"
+            (click)="logout()"
+          ></app-button>
+        </span>
+      </div>
     </div>
   </div>
 </nav>
+
+
+
+
+
+	

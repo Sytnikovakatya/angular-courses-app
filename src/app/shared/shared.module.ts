@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { FormsModule } from '@angular/forms';
 
+import { TranslateModule } from '@ngx-translate/core';
+
 import { HighlightDirective } from './directives/hightlight/highlight.directive';
 import { IfAuthenticatedDirective } from './directives/ifAuthenticated/if-authenticated.directive';
 
@@ -26,7 +28,7 @@ import { LogoComponent } from './components/logo/logo.component';
     FilterPipe,
     DurationPipe,
   ],
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, TranslateModule, FormsModule],
   exports: [
     ButtonComponent,
     InputComponent,

@@ -1,20 +1,28 @@
-import { Component, EventEmitter, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { FormsModule, NgForm } from '@angular/forms';
+import { DefaultValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 
 import { SearchBarComponent } from './search-bar.component';
 
 @Component({
   selector: 'app-input',
   template: '<div>Mock Input Component</div>',
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: MockInputComponent,
+      multi: true,
+    },
+  ],
 })
-class MockInputComponent {
+class MockInputComponent extends DefaultValueAccessor {
   @Input() placeholder: string;
   @Input() bindModelData: string;
   @Input() type: string;
+  @Input() term: string;
 }
 
 @Component({
@@ -34,7 +42,7 @@ describe('SearchBarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FormsModule, RouterTestingModule, HttpClientTestingModule],
+      imports: [FormsModule, RouterTestingModule, HttpClientTestingModule, ReactiveFormsModule],
       declarations: [SearchBarComponent, MockInputComponent, MockButtonComponent],
     }).compileComponents();
 

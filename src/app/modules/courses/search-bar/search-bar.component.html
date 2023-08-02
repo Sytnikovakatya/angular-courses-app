@@ -1,26 +1,29 @@
 <div class="search-bar mx-5 mt-5">
+  <form [formGroup]="searhForm">
   <div class="row">
    <div class="col-4">
-      <app-input [class]="'form-control fs-5'" [placeholder]="'Type to search'" [type]="'search'" [(bindModelData)]="search"  (keyup)="handleSearchInput(search)"></app-input>
+      <app-input [class]="'form-control fs-5'" [placeholder]="'search'|translate" [type]="'search'" 
+      [(ngModel)]="search" formControlName="term"  (keyup)="handleSearchInput(search)"></app-input>
    </div>
   </div>
+  </form>
   <div class="row mt-4 justify-content-md-end">
     <div class="col-6">
       <div class="row">
         <div class="col fw-bold text-end">
-            <span>Sort by:</span>
+            <span translate='sort'></span>
         </div>
         <form class="col-4" #select="ngForm"  (change)="changeSortValue(select)">
           <select ngModel name="value"  class="form-select" id="select">
-            <option selected value="">none</option>
-            <option value="date">date</option>
+            <option selected value="" translate='none'></option>
+            <option value="date" translate='date'></option>
             <option value="id">id</option>
           </select>
         </form>
       </div>
     </div>
     <div class="col-2">
-      <app-button [text]="'Add course'" [fontawesome]="'fa-solid fa-plus'" (click)="addCourse()"></app-button>
+      <app-button [text]="'add'|translate" [fontawesome]="'fa-solid fa-plus'" (click)="addCourse()"></app-button>
     </div>
   </div> 
 </div>

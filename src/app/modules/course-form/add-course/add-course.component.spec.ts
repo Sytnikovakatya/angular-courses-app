@@ -1,13 +1,15 @@
 import { Component, Input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FormsModule } from '@angular/forms';
+import { DefaultValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { StoreModule } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
+
+import { DurationPipe } from '@shared/pipes/duration/duration.pipe';
 
 import { AddCourseComponent } from './add-course.component';
 
@@ -30,31 +32,53 @@ class MockButtonComponent {
   @Input() type: string;
   @Input() class: string;
   @Input() fontawesome: string;
+  @Input() disabled: boolean;
 }
 
 @Component({
   selector: 'app-duration',
   template: '<div>Mock Duration Component</div>',
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: MockDurationComponent,
+      multi: true,
+    },
+  ],
 })
-class MockDurationComponent {
-  @Input() bindModelData: number;
+class MockDurationComponent extends DefaultValueAccessor {
+  @Input() valid: boolean | undefined;
+  @Input() hasError: boolean | undefined;
 }
 
 @Component({
   selector: 'app-date-input',
   template: '<div>Mock Date Input Component</div>',
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: MockDateInputComponent,
+      multi: true,
+    },
+  ],
 })
-class MockDateInputComponent {
-  @Input() bindModelData: string;
+class MockDateInputComponent extends DefaultValueAccessor {
+  @Input() valid: boolean | undefined;
+  @Input() hasError: boolean | undefined;
 }
 
 @Component({
   selector: 'app-authors',
   template: '<div>Mock Authors Component</div>',
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: MockAuthorsComponent,
+      multi: true,
+    },
+  ],
 })
-class MockAuthorsComponent {
-  @Input() bindModelData: string;
-}
+class MockAuthorsComponent extends DefaultValueAccessor {}
 
 describe('AddCourseComponent', () => {
   let component: AddCourseComponent;
@@ -62,7 +86,13 @@ describe('AddCourseComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [FormsModule, RouterTestingModule, HttpClientTestingModule, StoreModule.forRoot(provideMockStore)],
+      imports: [
+        FormsModule,
+        RouterTestingModule,
+        HttpClientTestingModule,
+        ReactiveFormsModule,
+        StoreModule.forRoot(provideMockStore),
+      ],
       declarations: [
         AddCourseComponent,
         MockInputComponent,
@@ -70,6 +100,7 @@ describe('AddCourseComponent', () => {
         MockDurationComponent,
         MockDateInputComponent,
         MockAuthorsComponent,
+        DurationPipe,
       ],
     });
     fixture = TestBed.createComponent(AddCourseComponent);

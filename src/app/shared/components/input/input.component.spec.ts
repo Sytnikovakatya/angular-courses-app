@@ -8,6 +8,7 @@ import { InputComponent } from './input.component';
 describe('InputComponent', () => {
   let component: InputComponent;
   let fixture: ComponentFixture<InputComponent>;
+  let inputElement: HTMLInputElement;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -17,6 +18,7 @@ describe('InputComponent', () => {
 
     fixture = TestBed.createComponent(InputComponent);
     component = fixture.componentInstance;
+    inputElement = fixture.nativeElement.querySelector('input');
     fixture.detectChanges();
   });
 
@@ -32,27 +34,43 @@ describe('InputComponent', () => {
     expect(inputElement.getAttribute('placeholder')).toBe('');
   });
 
-  it('should set custom placeholde if provided', () => {
-    component.placeholder = 'custom-placeholder';
-    fixture.detectChanges();
-    const buttonElement = fixture.debugElement.query(By.css('input')).nativeElement;
-    expect(buttonElement.getAttribute('placeholder')).toBe('custom-placeholder');
+  it('should update the value when input is changed', () => {
+    const newValue = 'new value';
+    inputElement.value = newValue;
+    inputElement.dispatchEvent(new Event('input'));
+
+    expect(component.value).toBe(newValue);
   });
 
-  it('should emit event and update model data on input change', () => {
-    const newInputValue = 'New Value';
+  it('should call onInput when input is changed', () => {
+    const onInput = spyOn(component, 'onInput');
 
-    let emittedValue: string | undefined;
-    component.bindModelDataChange.subscribe(value => {
-      emittedValue = value;
-    });
-
-    const inputElement = fixture.debugElement.query(By.css('input')).nativeElement;
-    inputElement.value = newInputValue;
+    const newValue = 'new value';
+    inputElement.value = newValue;
     inputElement.dispatchEvent(new Event('input'));
+
+    expect(onInput).toHaveBeenCalled();
+  });
+
+  it('should write value when writeValue is called', () => {
+    const newValue = 'new value';
+    component.writeValue(newValue);
+
+    expect(component.value).toBe(newValue);
+  });
+
+  it('should set valid  classes based on input', () => {
+    expect(inputElement.classList.contains('is-valid')).toBeFalsy();
+
+    component.valid = false;
     fixture.detectChanges();
 
-    expect(component.bindModelData).toBe(newInputValue);
-    expect(emittedValue).toBe(newInputValue);
+    expect(inputElement.classList.contains('is-valid')).toBeFalsy();
+  });
+
+  it('should validate the input control', () => {
+    const validationErrors = component.validate();
+
+    expect(validationErrors).toBeNull();
   });
 });

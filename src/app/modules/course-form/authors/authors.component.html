@@ -1,7 +1,22 @@
-<div class="form-group">
-    <div class="d-flex justify-content-between">
-        <label class="mb-2 fw-bolder">Authors:</label>
-        <span>*required</span>
-    </div>
-    <input  placeholder="Add authors" class="form-control" type="text" [ngModel]="bindModelData" (ngModelChange)="updateData($event)"/>
-</div>
+<form>
+  <mat-form-field class="chip-list">
+    <mat-label translate="course.authorsLabel"></mat-label>
+    <mat-chip-grid #chipGrid aria-label="authors">
+      <mat-chip-row *ngFor="let author of chipSelectedAuthors" (removed)="removeAuthor(author)">
+        {{author.name}}
+        <button matChipRemove [attr.aria-label]="'remove ' + author.name">
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </mat-chip-row>
+    </mat-chip-grid>
+    <input placeholder="{{'course.authorsInput'|translate}}" #authorInput [formControl]="authorCtrl"
+      [matChipInputFor]="chipGrid" [matAutocomplete]="auto"
+      [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+      (matChipInputTokenEnd)="addAuthor($event)"/>
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+      <mat-option *ngFor="let authorName of filteredAuthors$ | async" [value]="authorName">
+        {{authorName}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</form>
