@@ -1,27 +1,34 @@
-# AngularCoursesApp
+# Angular Courses App
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.0.1.
+Angular Courses App is a web application developed using Angular framework. It provides features for managing courses and user authentication.
 
-## Development server
+## Features
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+* Authentication: User authentication functionality is implemented using JWT tokens and guarded routes to ensure secure access to application features.
 
-## Code scaffolding
+* Course Management: Users can view, add, edit, and delete courses. Courses are organized with pagination and filtering options for easy navigation.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+* Dynamic Routing: Angular routing is used to navigate between different views of the application, providing a seamless user experience.
 
-## Build
+* Lazy Loading: Modules are loaded lazily to optimize performance and reduce initial loading time of the application.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Technologies Used
 
-## Running unit tests
+* Angular: Front-end framework for building single-page applications.
+* Angular Material: UI component library for Angular applications, providing pre-built components for faster development.
+* NgRx: State management library for Angular applications, used for managing application state and side effects.
+* Bootstrap: Front-end framework for designing responsive and mobile-first websites.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Installation
 
-## Running end-to-end tests
+* Clone the repository: `git clone <repository-url>`
+* Install dependencies: `npm install`
+* Run the development server: `npm start`
+* Navigate to `http://localhost:4200/` in your browser.
+  
+## Usage
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+* Login: Use the login page to authenticate and access the application.
+* Courses: View, add, edit, and delete courses from the courses dashboard.
+* Edit Course: Edit course details by navigating to the edit course page.
+* New Course: Add a new course using the new course page.
